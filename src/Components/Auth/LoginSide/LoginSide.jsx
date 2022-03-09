@@ -1,8 +1,9 @@
 import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 const LoginSide = () => {
-
   return (
     <div className='absolute w-screen h-screen flex'>
       <div className='hidden lg:block w-5/12 h-full'>
@@ -23,6 +24,7 @@ const LoginSide = () => {
         </div>
         <LoginForm />
 
+        <FontAwesomeIcon icon={faCoffee} />
         <p className='text-sm mt-12 text-center'>
           Created by{' '}
           <a href='https://github.com/jorgelhd94' target='_blank'>
