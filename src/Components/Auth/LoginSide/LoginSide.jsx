@@ -2,6 +2,7 @@ import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
 
 const LoginSide = () => {
+
   return (
     <div className='absolute w-screen h-screen flex'>
       <div className='hidden lg:block w-5/12 h-full'>
