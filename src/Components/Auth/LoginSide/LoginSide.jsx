@@ -1,7 +1,5 @@
 import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 const LoginSide = () => {
   return (
@@ -24,7 +22,6 @@ const LoginSide = () => {
         </div>
         <LoginForm />
 
-        <FontAwesomeIcon icon={faCoffee} />
         <p className='text-sm mt-12 text-center'>
           Created by{' '}
           <a href='https://github.com/jorgelhd94' target='_blank'>
