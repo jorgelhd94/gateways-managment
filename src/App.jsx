@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import second from './Components/'
+import Auth from './Views/Auth'
 import './App.css'
 
 
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className="App">
-     
+     <Auth></Auth>
     </div>
   )
 }
