@@ -7,6 +7,15 @@ import * as Yup from 'yup';
 import FieldInput from '../../../UI/IconInput/IconInput';
 
 const RegisterForm = () => {
+  const genericInputClass =
+    'rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base';
+  const errorInputClass =
+    genericInputClass +
+    ' ring-2 ring-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent';
+  const successInputClass =
+    genericInputClass +
+    ' focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent';
+
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
@@ -33,51 +42,53 @@ const RegisterForm = () => {
             setSubmitting(false);
           }, 400);
         }}>
-        <Form>
-          <FieldInput icon={faUser} error={getError('name')}>
-            <Field
-              name="name"
-              type="text"
-              className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              placeholder="Your name"
-            />
-          </FieldInput>
+        {({ errors }) => (
+          <Form>
+            <FieldInput icon={faUser} error={getError('name')}>
+              <Field
+                name="name"
+                type="text"
+                className={errors.name ? errorInputClass : successInputClass}
+                placeholder="Your name"
+              />
+            </FieldInput>
 
-          <FieldInput icon={faEnvelope} error={getError('email')}>
-            <Field
-              name="email"
-              type="email"
-              className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              placeholder="Your email"
-            />
-          </FieldInput>
+            <FieldInput icon={faEnvelope} error={getError('email')}>
+              <Field
+                name="email"
+                type="email"
+                className={errors.email ? errorInputClass : successInputClass}
+                placeholder="Your email"
+              />
+            </FieldInput>
 
-          <FieldInput icon={faLock} error={getError('password')}>
-            <Field
-              name="password"
-              type="password"
-              className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              placeholder="Your password"
-            />
-          </FieldInput>
+            <FieldInput icon={faLock} error={getError('password')}>
+              <Field
+                name="password"
+                type="password"
+                className={errors.password ? errorInputClass : successInputClass}
+                placeholder="Your password"
+              />
+            </FieldInput>
 
-          <FieldInput icon={faCheckDouble} error={getError('confirmPassword')}>
-            <Field
-              name="confirmPassword"
-              type="password"
-              className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              placeholder="Confirm password"
-            />
-          </FieldInput>
+            <FieldInput icon={faCheckDouble} error={getError('confirmPassword')}>
+              <Field
+                name="confirmPassword"
+                type="password"
+                className={errors.confirmPassword ? errorInputClass : successInputClass}
+                placeholder="Confirm password"
+              />
+            </FieldInput>
 
-          <div className="my-6">
-            <button
-              className="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-base py-3 px-6 text-white bg-blue-400 border-blue-400 hover:bg-blue-600 hover:border-blue-600 w-full"
-              type="submit">
-              Register
-            </button>
-          </div>
-        </Form>
+            <div className="my-6">
+              <button
+                className="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-base py-3 px-6 text-white bg-blue-400 border-blue-400 hover:bg-blue-600 hover:border-blue-600 w-full"
+                type="submit">
+                Register
+              </button>
+            </div>
+          </Form>
+        )}
       </Formik>
 
       <div className="flex flex-col mt-4 justify-items-center">
