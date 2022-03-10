@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ErrorStyle from '../ErrorMessage/ErrorMessage';
 
-const RegisterInput = (props) => {
+const IconInput = (props) => {
   return (
     <div className="my-6">
       <div className="flex relative ">
@@ -12,12 +13,15 @@ const RegisterInput = (props) => {
 
         {props.children}
       </div>
+
+      <ErrorStyle>{props.error}</ErrorStyle>
     </div>
   );
 };
 
-RegisterInput.propTypes = {
-  icon: PropTypes.object.isRequired
+IconInput.propTypes = {
+  icon: PropTypes.object.isRequired,
+  error: PropTypes.object.isRequired
 };
 
-export default RegisterInput;
+export default IconInput;

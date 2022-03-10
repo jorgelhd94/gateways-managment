@@ -2,7 +2,7 @@ import React from 'react'
 
 const ErrorMessage = props => {
   return (
-    <div className='block color-red-500'>
+    <div className='text-left text-red-500'>
         {props.children}
     </div>
   )

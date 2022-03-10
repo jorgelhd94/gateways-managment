@@ -4,7 +4,7 @@ import { faUser, faEnvelope, faLock, faCheckDouble } from '@fortawesome/free-sol
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import FieldInput from './RegisterInput/RegisterInput';
+import FieldInput from '../../../UI/IconInput/IconInput';
 
 const RegisterForm = () => {
   const requierdMsg = 'This is a required field';
@@ -18,6 +18,10 @@ const RegisterForm = () => {
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
   });
 
+  const getError = (inputName) => {
+    return <ErrorMessage name={inputName} />;
+  };
+
   return (
     <div className="mt-12">
       <Formik
@@ -30,47 +34,40 @@ const RegisterForm = () => {
           }, 400);
         }}>
         <Form>
-          <FieldInput icon={faUser}>
+          <FieldInput icon={faUser} error={getError('name')}>
             <Field
               name="name"
               type="text"
               className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="Your name"
             />
-
-            <ErrorMessage name="name" />
           </FieldInput>
 
-          <FieldInput icon={faEnvelope}>
+          <FieldInput icon={faEnvelope} error={getError('email')}>
             <Field
               name="email"
               type="email"
               className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="Your email"
             />
-            <ErrorMessage name="email" />
           </FieldInput>
 
-          <FieldInput icon={faLock}>
+          <FieldInput icon={faLock} error={getError('password')}>
             <Field
               name="password"
               type="password"
               className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="Your password"
             />
-
-            <ErrorMessage name="password" />
           </FieldInput>
 
-          <FieldInput icon={faCheckDouble}>
+          <FieldInput icon={faCheckDouble} error={getError('confirmPassword')}>
             <Field
               name="confirmPassword"
               type="password"
               className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="Confirm password"
             />
-
-            <ErrorMessage name="confirmPassword" />
           </FieldInput>
 
           <div className="my-6">
