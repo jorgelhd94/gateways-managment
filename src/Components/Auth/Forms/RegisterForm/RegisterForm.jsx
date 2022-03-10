@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import FieldInput from '../../../UI/IconInput/IconInput';
@@ -12,7 +15,7 @@ import {
 } from '../../../../utils/inputStyle';
 
 const RegisterForm = () => {
-
+  const navigate = useNavigate();
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
@@ -35,8 +38,8 @@ const RegisterForm = () => {
         validationSchema={schema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
+            navigate('/');
           }, 400);
         }}>
         {({ errors }) => (
