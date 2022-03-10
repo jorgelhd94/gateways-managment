@@ -1,12 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 const ErrorMessage = props => {
   return (
-    <div>ErrorMessage</div>
+    <div className='block color-red-500'>
+        {props.children}
+    </div>
   )
 }
-
-ErrorMessage.propTypes = {}
 
 export default ErrorMessage
