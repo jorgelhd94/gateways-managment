@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'prettier/prettier': 0,
     'react/react-in-jsx-scope': 'off'
   }
 };
