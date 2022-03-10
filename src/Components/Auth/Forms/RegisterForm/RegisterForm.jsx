@@ -7,12 +7,14 @@ import * as Yup from 'yup';
 import FieldInput from './RegisterInput/RegisterInput';
 
 const RegisterForm = () => {
+  const requierdMsg = 'This is a required field';
+
   const schema = Yup.object({
-    name: Yup.string().required().min(3).max(50),
-    email: Yup.string().required().email(),
-    password: Yup.string().required().min(6).max(32),
-    repeat: Yup.string()
-      .required()
+    name: Yup.string().required(requierdMsg).min(3).max(50),
+    email: Yup.string().required(requierdMsg).email(),
+    password: Yup.string().required(requierdMsg).min(6).max(32),
+    confirmPassword: Yup.string()
+      .required(requierdMsg)
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
   });
 
@@ -35,7 +37,7 @@ const RegisterForm = () => {
               className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="Your name"
             />
-            
+
             <ErrorMessage name="name" />
           </FieldInput>
 
