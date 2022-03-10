@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const RegisterInput = (props) => {
@@ -13,6 +14,10 @@ const RegisterInput = (props) => {
       </div>
     </div>
   );
+};
+
+RegisterInput.propTypes = {
+  icon: PropTypes.object.isRequired
 };
 
 export default RegisterInput;
