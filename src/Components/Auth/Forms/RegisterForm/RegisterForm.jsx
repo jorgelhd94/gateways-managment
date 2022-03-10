@@ -16,23 +16,10 @@ const RegisterForm = () => {
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
   });
 
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    },
-    validationSchema: schema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    }
-  });
-
   return (
     <div className="mt-12">
       <Formik
-        initialValues={{ firstName: '', lastName: '', email: '' }}
+        initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
         validationSchema={schema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
@@ -48,7 +35,7 @@ const RegisterForm = () => {
               className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="Your name"
             />
-
+            
             <ErrorMessage name="name" />
           </FieldInput>
 
@@ -81,7 +68,7 @@ const RegisterForm = () => {
               placeholder="Confirm password"
             />
 
-            <ErrorMessage name="name" />
+            <ErrorMessage name="confirmPassword" />
           </FieldInput>
 
           <div className="my-6">
