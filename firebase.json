@@ -48,5 +48,8 @@
       "enabled": true,
       "port": 8081
     }
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
   }
 }
