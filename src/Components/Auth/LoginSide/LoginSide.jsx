@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import LoginForm from '../LoginForm/LoginForm';
+import LoginForm from '../Forms/LoginForm/LoginForm';
+import RegisterForm from '../Forms/RegisterForm/RegisterForm';
 
 const LoginSide = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,7 +16,7 @@ const LoginSide = () => {
       </div>
       <div className="w-5/6 sm:w-1/2 mx-auto text-center lg:px-8 xl:px-40 mt-16">
         <div className="mt-10">
-          <h2 className="text-3xl font-bold text-gray-800">Welcome to GMS!!</h2>
+          <h2 className="text-3xl font-bold text-gray-800">{isLogin ? 'Welcome' : 'Register'} to GMS!!</h2>
           <p className="mt-3 text-gray-800">
             {isLogin ? 'Are you new?' : 'Do you have an account?'}{' '}
             <a href="#" className="text-blue-400" onClick={toogleLogin}>
@@ -23,7 +24,8 @@ const LoginSide = () => {
             </a>
           </p>
         </div>
-        <LoginForm />
+
+        {isLogin ? <LoginForm /> : <RegisterForm />}
 
         <p className="text-sm mt-12 text-center">
           Created by{' '}
