@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
 
 const firebaseConfig = {
@@ -16,9 +15,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
-const functions = getFunctions(app);
+const functions = getFunctions(app, 'us-central1');
 connectFunctionsEmulator(functions, 'localhost', 5001);
 
 export { functions, httpsCallable };

@@ -31,18 +31,16 @@ const LoginForm = () => {
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={schema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
+        onSubmit={async (values, { setSubmitting }) => {
+          setSubmitting(false);
 
-            const login = httpsCallable(functions, 'login');
-            login().then((result) => {
-              const data = result.data;
-              console.log(data);
-            });
+          const login = httpsCallable(functions, 'login');
+          await login().then((result) => {
+            const data = result.data;
+            console.log(data);
+          });
 
-            //router.push('/');
-          }, 1000);
+          //router.push('/');
         }}>
         {({ errors }) => (
           <Form>

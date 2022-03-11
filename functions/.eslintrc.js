@@ -4,10 +4,8 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: [
-    "eslint:recommended",
-    "google",
-  ],
+  // eslint-disable-next-line max-len
+  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
   rules: {
     quotes: ["error", "double"],
   },
