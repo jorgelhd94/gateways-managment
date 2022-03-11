@@ -36,8 +36,7 @@ const LoginForm = () => {
 
           const login = httpsCallable(functions, 'login');
           await login().then((result) => {
-            const data = result.data;
-            console.log(data);
+            console.log(result);
           });
 
           //router.push('/');
