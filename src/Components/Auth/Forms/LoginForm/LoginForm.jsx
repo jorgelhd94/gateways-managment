@@ -1,6 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
+import { functions, httpsCallable } from '../../../../includes/firebase';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
@@ -32,7 +34,14 @@ const LoginForm = () => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            router.push('/');
+
+            const login = httpsCallable(functions, 'login');
+            login().then((result) => {
+              const data = result.data;
+              console.log(data);
+            });
+
+            //router.push('/');
           }, 1000);
         }}>
         {({ errors }) => (
