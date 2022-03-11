@@ -13,11 +13,11 @@ const LoginSide = () => {
 
   return (
     <div className="absolute w-screen h-screen flex">
-      <div className="hidden lg:block w-4/12 h-screen overflow-hidden">
-        <Image src={loginImg} alt="Welcome Picture" objectFit="cover" className="w-full h-full object-cover" />
+      <div className="hidden lg:block w-5/12 h-full overflow-hidden">
+        <Image src={loginImg} alt="Welcome Picture" className="w-full h-full object-cover" />
       </div>
 
-      <div className='w-full lg:w-8/12 overflow-scroll overflow-x-hidden py-16 relative'>
+      <div className='w-full lg:w-7/12 overflow-scroll overflow-x-hidden py-16 relative'>
         <div className="w-5/6 sm:w-1/2 mx-auto text-center lg:px-8">
           <div className="mt-4">
             <h2 className="text-3xl font-bold text-gray-800">
