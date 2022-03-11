@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
+import { functions, httpsCallable } from '../../../../includes/firebase';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faLock, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser,
+  faEnvelope,
+  faLock,
+  faCheckDouble,
+  faCircleNotch
+} from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import FieldInput from '../../../UI/IconInput/IconInput';
 
-import {
-  successInputClass,
-  errorInputClass
-} from '../../../../utils/inputStyle';
+import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
 
 const RegisterForm = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
@@ -36,11 +43,17 @@ const RegisterForm = () => {
       <Formik
         initialValues={{ name: '', email: '', password: '', confirmPassword: '' }}
         validationSchema={schema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-            router.push('/');
-          }, 400);
+        onSubmit={async (values, { setSubmitting }) => {
+          setIsLoading(true);
+          setSubmitting(false);
+
+          const login = httpsCallable(functions, 'users-create');
+          await login().then((result) => {
+            console.log(result);
+          });
+
+          setIsLoading(false);
+          // router.push('/');
         }}>
         {({ errors }) => (
           <Form>
@@ -84,6 +97,7 @@ const RegisterForm = () => {
               <button
                 className="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-base py-3 px-6 text-white bg-blue-400 border-blue-400 hover:bg-blue-600 hover:border-blue-600 w-full"
                 type="submit">
+                {isLoading && <FontAwesomeIcon icon={faCircleNotch} className="mr-2 fa-spin" />}
                 Register
               </button>
             </div>

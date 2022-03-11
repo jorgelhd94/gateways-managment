@@ -34,7 +34,7 @@ const LoginForm = () => {
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
 
-          const login = httpsCallable(functions, 'api/users');
+          const login = httpsCallable(functions, 'users-create');
           await login().then((result) => {
             console.log(result);
           });
