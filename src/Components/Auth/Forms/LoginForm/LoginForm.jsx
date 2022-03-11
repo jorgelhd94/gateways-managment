@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +12,7 @@ import FieldInput from '../../../UI/IconInput/IconInput';
 import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
 
 const LoginForm = () => {
+  const router = useRouter();
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
@@ -30,6 +32,7 @@ const LoginForm = () => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
+            router.push('/');
           }, 1000);
         }}>
         {({ errors }) => (

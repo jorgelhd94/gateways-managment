@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +15,7 @@ import {
 } from '../../../../utils/inputStyle';
 
 const RegisterForm = () => {
+  const router = useRouter();
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
@@ -37,6 +39,7 @@ const RegisterForm = () => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
+            router.push('/');
           }, 400);
         }}>
         {({ errors }) => (
