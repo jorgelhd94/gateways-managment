@@ -47,10 +47,12 @@ const RegisterForm = () => {
           setIsLoading(true);
           setSubmitting(false);
 
-          const login = httpsCallable(functions, 'users-create');
-          await login().then((result) => {
-            console.log(result);
-          });
+          const createUser = httpsCallable(functions, 'users-create');
+          await createUser({ text: 'Hello' })
+            .then((result) => {
+              console.log(result);
+            })
+            .catch((e) => console.log(e));
 
           setIsLoading(false);
           // router.push('/');
@@ -96,7 +98,8 @@ const RegisterForm = () => {
             <div className="my-6">
               <button
                 className="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-base py-3 px-6 text-white bg-blue-400 border-blue-400 hover:bg-blue-600 hover:border-blue-600 w-full"
-                type="submit" disabled={isLoading}>
+                type="submit"
+                disabled={isLoading}>
                 {isLoading && <FontAwesomeIcon icon={faCircleNotch} className="mr-2 fa-spin" />}
                 Register
               </button>
