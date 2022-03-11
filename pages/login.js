@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../Components/Auth/LoginSide/LoginSide';
+import Login from '../src/components/Auth/LoginSide/LoginSide';
 
 const Auth = () => {
   return (

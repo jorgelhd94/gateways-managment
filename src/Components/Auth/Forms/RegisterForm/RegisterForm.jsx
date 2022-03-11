@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +14,6 @@ import {
 } from '../../../../utils/inputStyle';
 
 const RegisterForm = () => {
-  const navigate = useNavigate();
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
@@ -39,7 +37,6 @@ const RegisterForm = () => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             setSubmitting(false);
-            navigate('/');
           }, 400);
         }}>
         {({ errors }) => (
