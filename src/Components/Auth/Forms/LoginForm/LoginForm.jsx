@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { functions, httpsCallable } from '../../../../includes/firebase';
+import { auth, signInWithEmailAndPassword } from '../../../../includes/firebase';
+
+import { toast } from 'react-toastify';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -13,8 +15,11 @@ import FieldInput from '../../../UI/IconInput/IconInput';
 
 import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
 
+import ButtonAuth from '../../../UI/Buttons/ButtonAuth/ButtonAuth';
+
 const LoginForm = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
@@ -33,13 +38,21 @@ const LoginForm = () => {
         validationSchema={schema}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
+          setIsLoading(true);
 
-          const login = httpsCallable(functions, 'users-create');
-          await login().then((result) => {
-            console.log(result);
-          });
+          await signInWithEmailAndPassword(auth, values.email, values.password)
+            .then(() => {
+              // Signed in
+              toast.success('Welcome!!');
+              router.push('/');
+              // ...
+            })
+            .catch((error) => {
+              const errorMessage = error.message;
+              toast.error(errorMessage);
+            });
 
-          //router.push('/');
+          setIsLoading(false);
         }}>
         {({ errors }) => (
           <Form>
@@ -62,11 +75,9 @@ const LoginForm = () => {
             </FieldInput>
 
             <div className="my-6">
-              <button
-                className="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-base py-3 px-6 text-white bg-blue-400 border-blue-400 hover:bg-blue-600 hover:border-blue-600 w-full"
-                type="submit">
-                Sign in
-              </button>
+              <ButtonAuth type="submit" isLoading={isLoading}>
+                Sign In
+              </ButtonAuth>
             </div>
           </Form>
         )}

@@ -11,9 +11,10 @@ import {
   faEnvelope,
   faLock,
   faCheckDouble,
-  faCircleNotch
 } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+
+import ButtonAuth from '../../../UI/Buttons/ButtonAuth/ButtonAuth';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -101,13 +102,11 @@ const RegisterForm = () => {
             </FieldInput>
 
             <div className="my-6">
-              <button
-                className="inline-block rounded-sm font-medium border border-solid cursor-pointer text-center text-base py-3 px-6 text-white bg-blue-400 border-blue-400 hover:bg-blue-600 hover:border-blue-600 w-full"
+              <ButtonAuth
                 type="submit"
-                disabled={isLoading}>
-                {isLoading && <FontAwesomeIcon icon={faCircleNotch} className="mr-2 fa-spin" />}
+                isLoading={isLoading}>
                 Register
-              </button>
+              </ButtonAuth>
             </div>
           </Form>
         )}
