@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-exports.addText = functions.https.onCall(async (data, context) => {
+exports.register = functions.https.onCall(async (data, context) => {
   let user = '';
   await admin
     .auth()
@@ -21,6 +21,5 @@ exports.addText = functions.https.onCall(async (data, context) => {
 
     return {
       user,
-      data
     };
 });
