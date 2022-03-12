@@ -54,8 +54,11 @@ const RegisterForm = () => {
             .then((result) => {
               toast.success('User was register succesfully!');
             })
-            .catch((e) => {
-              toast.error(e);
+            .catch((error) => {
+              // Getting the Error details.
+              const message = error.message;
+              toast.error(message);
+              // ...
             });
 
           setIsLoading(false);

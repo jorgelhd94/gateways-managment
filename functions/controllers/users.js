@@ -15,10 +15,7 @@ exports.register = functions.https.onCall(async (data, context) => {
       user = userRecord;
     })
     .catch((error) => {
-      return {
-        user,
-        error
-      };
+      throw new functions.https.HttpsError('aborted', error);
     });
 
   return {
