@@ -48,7 +48,7 @@ const RegisterForm = () => {
           setSubmitting(false);
 
           const createUser = httpsCallable(functions, 'users-addText');
-          await createUser({ text: 'Hello' })
+          await createUser({ ...values })
             .then((result) => {
               console.log(result.data);
             })
