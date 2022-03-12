@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 import { functions, httpsCallable } from '../../../../includes/firebase';
 
+import { toast } from 'react-toastify';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
@@ -50,9 +52,11 @@ const RegisterForm = () => {
           const createUser = httpsCallable(functions, 'users-register');
           await createUser({ ...values })
             .then((result) => {
-              console.log(result.data);
+              toast.success('User was register succesfully!');
             })
-            .catch((e) => console.log(e));
+            .catch((e) => {
+              toast.error(e);
+            });
 
           setIsLoading(false);
           // router.push('/');

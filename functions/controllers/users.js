@@ -8,18 +8,20 @@ exports.register = functions.https.onCall(async (data, context) => {
     .createUser({
       email: data.email,
       password: data.password,
-      displayName: data.name,
+      displayName: data.name
     })
     .then((userRecord) => {
       // See the UserRecord reference doc for the contents of userRecord.
       user = userRecord;
-      
     })
     .catch((error) => {
-      throw new functions.https.HttpsError('cancelled', 'Error: ' + error);
+      return {
+        user,
+        error
+      };
     });
 
-    return {
-      user,
-    };
+  return {
+    user
+  };
 });
