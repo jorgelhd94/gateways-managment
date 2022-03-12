@@ -2,7 +2,7 @@
 
 import { initializeApp } from 'firebase/app';
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
-import { getAuth, connectAuthEmulator, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, connectAuthEmulator, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCNhRRq3iDxLPFOt01Zy-IKCEGiKAfRYrU',
@@ -23,4 +23,4 @@ connectFunctionsEmulator(functions, 'localhost', 5001);
 const auth = getAuth();
 connectAuthEmulator(auth, "http://localhost:9099");
 
-export { functions, httpsCallable, auth, signInWithEmailAndPassword };
+export { functions, httpsCallable, auth, signInWithEmailAndPassword, onAuthStateChanged };
