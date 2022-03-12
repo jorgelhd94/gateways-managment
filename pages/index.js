@@ -2,7 +2,7 @@ import MainLayout from '../src/components/Layout/MainLayout/MainLayout';
 
 export default function Home() {
   return (
-    <MainLayout>
+    <div>
       <main>
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -190,6 +190,6 @@ export default function Home() {
           box-sizing: border-box;
         }
       `}</style>
-    </MainLayout>
+    </div>
   );
 }
