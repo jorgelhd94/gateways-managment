@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from '../Head/Head';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 const MainLayout = (props) => {
   return (

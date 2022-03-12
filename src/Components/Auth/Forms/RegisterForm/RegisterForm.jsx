@@ -53,16 +53,14 @@ const RegisterForm = () => {
           await createUser({ ...values })
             .then((result) => {
               toast.success('User was register succesfully!');
+              router.push('/');
             })
             .catch((error) => {
-              // Getting the Error details.
               const message = error.message;
               toast.error(message);
-              // ...
             });
 
           setIsLoading(false);
-          // router.push('/');
         }}>
         {({ errors }) => (
           <Form>
