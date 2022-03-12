@@ -1,13 +1,12 @@
 import React from 'react';
-import Head from '../src/components/Layout/Head/Head';
+import MainLayout from '../src/components/Layout/MainLayout/MainLayout';
 import Login from '../src/components/Auth/LoginSide/LoginSide';
 
 const Auth = () => {
   return (
-    <div>
-      <Head/>
+    <MainLayout>
       <Login></Login>
-    </div>
+    </MainLayout>
   );
 };
 

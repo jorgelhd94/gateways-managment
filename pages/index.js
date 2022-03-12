@@ -1,10 +1,8 @@
-import Head from '../src/components/Layout/Head/Head';
+import MainLayout from '../src/components/Layout/MainLayout/MainLayout';
 
 export default function Home() {
   return (
-    <div className="container">
-      <Head />
-
+    <MainLayout>
       <main>
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -192,6 +190,6 @@ export default function Home() {
           box-sizing: border-box;
         }
       `}</style>
-    </div>
+    </MainLayout>
   );
 }

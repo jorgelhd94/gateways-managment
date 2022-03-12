@@ -23,6 +23,7 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-toastify": "^8.2.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
