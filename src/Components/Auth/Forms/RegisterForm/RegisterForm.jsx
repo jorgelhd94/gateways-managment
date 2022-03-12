@@ -47,10 +47,10 @@ const RegisterForm = () => {
           setIsLoading(true);
           setSubmitting(false);
 
-          const createUser = httpsCallable(functions, 'users-create');
+          const createUser = httpsCallable(functions, 'users-addText');
           await createUser({ text: 'Hello' })
             .then((result) => {
-              console.log(result);
+              console.log(result.data);
             })
             .catch((e) => console.log(e));
 
