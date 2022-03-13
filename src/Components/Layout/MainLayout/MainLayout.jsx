@@ -4,30 +4,22 @@ import { ToastContainer } from 'react-toastify';
 import { auth, onAuthStateChanged } from '../../../includes/firebase';
 import { useRouter } from 'next/router';
 
-const UserContext = React.createContext();
+import { UserContext } from '../../../contexts'; 
 
-const useUser = () => {
+const MainLayout = (props) => {
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (userRes) => {
+    const unsubscribe = onAuthStateChanged(auth, (userRes) => {
       if (userRes) {
         setUser(userRes);
       }
     });
-  });
 
-  return user;
-};
-
-const MainLayout = (props) => {
-  let user = useUser();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!user && router.pathname !== '/login') {
-      router.push('/login');
-    }
+    return () => {
+      unsubscribe();
+    };
   });
 
   return user || router.pathname === '/login' ? (
