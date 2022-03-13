@@ -5,14 +5,12 @@ import { functions, httpsCallable } from '../../../../includes/firebase';
 
 import { toast } from 'react-toastify';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
   faEnvelope,
   faLock,
   faCheckDouble,
 } from '@fortawesome/free-solid-svg-icons';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 import ButtonAuth from '../../../UI/Buttons/ButtonAuth/ButtonAuth';
 
@@ -21,6 +19,7 @@ import * as Yup from 'yup';
 import FieldInput from '../../../UI/IconInput/IconInput';
 
 import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
+import ButtonGoogle from '../../../UI/Buttons/ButtonGoogle/ButtonGoogle';
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -115,10 +114,7 @@ const RegisterForm = () => {
       <div className="flex flex-col mt-4 justify-items-center">
         <p className="text-gray-800 mb-4">Or</p>
         <div className="flex justify-center">
-          <button className="flex items-center px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none">
-            <FontAwesomeIcon icon={faGoogle} className="mr-4" />
-            Sign Up with Google
-          </button>
+          <ButtonGoogle method='register' />
         </div>
       </div>
     </div>

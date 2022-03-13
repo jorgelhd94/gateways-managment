@@ -5,9 +5,7 @@ import { auth, signInWithEmailAndPassword } from '../../../../includes/firebase'
 
 import { toast } from 'react-toastify';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -16,6 +14,7 @@ import FieldInput from '../../../UI/IconInput/IconInput';
 import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
 
 import ButtonAuth from '../../../UI/Buttons/ButtonAuth/ButtonAuth';
+import ButtonGoogle from '../../../UI/Buttons/ButtonGoogle/ButtonGoogle';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -86,10 +85,7 @@ const LoginForm = () => {
       <div className="flex flex-col mt-4 justify-items-center">
         <p className="text-gray-800 mb-4">Or</p>
         <div className="flex justify-center">
-          <button className="flex items-center px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none">
-            <FontAwesomeIcon icon={faGoogle} className="mr-4" />
-            Sign in with Google
-          </button>
+          <ButtonGoogle method="login" />
         </div>
       </div>
     </div>

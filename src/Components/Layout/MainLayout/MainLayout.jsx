@@ -3,7 +3,6 @@ import Head from '../Head/Head';
 import { ToastContainer } from 'react-toastify';
 import { auth, onAuthStateChanged } from '../../../includes/firebase';
 import { useRouter } from 'next/router';
-import LoginSide from '../../Auth/LoginSide/LoginSide';
 
 const UserContext = React.createContext();
 
