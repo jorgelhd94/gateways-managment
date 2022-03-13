@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { signOut, auth } from '../src/includes/firebase';
+import Link from 'next/link';
 import Dashboard from '../src/components/Layout/Dashboard/Dashboard';
 
 export default function Home() {
@@ -15,6 +16,9 @@ export default function Home() {
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        <Link href="/other">
+          <a>Home</a>
+        </Link>
         <button onClick={logout}>Log Out</button>
 
         <p className="description">

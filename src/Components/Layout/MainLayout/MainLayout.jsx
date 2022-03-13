@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Head from '../Head/Head';
 import { ToastContainer } from 'react-toastify';
 import { auth, onAuthStateChanged } from '../../../includes/firebase';
-import { useRouter } from 'next/router';
 
 import { UserContext } from '../../../contexts';
 
 const MainLayout = (props) => {
   const [user, setUser] = useState(null);
-  const router = useRouter();
 
   useEffect(() => {
     onAuthStateChanged(auth, (userRes) => {
