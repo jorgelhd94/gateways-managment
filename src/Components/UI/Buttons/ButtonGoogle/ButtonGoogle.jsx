@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
@@ -8,7 +7,6 @@ import { toast } from 'react-toastify';
 import { auth, signInWithPopup, provider } from '../../../../includes/firebase';
 
 const ButtonGoogle = (props) => {
-  const isLogin = props.method === 'login' ? true : false;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,7 +21,7 @@ const ButtonGoogle = (props) => {
         // The signed-in user info.
         // const user = result.user;
 
-        toast.success('User was register succesfully!');
+        toast.success('Welcome!!');
         router.push('/');
       })
       .catch((error) => {
@@ -39,13 +37,9 @@ const ButtonGoogle = (props) => {
       onClick={login}
       disabled={isLoading}>
       <FontAwesomeIcon icon={faGoogle} className="mr-4" />
-      {isLogin ? 'Sign in with Google' : 'Sign Up with Google'}
+      Access with Google
     </button>
   );
-};
-
-ButtonGoogle.propTypes = {
-  method: PropTypes.oneOf(['login', 'register'])
 };
 
 export default ButtonGoogle;

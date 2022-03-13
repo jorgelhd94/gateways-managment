@@ -114,7 +114,7 @@ const RegisterForm = () => {
       <div className="flex flex-col mt-4 justify-items-center">
         <p className="text-gray-800 mb-4">Or</p>
         <div className="flex justify-center">
-          <ButtonGoogle method='register' />
+          <ButtonGoogle />
         </div>
       </div>
     </div>
