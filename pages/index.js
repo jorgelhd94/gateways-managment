@@ -3,10 +3,10 @@ import { signOut, auth } from '../src/includes/firebase';
 import Dashboard from '../src/components/Layout/Dashboard/Dashboard';
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
   const logout = async () => {
     await signOut(auth);
-    router.push('/login')
+    router.push('/login');
   };
 
   return (
@@ -14,7 +14,6 @@ export default function Home() {
       <main>
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
-        
         </h1>
         <button onClick={logout}>Log Out</button>
 
@@ -55,7 +54,6 @@ export default function Home() {
           Powered by <img src="/vercel.svg" alt="Vercel" className="logo" />
         </a>
       </footer>
-
     </Dashboard>
   );
 }

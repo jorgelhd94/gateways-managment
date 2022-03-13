@@ -7,12 +7,11 @@ const Dashboard = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(user);
     if (!user) {
       router.push('/login');
     }
-  });
-  return <div>{children}</div>;
+  }, []);
+  return <div>{user ? children : <div>Not access</div>}</div>;
 };
 
 export default Dashboard;
