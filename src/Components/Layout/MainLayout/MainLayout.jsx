@@ -1,31 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from '../Head/Head';
 import { ToastContainer } from 'react-toastify';
-import { useRouter } from 'next/router';
 import { auth, onAuthStateChanged } from '../../../includes/firebase';
+import { useRouter } from 'next/router';
+import LoginSide from '../../Auth/LoginSide/LoginSide';
 
 const UserContext = React.createContext();
 
-const MainLayout = (props) => {
-  const router = useRouter();
-  let user = null;
+const useUser = () => {
+  const [user, setUser] = useState(null);
 
-  onAuthStateChanged(auth, (userRes) => {
-    if (userRes) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      user = user;
-      // ...
-    } else {
+  useEffect(() => {
+    onAuthStateChanged(auth, (userRes) => {
+      if (userRes) {
+        setUser(userRes);
+      }
+    });
+  });
+
+  return user;
+};
+
+const MainLayout = (props) => {
+  let user = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user && router.pathname !== '/login') {
       router.push('/login');
     }
   });
-  return (
+
+  return user || router.pathname === '/login' ? (
     <UserContext.Provider value={user}>
       <Head></Head>
       {props.children}
       <ToastContainer />
     </UserContext.Provider>
+  ) : (
+    <p>Redirecting...</p>
   );
 };
 

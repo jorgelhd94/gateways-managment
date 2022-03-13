@@ -1,10 +1,21 @@
+import { useRouter } from 'next/router';
+import { signOut, auth } from '../src/includes/firebase';
+
 export default function Home() {
+  const router = useRouter()
+  const logout = async () => {
+    await signOut(auth);
+    router.push('/login')
+  };
+
   return (
     <div>
       <main>
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
+        
         </h1>
+        <button onClick={logout}>Log Out</button>
 
         <p className="description">
           Get started by editing <code>pages/index.js</code>
