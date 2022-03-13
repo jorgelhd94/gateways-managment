@@ -10,7 +10,6 @@ function App({ Component, pageProps }) {
   return (
     <MainLayout>
       <Component {...pageProps} />
-      );
     </MainLayout>
   );
 }
