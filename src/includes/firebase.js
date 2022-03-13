@@ -7,7 +7,9 @@ import {
   connectAuthEmulator,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -29,4 +31,16 @@ connectFunctionsEmulator(functions, 'localhost', 5001);
 const auth = getAuth();
 connectAuthEmulator(auth, 'http://localhost:9099');
 
-export { functions, httpsCallable, auth, signInWithEmailAndPassword, onAuthStateChanged, signOut };
+// Google Sign In
+const provider = new GoogleAuthProvider();
+
+export {
+  functions,
+  httpsCallable,
+  auth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  provider,
+  signInWithPopup
+};
