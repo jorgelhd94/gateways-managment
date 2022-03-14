@@ -8,7 +8,7 @@ const Dashboard = ({ children }) => {
   const [openSideBar, setOpenSideBar] = useState(false);
 
   const toogleOpen = () => {
-    setOpenSideBar(true);
+    setOpenSideBar(!openSideBar);
   };
 
   // return <div>{user ? children : <div>Not access</div>}</div>;
