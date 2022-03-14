@@ -15,7 +15,6 @@ const Dashboard = ({ children }) => {
         setOpenSideBar(true);
       }
     }
-
     window.addEventListener('load', checkSideBar);
     window.addEventListener('resize', checkSideBar);
   }, [openSideBar]);
