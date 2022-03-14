@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { signOut, auth } from '../../../includes/firebase';
@@ -30,7 +32,7 @@ function useOutsideClick(ref) {
   return [openDropdown, setOpenDropdown];
 }
 
-const Header = () => {
+const Header = (props) => {
   const router = useRouter();
   const logout = async () => {
     await signOut(auth);
@@ -46,14 +48,18 @@ const Header = () => {
 
   return (
     <header className="w-full h-16 z-40 flex items-center justify-between">
-      <ButtonBurger />
+      <ButtonBurger/>
 
       <div className="relative z-20 flex flex-col justify-end h-full px-3 md:w-full">
         <div className="relative p-1 flex items-center w-full space-x-4 justify-end">
           {/* Github */}
-          <button className="flex p-2 items-center rounded-full text-gray-400 hover:text-gray-700 bg-white shadow text-md">
-            <FontAwesomeIcon icon={faGithub} className="w-6 h-6"></FontAwesomeIcon>
-          </button>
+          <Link href="https://github.com/jorgelhd94/gateways-managment">
+            <a
+              target="_blank"
+              className='className="flex px-2 py-1 items-center rounded-full text-gray-400 hover:text-gray-700 bg-white shadow text-md"'>
+              <FontAwesomeIcon icon={faGithub} className="w-6 h-6"></FontAwesomeIcon>
+            </a>
+          </Link>
 
           <span className="w-1 h-8 rounded-lg bg-gray-200"></span>
 
@@ -105,6 +111,10 @@ const Header = () => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  toogleOpen: PropTypes.func.isRequired
 };
 
 export default Header;
