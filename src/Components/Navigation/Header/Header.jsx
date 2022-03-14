@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { signOut, auth } from '../../../includes/firebase';
 
+
 import ButtonBurger from '../../UI/Buttons/ButtonBurger/ButtonBurger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -37,6 +38,7 @@ const Header = () => {
     await signOut(auth);
     router.push('/login');
   };
+
 
   const dropDownRef = useRef(null);
   const [openDropdown, setOpenDropdown] = useOutsideClick(dropDownRef);

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { OpenSideBarContext } from '../../../../contexts';
 
 const ButtonBurger = () => {
+  const toogleOpen = useContext(OpenSideBarContext);
+
   return (
     <div className="block lg:hidden ml-6">
-      <button className="flex p-2 items-center rounded-full bg-white shadow text-gray-500 text-md">
+      <button onClick={toogleOpen} className="flex p-2 items-center rounded-full bg-white shadow text-gray-500 text-md">
         <svg
           width="20"
           height="20"

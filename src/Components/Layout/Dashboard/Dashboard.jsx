@@ -18,7 +18,7 @@ const Dashboard = ({ children }) => {
         <div className="flex items-start justify-between">
           <SideBar open={openSideBar} />
           <div className="flex flex-col w-full md:space-y-4">
-            <OpenSideBarContext.Provider value={setOpenSideBar}>
+            <OpenSideBarContext.Provider value={toogleOpen}>
               <Header />
             </OpenSideBarContext.Provider>
             {children}
