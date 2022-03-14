@@ -1,55 +1,65 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import ButtonBurger from '../../UI/Buttons/ButtonBurger/ButtonBurger';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+
+function useOutsideClick(ref) {
+  const [openDropdown, setOpenDropdown] = useState(false);
+
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        alert('You clicked outside of me!');
+      }
+    }
+    // Bind the event listener
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [ref]);
+
+  return [openDropdown, setOpenDropdown];
+}
 
 const Header = () => {
+  const dropDownRef = useRef(null);
+  const [openDropdown, setOpenDropdown] = useOutsideClick(dropDownRef);
+
+  const toogleDropdown = () => {
+    setOpenDropdown(!openDropdown);
+  };
+
   return (
     <header className="w-full h-16 z-40 flex items-center justify-between">
-      <div className="block lg:hidden ml-6">
-        <button className="flex p-2 items-center rounded-full bg-white shadow text-gray-500 text-md">
-          <svg
-            width="20"
-            height="20"
-            className="text-gray-400"
-            fill="currentColor"
-            viewBox="0 0 1792 1792"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z"></path>
-          </svg>
-        </button>
-      </div>
+      <ButtonBurger />
+
       <div className="relative z-20 flex flex-col justify-end h-full px-3 md:w-full">
         <div className="relative p-1 flex items-center w-full space-x-4 justify-end">
+          {/* Github */}
           <button className="flex p-2 items-center rounded-full text-gray-400 hover:text-gray-700 bg-white shadow text-md">
-            <svg
-              width="20"
-              height="20"
-              className=""
-              fill="currentColor"
-              viewBox="0 0 1792 1792"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"></path>
-            </svg>
+            <FontAwesomeIcon icon={faGithub} className="w-6 h-6"></FontAwesomeIcon>
           </button>
-          <button className="flex p-2 items-center rounded-full bg-white shadow text-gray-400 hover:text-gray-700 text-md">
-            <svg
-              width="20"
-              height="20"
-              className="text-gray-400"
-              fill="currentColor"
-              viewBox="0 0 1792 1792"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M912 1696q0-16-16-16-59 0-101.5-42.5t-42.5-101.5q0-16-16-16t-16 16q0 73 51.5 124.5t124.5 51.5q16 0 16-16zm816-288q0 52-38 90t-90 38h-448q0 106-75 181t-181 75-181-75-75-181h-448q-52 0-90-38t-38-90q50-42 91-88t85-119.5 74.5-158.5 50-206 19.5-260q0-152 117-282.5t307-158.5q-8-19-8-39 0-40 28-68t68-28 68 28 28 68q0 20-8 39 190 28 307 158.5t117 282.5q0 139 19.5 260t50 206 74.5 158.5 85 119.5 91 88z"></path>
-            </svg>
-          </button>
+
           <span className="w-1 h-8 rounded-lg bg-gray-200"></span>
-          <a href="#" className="block relative">
-            <img
+
+          {/* Profile */}
+          <button
+            className="flex items-center text-gray-500 dark:text-white text-md"
+            ref={dropDownRef}
+            onClick={toogleDropdown}>
+            <Image
               alt="profil"
-              src="/images/person/1.jpg"
+              src="/assets/img/user.svg"
+              width={30}
+              height={30}
               className="mx-auto object-cover rounded-full h-10 w-10 "
             />
-          </a>
-          <button className="flex items-center text-gray-500 dark:text-white text-md">
-            Charlie R
             <svg
               width="20"
               height="20"
@@ -60,6 +70,27 @@ const Header = () => {
               <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
             </svg>
           </button>
+
+          <div id="options-menu" className="absolute">
+            {openDropdown && (
+              <div className="origin-top-right absolute top-4 right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                <div
+                  className="py-1 "
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                    role="menuitem">
+                    <span className="flex flex-col">
+                      <span>Logout</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

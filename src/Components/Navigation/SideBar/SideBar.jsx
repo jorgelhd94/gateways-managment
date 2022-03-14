@@ -32,26 +32,6 @@ const SideBar = () => {
                   width="20"
                   height="20"
                   fill="currentColor"
-                  viewBox="0 0 2048 1792"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1070 1178l306-564h-654l-306 564h654zm722-282q0 182-71 348t-191 286-286 191-348 71-348-71-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z"></path>
-                </svg>
-              </span>
-              <span className="mx-2 text-sm font-normal">
-                Refered Projects
-                <span className="p-1 ml-4 rounded-lg w-4 h-2 bg-gray-200 text-gray-400 text-xs">
-                  0
-                </span>
-              </span>
-            </a>
-            <a
-              className="w-full text-gray-400 flex items-center pl-6 p-2 my-2 transition-colors duration-200 justify-start hover:text-gray-800 border-l-4 border-transparent"
-              href="#">
-              <span className="text-left">
-                <svg
-                  width="20"
-                  height="20"
-                  fill="currentColor"
                   viewBox="0 0 1792 1792"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z"></path>
