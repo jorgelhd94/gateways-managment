@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavLink = (props) => {
+  const router = useRouter();
   const defaultClass =
     'w-full flex items-center pl-6 p-2 my-2 transition-colors duration-200 justify-start';
   const normalClass =
@@ -11,20 +14,26 @@ const NavLink = (props) => {
 
   const textClass = 'text-sm font-normal';
 
+  const active = router.pathname === props.href;
+
   return (
-    <a className={!props.active ? normalClass : activeClass} href="#">
-      <span className="text-left">
-        <FontAwesomeIcon icon={props.icon} />
-      </span>
-      <span className={props.active ? textClass + ' mx-2' : textClass + ' mx-4'}>{props.name}</span>
-    </a>
+    <Link href={props.href}>
+      <a className={!active ? normalClass : activeClass} href="#">
+        <span className="text-left">
+          <FontAwesomeIcon icon={props.icon} />
+        </span>
+        <span className={active ? textClass + ' mx-2' : textClass + ' mx-4'}>
+          {props.name}
+        </span>
+      </a>
+    </Link>
   );
 };
 
 NavLink.propTypes = {
   name: PropTypes.string.isRequired,
-  icon: PropTypes.object.isRequired,
-  active: PropTypes.bool.isRequired
+  href: PropTypes.string.isRequired,
+  icon: PropTypes.object.isRequired
 };
 
 export default NavLink;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faServer, faLaptop } from '@fortawesome/free-solid-svg-icons';
 import NavLink from '../NavLink/NavLink';
 
 const SideBar = () => {
@@ -11,9 +11,9 @@ const SideBar = () => {
         </div>
         <nav className="mt-6">
           <div>
-            <NavLink name="Home" icon={faHome} active={true} />
-            <NavLink name="Home" icon={faHome} active={false} />
-            <NavLink name="Home" icon={faHome} active={false} />
+            <NavLink name="Home" href="/" icon={faHome} />
+            <NavLink name="Gateways" href="/gateways/" icon={faServer} />
+            <NavLink name="Devices" href="/devices/" icon={faLaptop} />
             
           </div>
         </nav>

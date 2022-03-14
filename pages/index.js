@@ -1,8 +1,6 @@
 import Dashboard from '../src/components/Layout/Dashboard/Dashboard';
 
 export default function Home() {
-
-
   return (
     <Dashboard>
       <div className="overflow-auto h-screen pb-24 px-4 md:px-6">
