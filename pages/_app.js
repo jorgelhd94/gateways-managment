@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../public/assets/css/global.css';
+import '../styles/global.css';
 import '@fortawesome/fontawesome-svg-core/styles.css'; // import Font Awesome CSS
 import { config } from '@fortawesome/fontawesome-svg-core';
 import 'react-toastify/dist/ReactToastify.css';
