@@ -12,8 +12,8 @@ const SideBar = () => {
         <nav className="mt-6">
           <div>
             <NavLink name="Home" href="/" icon={faHome} />
-            <NavLink name="Gateways" href="/gateways/" icon={faServer} />
-            <NavLink name="Devices" href="/devices/" icon={faLaptop} />
+            <NavLink name="Gateways" href="/gateways" icon={faServer} />
+            <NavLink name="Devices" href="/devices" icon={faLaptop} />
             
           </div>
         </nav>

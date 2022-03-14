@@ -1,7 +1,8 @@
 import React from 'react'
+import Dashboard from '../../src/components/Layout/Dashboard/Dashboard'
 
 export default function Gateways() {
   return (
-    <div>Gateways Page</div>
+    <Dashboard>Gateways Page</Dashboard>
   )
 }
