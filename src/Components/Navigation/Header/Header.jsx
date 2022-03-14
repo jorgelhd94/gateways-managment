@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { signOut, auth } from '../../../includes/firebase';
+
 import ButtonBurger from '../../UI/Buttons/ButtonBurger/ButtonBurger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -28,6 +31,12 @@ function useOutsideClick(ref) {
 }
 
 const Header = () => {
+  const router = useRouter();
+  const logout = async () => {
+    await signOut(auth);
+    router.push('/login');
+  };
+
   const dropDownRef = useRef(null);
   const [openDropdown, setOpenDropdown] = useOutsideClick(dropDownRef);
 
@@ -81,6 +90,7 @@ const Header = () => {
                   aria-labelledby="options-menu">
                   <a
                     href="#"
+                    onClick={logout}
                     className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                     role="menuitem">
                     <span className="flex flex-col">
