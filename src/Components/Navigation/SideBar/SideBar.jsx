@@ -8,8 +8,8 @@ import { OpenSideBarContext } from '../../../contexts';
 
 const SideBar = (props) => {
   const toogleOpen = useContext(OpenSideBarContext);
-  const defaultStyle = 'h-screen lg:block shadow-lg absolute lg:relative w-80 z-50 ';
-  const hidden = !props.open ? 'hidden' : '';
+  const defaultStyle = 'h-screen lg:block ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50 ';
+  const hidden = !props.open ? 'hidden -ml-96' : '';
   const style = defaultStyle + ' ' + hidden;
 
   return (
@@ -19,7 +19,7 @@ const SideBar = (props) => {
           <p className="font-bold dark:text-white text-xl">G.M.S</p>
           <button
             onClick={toogleOpen}
-            className="flex px-2 py-1 items-center rounded-xl text-white bg-blue-400 shadow text-md">
+            className="flex px-2 py-1 lg:hidden items-center rounded-xl text-white bg-blue-400 shadow text-md">
             <FontAwesomeIcon icon={faClose} />
           </button>
         </div>

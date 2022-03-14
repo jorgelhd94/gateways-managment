@@ -1,11 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { UserContext, OpenSideBarContext } from '../../../contexts';
 import SideBar from '../../Navigation/SideBar/SideBar';
 import Header from '../../Navigation/Header/Header';
 
 const Dashboard = ({ children }) => {
   const user = useContext(UserContext);
-  const [openSideBar, setOpenSideBar] = useState(false);
+  const [openSideBar, setOpenSideBar] = useState(true);
+
+  useEffect(() => {
+    function checkSideBar() {
+      if (window.matchMedia('screen and (max-width: 1024px)').matches) {
+        setOpenSideBar(false);
+      } else if (window.matchMedia('screen and (min-width: 1024px)').matches) {
+        setOpenSideBar(true);
+      }
+    }
+
+    window.addEventListener('load', checkSideBar);
+    window.addEventListener('resize', checkSideBar);
+  }, [openSideBar]);
 
   const toogleOpen = () => {
     setOpenSideBar(!openSideBar);
