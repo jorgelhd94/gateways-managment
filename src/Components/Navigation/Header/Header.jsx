@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -32,7 +31,7 @@ function useOutsideClick(ref) {
   return [openDropdown, setOpenDropdown];
 }
 
-const Header = (props) => {
+const Header = () => {
   const router = useRouter();
   const logout = async () => {
     await signOut(auth);
@@ -48,7 +47,7 @@ const Header = (props) => {
 
   return (
     <header className="w-full h-16 z-40 flex items-center justify-between">
-      <ButtonBurger/>
+      <ButtonBurger />
 
       <div className="relative z-20 flex flex-col justify-end h-full px-3 md:w-full">
         <div className="relative p-1 flex items-center w-full space-x-4 justify-end">
@@ -111,10 +110,6 @@ const Header = (props) => {
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  toogleOpen: PropTypes.func.isRequired
 };
 
 export default Header;

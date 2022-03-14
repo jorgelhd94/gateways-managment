@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../../contexts';
+import { UserContext, OpenSideBarContext } from '../../../contexts';
 import SideBar from '../../Navigation/SideBar/SideBar';
 import Header from '../../Navigation/Header/Header';
 
@@ -18,7 +18,9 @@ const Dashboard = ({ children }) => {
         <div className="flex items-start justify-between">
           <SideBar open={openSideBar} />
           <div className="flex flex-col w-full md:space-y-4">
-            <Header toogleOpen={toogleOpen}/>
+            <OpenSideBarContext.Provider value={setOpenSideBar}>
+              <Header />
+            </OpenSideBarContext.Provider>
             {children}
           </div>
         </div>
