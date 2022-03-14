@@ -9,10 +9,9 @@ import LoadingScreen from '../src/components/UI/Preloaders/LoadingScreen/Loading
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 function App({ Component, pageProps }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     window.addEventListener('load', (event) => {
       setLoading(false);
     });
