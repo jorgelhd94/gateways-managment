@@ -16,13 +16,13 @@ const Dashboard = ({ children }) => {
     <div>
       <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
         <div className="flex items-start justify-between">
-          <SideBar open={openSideBar} />
-          <div className="flex flex-col w-full md:space-y-4">
-            <OpenSideBarContext.Provider value={toogleOpen}>
+          <OpenSideBarContext.Provider value={toogleOpen}>
+            <SideBar open={openSideBar} />
+            <div className="flex flex-col w-full md:space-y-4">
               <Header />
-            </OpenSideBarContext.Provider>
-            {children}
-          </div>
+              {children}
+            </div>
+          </OpenSideBarContext.Provider>
         </div>
       </main>
     </div>
