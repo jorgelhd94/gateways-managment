@@ -7,9 +7,28 @@ exports.create = functions.https.onCall(async (data, context) => {
     .collection('gateway')
     .add({ ...data })
     .then((response) => {
-      return  response;
+      return response;
     })
     .catch((error) => {
       throw new functions.https.HttpsError('aborted', error);
     });
+});
+
+exports.validateSerial = functions.https.onCall(async (data, context) => {
+  const serial = data.value;
+  let exists = false;
+
+  await admin
+    .firestore()
+    .collection('gateway')
+    .where('serial', '==', serial)
+    .get()
+    .then((result) => {
+      exists = result.size > 0;
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { exists };
 });

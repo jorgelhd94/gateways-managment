@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { ipv4 } from '../../../utils/customValidators';
@@ -10,8 +10,11 @@ import { toast } from 'react-toastify';
 
 import { functions, httpsCallable } from '../../../includes/firebase';
 
+import { UserContext } from '../../../contexts';
+
 const CreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const user = useContext(UserContext);
 
   const requierdMsg = 'This is a required field';
 
@@ -27,15 +30,20 @@ const CreateForm = () => {
     return <ErrorMessage name={inputName} />;
   };
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   async function validateSerial(value) {
     let error;
 
-    await sleep(1000).then(() => {
-      if (value.length > 3) {
-        error = 'This Serial already exists';
-      }
-    });
+    const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
+    await checkSerial({ value })
+      .then((result) => {
+        if (result.data.exists) {
+          error = 'This Serial already exists';
+        }
+      })
+      .catch((error) => {
+        error = 'The system cannot check the serial!!';
+      });
+
     return error;
   }
 
@@ -53,10 +61,9 @@ const CreateForm = () => {
           setIsLoading(true);
 
           const createGateway = httpsCallable(functions, 'gateway-create');
-          await createGateway({ ...values })
+          await createGateway({ ...values, uid: user.uid })
             .then((result) => {
-              console.log(result.data);
-              // toast.success('User was register succesfully!');
+              toast.success('The gateway was created succesfully!!');
               // router.push('/');
             })
             .catch((error) => {
