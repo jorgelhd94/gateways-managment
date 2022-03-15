@@ -3,19 +3,19 @@ import Link from 'next/link';
 import Dashboard from '../../src/components/Layout/Dashboard/Dashboard';
 import Card from '../../src/components/UI/Card/Card';
 import ButtonIcon from '../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faServer } from '@fortawesome/free-solid-svg-icons';
 
-export default function Gateways() {
+export default function CreateGateways() {
   return (
     <Dashboard>
       <div className="m-4">
-        <Link href="/gateways/create">
+        <Link href="/gateways">
           <a>
-            <ButtonIcon text="New Gateway" type="success" icon={faPlus} showIcon={true} />
+            <ButtonIcon text="Manage Gateways" type="primary" icon={faServer} showIcon={true} />
           </a>
         </Link>
       </div>
-      <Card>Gateways Page</Card>
+      <Card>Create Gateway</Card>
     </Dashboard>
   );
 }

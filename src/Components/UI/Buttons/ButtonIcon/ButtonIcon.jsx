@@ -6,8 +6,9 @@ const ButtonIcon = (props) => {
   const defaultClass =
     'py-2 px-4 flex justify-center items-center text-white w-max transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ';
   const styles = {
-    success: 'bg-green-600 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200',
-    danger: 'bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200',
+    primary: 'bg-blue-500 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200',
+    success: 'bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200',
+    danger: 'bg-red-500 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200',
   };
   return (
     <button type="button" className={defaultClass + styles[props.type]}>
@@ -20,7 +21,7 @@ const ButtonIcon = (props) => {
 
 ButtonIcon.propTypes = {
   text: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['danger']),
+  type: PropTypes.oneOf(['primary', 'success', 'danger']),
   icon: PropTypes.object,
   showIcon: PropTypes.bool.isRequired
 };
