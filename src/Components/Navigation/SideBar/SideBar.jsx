@@ -1,27 +1,14 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import NavLink from '../NavLink/NavLink';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faServer, faLaptop, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faServer, faLaptop } from '@fortawesome/free-solid-svg-icons';
 
-import { OpenSideBarContext } from '../../../contexts';
 
-const SideBar = (props) => {
-  const toogleOpen = useContext(OpenSideBarContext);
-  const defaultStyle = 'h-screen lg:block ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50 ';
-  const hidden = !props.open ? 'hidden -ml-96' : '';
-  const style = defaultStyle + ' ' + hidden;
-
+const SideBar = () => {
   return (
-    <div className={style}>
+    <div className='h-screen hidden lg:block ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50 '>
       <div className="bg-white h-full dark:bg-gray-700">
-        <div className="flex items-start justify-between pt-6 mx-8">
+        <div className="flex items-start justify-start pt-6 mx-8">
           <p className="font-bold dark:text-white text-xl">G.M.S</p>
-          <button
-            onClick={toogleOpen}
-            className="flex px-2 py-1 lg:hidden items-center rounded-xl text-white bg-blue-400 shadow text-md">
-            <FontAwesomeIcon icon={faClose} />
-          </button>
         </div>
         <nav className="mt-6">
           <div>
@@ -33,10 +20,6 @@ const SideBar = (props) => {
       </div>
     </div>
   );
-};
-
-SideBar.propTypes = {
-  open: PropTypes.bool.isRequired
 };
 
 export default SideBar;
