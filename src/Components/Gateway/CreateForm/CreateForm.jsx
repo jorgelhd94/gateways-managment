@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import { successInputClass, errorInputClass } from '../../../utils/inputStyle';
 
-import ButtonAuth from '../../UI/Buttons/ButtonAuth/ButtonAuth';
+import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
 
 
 const CreateForm = () => {
@@ -57,10 +57,10 @@ const CreateForm = () => {
                 placeholder="IP v4"
               />
 
-            <div className="my-6">
-              <ButtonAuth type="submit" isLoading={true}>
-                Sign In
-              </ButtonAuth>
+            <div className="my-6 flex justify-end w-full">
+              <ButtonSubmit isLoading={true}>
+                Submit
+              </ButtonSubmit>
             </div>
           </Form>
         )}
