@@ -4,11 +4,15 @@ import * as Yup from 'yup';
 import { ipv4 } from '../../../utils/customValidators';
 
 import { successInputClass, errorInputClass } from '../../../utils/inputStyle';
-import ErrorStyle from '../../UI/ErrorMessage/ErrorMessage';
 import FieldInput from '../../UI/InputForm/InputForm';
 import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
+import { toast } from 'react-toastify';
+
+import { functions, httpsCallable } from '../../../includes/firebase';
 
 const CreateForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const requierdMsg = 'This is a required field';
 
   Yup.addMethod(Yup.string, 'ipv4', ipv4);
@@ -44,8 +48,23 @@ const CreateForm = () => {
       <Formik
         initialValues={{ serial: '', name: '', ipv4: '' }}
         validationSchema={schema}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
+          setIsLoading(true);
+
+          const createGateway = httpsCallable(functions, 'gateway-create');
+          await createGateway({ ...values })
+            .then((result) => {
+              console.log(result.data);
+              // toast.success('User was register succesfully!');
+              // router.push('/');
+            })
+            .catch((error) => {
+              const message = error.message;
+              toast.error(message);
+            });
+
+          setIsLoading(false);
         }}>
         {({ errors }) => (
           <Form>
@@ -95,7 +114,7 @@ const CreateForm = () => {
             </div>
 
             <div className="my-6 flex justify-end w-full">
-              <ButtonSubmit isLoading={false}>Submit</ButtonSubmit>
+              <ButtonSubmit isLoading={isLoading}>Submit</ButtonSubmit>
             </div>
           </Form>
         )}

@@ -6,3 +6,4 @@ admin.initializeApp();
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.users = require('./controllers/users');
+exports.gateway = require('./controllers/gateway');
