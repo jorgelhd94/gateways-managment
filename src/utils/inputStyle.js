@@ -7,6 +7,6 @@ const successInputClass =
 
 const errorInputClass =
   genericInputClass +
-  ' ring-2 ring-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent';
+  ' ring-2 ring-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent';
 
 export { genericInputClass, successInputClass, errorInputClass };

@@ -3,16 +3,15 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { successInputClass, errorInputClass } from '../../../utils/inputStyle';
-
+import FieldInput from '../../UI/InputForm/InputForm';
 import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
-
 
 const CreateForm = () => {
   const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
     serial: Yup.string().required(requierdMsg),
-    name: Yup.string().required(requierdMsg).min(6).max(32),
+    name: Yup.string().required(requierdMsg),
     ipv4: Yup.string().required(requierdMsg)
   });
 
@@ -29,38 +28,42 @@ const CreateForm = () => {
       <Formik
         initialValues={{ serial: '', name: '', ipv4: '' }}
         validationSchema={schema}
-        onSubmit={async (values, { setSubmitting }) => {
-          setSubmitting(false);
-          setIsLoading(true);
-          setIsLoading(false);
+        onSubmit={(values, { setSubmitting }) => {
+            setSubmitting(false);
+            console.log('Submit');
         }}>
         {({ errors }) => (
           <Form>
+            <FieldInput error={getError('serial')}>
               <Field
                 name="serial"
                 type="text"
                 className={errors.serial ? errorInputClass : successInputClass}
                 placeholder="Serial number"
               />
+            </FieldInput>
 
+
+            <FieldInput error={getError('name')}>
               <Field
                 name="name"
                 type="text"
                 className={errors.name ? errorInputClass : successInputClass}
                 placeholder="Name"
               />
+            </FieldInput>
 
+            <FieldInput error={getError('ipv4')}>
               <Field
                 name="ipv4"
                 type="text"
                 className={errors.ipv4 ? errorInputClass : successInputClass}
                 placeholder="IP v4"
               />
+            </FieldInput>
 
             <div className="my-6 flex justify-end w-full">
-              <ButtonSubmit isLoading={true}>
-                Submit
-              </ButtonSubmit>
+              <ButtonSubmit isLoading={false}>Submit</ButtonSubmit>
             </div>
           </Form>
         )}
