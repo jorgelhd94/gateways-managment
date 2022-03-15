@@ -22,9 +22,7 @@ const NavLink = (props) => {
     const href = props.href.replace('/', '');
     active = router.pathname.includes(href);
   }
-  console.log(href);
 
-  console.log();
   return (
     <Link href={props.href}>
       <a className={!active ? normalClass : activeClass} href="#">
