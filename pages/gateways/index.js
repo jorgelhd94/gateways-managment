@@ -18,6 +18,9 @@ export default function Gateways() {
           </Link>
         </div>
         <Card>
+          <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
+            Manage Gateways
+          </div>
           <GatewayTable />
         </Card>
       </div>
