@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { ipv4 } from '../../../utils/customValidators';
 
 import { successInputClass, errorInputClass } from '../../../utils/inputStyle';
+import ErrorStyle from '../../UI/ErrorMessage/ErrorMessage';
 import FieldInput from '../../UI/InputForm/InputForm';
 import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
-
 
 const CreateForm = () => {
   const requierdMsg = 'This is a required field';
 
   Yup.addMethod(Yup.string, 'ipv4', ipv4);
-  
+
   const schema = Yup.object({
     serial: Yup.string().required(requierdMsg),
     name: Yup.string().required(requierdMsg),
@@ -22,6 +22,18 @@ const CreateForm = () => {
   const getError = (inputName) => {
     return <ErrorMessage name={inputName} />;
   };
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  async function validateSerial(value) {
+    let error;
+
+    await sleep(1000).then(() => {
+      if (value.length > 3) {
+        error = 'This Serial already exists';
+      }
+    });
+    return error;
+  }
 
   return (
     <div>
@@ -34,12 +46,11 @@ const CreateForm = () => {
         validationSchema={schema}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
-          console.log(values);
         }}>
         {({ errors }) => (
           <Form>
             <div className="flex flex-col lg:flex-row justify-between w-full">
-              <div className='mr-4'>
+              <div className="mr-4">
                 <label htmlFor="serial" className="font-normal text-gray-600 dark:text-white">
                   Serial
                 </label>
@@ -47,13 +58,14 @@ const CreateForm = () => {
                   <Field
                     name="serial"
                     type="text"
-                    className={errors.serial ? errorInputClass : successInputClass}
                     placeholder="Serial number"
+                    className={errors.serial ? errorInputClass : successInputClass}
+                    validate={validateSerial}
                   />
                 </FieldInput>
               </div>
 
-              <div className='mr-4'>
+              <div className="mr-4">
                 <label htmlFor="name" className="font-normal text-gray-600 dark:text-white">
                   Name
                 </label>
@@ -67,7 +79,7 @@ const CreateForm = () => {
                 </FieldInput>
               </div>
 
-              <div className='mr-4'>
+              <div className="mr-4">
                 <label htmlFor="ipv4" className="font-normal text-gray-600 dark:text-white">
                   IP v4
                 </label>

@@ -5,7 +5,7 @@ import ErrorStyle from '../ErrorMessage/ErrorMessage';
 const InputForm = (props) => {
   return (
     <div className="mt-2 mb-6">
-      <div className="flex relative ">
+      <div className="flex flex-col relative ">
         {props.children}
       </div>
 
