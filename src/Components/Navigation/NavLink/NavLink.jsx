@@ -14,17 +14,24 @@ const NavLink = (props) => {
 
   const textClass = 'text-sm font-normal';
 
-  const active = router.pathname === props.href;
+  let active = false;
+  if (props.href === '/') {
+    active = props.href === router.pathname;
+  }
+  else {
+    const href = props.href.replace('/', '');
+    active = router.pathname.includes(href);
+  }
+  console.log(href);
 
+  console.log();
   return (
     <Link href={props.href}>
       <a className={!active ? normalClass : activeClass} href="#">
         <span className="text-left">
           <FontAwesomeIcon icon={props.icon} />
         </span>
-        <span className={active ? textClass + ' mx-2' : textClass + ' mx-4'}>
-          {props.name}
-        </span>
+        <span className={active ? textClass + ' mx-2' : textClass + ' mx-4'}>{props.name}</span>
       </a>
     </Link>
   );
