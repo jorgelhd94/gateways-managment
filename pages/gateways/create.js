@@ -4,6 +4,7 @@ import Dashboard from '../../src/components/Layout/Dashboard/Dashboard';
 import Card from '../../src/components/UI/Card/Card';
 import ButtonIcon from '../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
 import { faServer } from '@fortawesome/free-solid-svg-icons';
+import CreateForm from '../../src/components/Gateway/CreateForm/CreateForm';
 
 export default function CreateGateways() {
   return (
@@ -15,7 +16,10 @@ export default function CreateGateways() {
           </a>
         </Link>
       </div>
-      <Card>Create Gateway</Card>
+      <Card>
+        <CreateForm/>
+
+      </Card>
     </Dashboard>
   );
 }
