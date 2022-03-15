@@ -6,29 +6,8 @@ import { signOut, auth } from '../../../includes/firebase';
 import ButtonBurger from '../../UI/Buttons/ButtonBurger/ButtonBurger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { useOutsideClick } from '../../../utils/clickOutside';
 
-function useOutsideClick(ref) {
-  const [openDropdown, setOpenDropdown] = useState(false);
-
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setOpenDropdown(false);
-      }
-    }
-    // Bind the event listener
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [ref]);
-
-  return [openDropdown, setOpenDropdown];
-}
 
 const Header = () => {
   const router = useRouter();

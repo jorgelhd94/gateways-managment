@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import NavLink from '../NavLink/NavLink';
+import { useOutsideClick } from '../../../utils/clickOutside';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faServer, faLaptop, faClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,12 +9,29 @@ import { OpenSideBarContext } from '../../../contexts';
 
 const SidebarMobile = (props) => {
   const toogleOpen = useContext(OpenSideBarContext);
-  const defaultStyle = 'h-screen lg:hidden ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50 ';
-  const hidden = !props.open ? 'hidden -ml-96' : '';
+
+  const defaultStyle =
+    'h-screen lg:hidden ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50 ';
+  const hidden = !props.open ? '-ml-96' : '';
   const style = defaultStyle + ' ' + hidden;
 
+  const sidebarRef = useRef(null);
+  const [openSidebar, setOpenSidebar] = useOutsideClick(sidebarRef);
+
+  useEffect(() => {
+    if (props.open) {
+      setOpenSidebar(true);
+    }
+  }, [props.open]);
+
+  useEffect(() => {
+    if (!openSidebar && props.open) {
+      toogleOpen();
+    }
+  }, [openSidebar]);
+
   return (
-    <div className={style}>
+    <div ref={sidebarRef} className={style}>
       <div className="bg-white h-full dark:bg-gray-700">
         <div className="flex items-start justify-between pt-6 mx-8">
           <p className="font-bold dark:text-white text-xl">G.M.S</p>
