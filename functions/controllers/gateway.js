@@ -10,7 +10,7 @@ exports.create = functions.https.onCall(async (data, context) => {
       throw new functions.https.HttpsError('aborted', error);
     });
 
-  return { docRef };
+  return { docId: docRef.id };
 });
 
 exports.validateSerial = functions.https.onCall(async (data, context) => {
