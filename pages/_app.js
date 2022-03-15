@@ -29,9 +29,11 @@ function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    window.addEventListener('load', (event) => {
+    function preloader() {
       setLoading(false);
-    });
+    }
+
+    window.addEventListener('load', preloader);
   }, []);
 
   return (
