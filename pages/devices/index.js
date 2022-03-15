@@ -8,7 +8,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export default function Devices() {
   return (
     <Dashboard>
-      <div className="m-4">
+      <div className="m-4 w-min">
         <Link href="/devices/create">
           <a>
             <ButtonIcon text="New Device" type="success" icon={faPlus} showIcon={true} />
