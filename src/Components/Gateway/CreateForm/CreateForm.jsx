@@ -49,8 +49,8 @@ const CreateForm = () => {
         }}>
         {({ errors }) => (
           <Form>
-            <div className="flex flex-col lg:flex-row justify-between w-full">
-              <div className="mr-4">
+            <div className="flex flex-col lg:flex-row justify-start w-full">
+              <div className="mr-0 lg:mr-6">
                 <label htmlFor="serial" className="font-normal text-gray-600 dark:text-white">
                   Serial
                 </label>
@@ -65,7 +65,7 @@ const CreateForm = () => {
                 </FieldInput>
               </div>
 
-              <div className="mr-4">
+              <div className="mr-0 lg:mr-6">
                 <label htmlFor="name" className="font-normal text-gray-600 dark:text-white">
                   Name
                 </label>
@@ -79,7 +79,7 @@ const CreateForm = () => {
                 </FieldInput>
               </div>
 
-              <div className="mr-4">
+              <div className="mr-0 lg:mr-6">
                 <label htmlFor="ipv4" className="font-normal text-gray-600 dark:text-white">
                   IP v4
                 </label>
