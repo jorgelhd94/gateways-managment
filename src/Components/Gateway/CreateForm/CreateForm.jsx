@@ -14,6 +14,7 @@ import { UserContext } from '../../../contexts';
 
 const CreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isValidating, setisValidating] = useState(false);
   const user = useContext(UserContext);
 
   const requierdMsg = 'This is a required field';
@@ -33,6 +34,8 @@ const CreateForm = () => {
   async function validateSerial(value) {
     let error;
 
+    setisValidating(true);
+
     const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
     await checkSerial({ value })
       .then((result) => {
@@ -43,6 +46,8 @@ const CreateForm = () => {
       .catch((error) => {
         error = 'The system cannot check the serial!!';
       });
+
+    setisValidating(false);
 
     return error;
   }
@@ -63,6 +68,7 @@ const CreateForm = () => {
           const createGateway = httpsCallable(functions, 'gateway-create');
           await createGateway({ ...values, uid: user.uid })
             .then((result) => {
+              console.log(result);
               toast.success('The gateway was created succesfully!!');
               // router.push('/');
             })
@@ -80,7 +86,7 @@ const CreateForm = () => {
                 <label htmlFor="serial" className="font-normal text-gray-600 dark:text-white">
                   Serial
                 </label>
-                <FieldInput error={getError('serial')}>
+                <FieldInput error={getError('serial')} isValidating={isValidating}>
                   <Field
                     name="serial"
                     type="text"
