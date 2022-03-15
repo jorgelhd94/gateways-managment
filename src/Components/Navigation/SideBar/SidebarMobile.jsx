@@ -8,7 +8,7 @@ import { OpenSideBarContext } from '../../../contexts';
 
 const SidebarMobile = (props) => {
   const toogleOpen = useContext(OpenSideBarContext);
-  const defaultStyle = 'h-screen lg:block ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50 ';
+  const defaultStyle = 'h-screen lg:hidden ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50 ';
   const hidden = !props.open ? 'hidden -ml-96' : '';
   const style = defaultStyle + ' ' + hidden;
 
