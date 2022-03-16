@@ -12,7 +12,9 @@ export default function CreateGateways() {
       <div className="mx-4">
         <Link href="/gateways">
           <a>
-            <ButtonIcon text="Manage Gateways" type="primary" icon={faServer} showIcon={true} />
+            <ButtonIcon type="primary" icon={faServer} showIcon={true} >
+            Manage Gateways
+            </ButtonIcon>
           </a>
         </Link>
       </div>

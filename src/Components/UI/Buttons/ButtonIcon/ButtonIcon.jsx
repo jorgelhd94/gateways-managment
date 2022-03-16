@@ -13,14 +13,12 @@ const ButtonIcon = (props) => {
   return (
     <button type="button" className={defaultClass + styles[props.type]}>
       {props.showIcon && <FontAwesomeIcon icon={props.icon} className="mr-2" />}
-
-      {props.text}
+      {props.children}
     </button>
   );
 };
 
 ButtonIcon.propTypes = {
-  text: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['primary', 'success', 'danger']),
   icon: PropTypes.object,
   showIcon: PropTypes.bool.isRequired

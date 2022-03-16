@@ -11,7 +11,9 @@ export default function CreateGateways() {
       <div className="m-4">
         <Link href="/devices">
           <a>
-            <ButtonIcon text="Manage Devices" type="primary" icon={faLaptop} showIcon={true} />
+            <ButtonIcon type="primary" icon={faLaptop} showIcon={true}>
+              Manage Devices
+            </ButtonIcon>
           </a>
         </Link>
       </div>

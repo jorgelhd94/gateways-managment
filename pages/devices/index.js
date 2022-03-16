@@ -11,7 +11,9 @@ export default function Devices() {
       <div className="m-4 w-min">
         <Link href="/devices/create">
           <a>
-            <ButtonIcon text="New Device" type="success" icon={faPlus} showIcon={true} />
+            <ButtonIcon type="success" icon={faPlus} showIcon={true}>
+              New Device
+            </ButtonIcon>
           </a>
         </Link>
       </div>

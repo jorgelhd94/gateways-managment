@@ -12,7 +12,9 @@ export default function Gateways() {
       <div className="mx-4 mb-2">
         <Link href="/gateways/create">
           <a>
-            <ButtonIcon text="New Gateway" type="success" icon={faPlus} showIcon={true} />
+            <ButtonIcon type="success" icon={faPlus} showIcon={true}>
+              New Gateway
+            </ButtonIcon>
           </a>
         </Link>
       </div>

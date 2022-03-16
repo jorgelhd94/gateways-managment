@@ -9,6 +9,9 @@ import TD from '../../Tables/SimpleTable/TD/TD';
 import TableSkeleton from '../../UI/Skeleton/TableSkeleton/TableSkeleton';
 import FetchError from '../../UI/FetchError/FetchError';
 import { toast } from 'react-toastify';
+import BtnIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
+
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 const GatewayTable = () => {
   const user = useContext(UserContext);
@@ -47,7 +50,9 @@ const GatewayTable = () => {
           <TD>{data.serial}</TD>
           <TD>{data.name}</TD>
           <TD>{data.ipv4}</TD>
-          <TD></TD>
+          <TD>
+            <BtnIcon type='success' icon={faEye} showIcon={true} />
+          </TD>
         </tr>
       );
     });
