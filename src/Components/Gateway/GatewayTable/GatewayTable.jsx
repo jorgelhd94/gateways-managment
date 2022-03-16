@@ -7,6 +7,7 @@ import SimpleTable from '../../Tables/SimpleTable/SimpleTable';
 import TD from '../../Tables/SimpleTable/TD/TD';
 
 import TableSkeleton from '../../UI/Skeleton/TableSkeleton/TableSkeleton';
+import FetchError from '../../UI/FetchError/FetchError';
 
 const GatewayTable = () => {
   const user = useContext(UserContext);
@@ -52,6 +53,8 @@ const GatewayTable = () => {
       ) : (
         <TableSkeleton />
       )}
+
+      <FetchError />
     </div>
   );
 };
