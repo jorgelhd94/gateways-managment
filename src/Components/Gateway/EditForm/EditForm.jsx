@@ -107,7 +107,7 @@ const EditForm = () => {
             await editGateway({ ...values, uid: user.uid, docId: gid })
               .then((result) => {
                 toast.success('The gateway was updated succesfully!!');
-                // router.push('/');
+                router.push('/gateways/' + result.data.docId);
               })
               .catch((error) => {
                 const message = error.message;

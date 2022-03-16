@@ -14,7 +14,7 @@ exports.create = functions.https.onCall(async (data, context) => {
 });
 
 exports.edit = functions.https.onCall(async (data, context) => {
-  const docRef = await admin
+  await admin
     .firestore()
     .collection('gateway')
     .doc(data.docId)
@@ -23,7 +23,7 @@ exports.edit = functions.https.onCall(async (data, context) => {
       throw new functions.https.HttpsError('aborted', error);
     });
 
-  return { docId: docRef.id };
+  return { docId: data.docId };
 });
 
 exports.delete = functions.https.onCall(async (data, context) => {
