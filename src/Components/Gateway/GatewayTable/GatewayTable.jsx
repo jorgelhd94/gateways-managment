@@ -21,7 +21,6 @@ const GatewayTable = () => {
   const router = useRouter();
 
   const [fetchingData, setFetchingData] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
   const [showError, setShowError] = useState(false);
   const [contentList, setContentList] = useState([]);
 
@@ -35,10 +34,6 @@ const GatewayTable = () => {
     await getAllGateways({ uid: user.uid })
       .then((result) => {
         setContentList([...result.data.listAll]);
-
-        if (result.data.listAll.length > 0) {
-          setIsEmpty(true);
-        }
       })
       .catch((error) => {
         setShowError(true);
@@ -113,9 +108,11 @@ const GatewayTable = () => {
     if (showError) {
       component = <FetchError />;
     } else if (!fetchingData) {
-      component = <SimpleTable headerList={headerList} contentList={transformData()} />;
-    } else if (isEmpty && !fetchingData) {
-      component = <EmptyList />;
+      component = contentList.length === 0 ? (
+        <EmptyList />
+      ) : (
+        <SimpleTable headerList={headerList} contentList={transformData()} />
+      );
     } else {
       component = <TableSkeleton />;
     }
