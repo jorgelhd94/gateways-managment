@@ -12,6 +12,7 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCNhRRq3iDxLPFOt01Zy-IKCEGiKAfRYrU',
   authDomain: 'gateways-managment.firebaseapp.com',
@@ -42,5 +43,5 @@ export {
   onAuthStateChanged,
   signOut,
   provider,
-  signInWithPopup
+  signInWithPopup,
 };

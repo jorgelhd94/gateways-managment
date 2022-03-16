@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { functions, httpsCallable } from '../../../includes/firebase';
+import { functions, httpsCallable, doc, onSnapshot } from '../../../includes/firebase';
 
 import { UserContext } from '../../../contexts';
 
@@ -18,39 +18,14 @@ const GatewayTable = () => {
 
   const headerList = ['Serial', 'Name', 'IPv4', ''];
 
-  const tableComponent = () => {
-    let component;
-
-    if (showError) {
-      component = <FetchError />;
-    } else if (!fetchingData) {
-      component = <SimpleTable headerList={headerList} contentList={contentList} />;
-    } else {
-      component = <TableSkeleton />;
-    }
-
-    return component;
-  };
-
   const getData = async () => {
     setFetchingData(true);
-
-    let responseData;
+    setShowError(false);
 
     const getAllGateways = httpsCallable(functions, 'gateway-all');
     await getAllGateways({ uid: user.uid })
       .then((result) => {
-        responseData = result.data.listAll.map((data, row) => {
-          return (
-            <tr key={row}>
-              <TD>{data.serial}</TD>
-              <TD>{data.name}</TD>
-              <TD>{data.ipv4}</TD>
-              <TD></TD>
-            </tr>
-          );
-        });
-        setContentList([...responseData]);
+        setContentList([...result.data.listAll]);
       })
       .catch((error) => {
         setShowError(true);
@@ -64,6 +39,33 @@ const GatewayTable = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  const transformData = () => {
+    return contentList.map((data, row) => {
+      return (
+        <tr key={row}>
+          <TD>{data.serial}</TD>
+          <TD>{data.name}</TD>
+          <TD>{data.ipv4}</TD>
+          <TD></TD>
+        </tr>
+      );
+    });
+  };
+
+  const tableComponent = () => {
+    let component;
+
+    if (showError) {
+      component = <FetchError />;
+    } else if (!fetchingData) {
+      component = <SimpleTable headerList={headerList} contentList={transformData()} />;
+    } else {
+      component = <TableSkeleton />;
+    }
+
+    return component;
+  };
 
   return <div>{tableComponent()}</div>;
 };
