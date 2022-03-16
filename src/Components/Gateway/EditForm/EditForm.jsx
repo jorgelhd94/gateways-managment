@@ -38,6 +38,7 @@ const EditForm = () => {
       .then((result) => {
         if (result.data.doc) {
           setInitialValues(result.data.doc);
+          setIsFetchingData(false);
         } else {
           router.push('/gateways');
         }
@@ -46,7 +47,6 @@ const EditForm = () => {
         const message = error.message;
         toast.error(message);
       });
-    setIsFetchingData(false);
   }, []);
 
   Yup.addMethod(Yup.string, 'ipv4', ipv4);

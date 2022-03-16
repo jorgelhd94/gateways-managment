@@ -36,7 +36,7 @@ const GatewayTable = () => {
       .then((result) => {
         setContentList([...result.data.listAll]);
 
-        if (contentList.length > 0) {
+        if (result.data.listAll.length > 0) {
           setIsEmpty(true);
         }
       })
@@ -112,10 +112,10 @@ const GatewayTable = () => {
 
     if (showError) {
       component = <FetchError />;
-    } else if (isEmpty) {
-      component = <EmptyList />;
     } else if (!fetchingData) {
       component = <SimpleTable headerList={headerList} contentList={transformData()} />;
+    } else if (isEmpty && !fetchingData) {
+      component = <EmptyList />;
     } else {
       component = <TableSkeleton />;
     }
