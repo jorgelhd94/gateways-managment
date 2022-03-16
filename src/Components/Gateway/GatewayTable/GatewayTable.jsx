@@ -51,7 +51,7 @@ const GatewayTable = () => {
           <TD>{data.name}</TD>
           <TD>{data.ipv4}</TD>
           <TD>
-            <BtnIcon type='success' icon={faEye} showIcon={true} />
+            <BtnIcon type='info' icon={faEye} showIcon={true} />
           </TD>
         </tr>
       );
