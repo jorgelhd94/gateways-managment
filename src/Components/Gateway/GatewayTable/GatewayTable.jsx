@@ -15,7 +15,7 @@ const GatewayTable = () => {
 
   const headerList = ['Serial', 'Name', 'IPv4'];
 
-  useEffect(async () => {
+  const getData = async () => {
     setFetchingData(true);
 
     let responseData;
@@ -24,12 +24,14 @@ const GatewayTable = () => {
     await getAllGateways({ uid: user.uid })
       .then((result) => {
         responseData = result.data.listAll.map((data, row) => {
-          return <tr key={row}>
-            <TD>{data.serial}</TD>
-            <TD>{data.name}</TD>
-            <TD>{data.ipv4}</TD>
-            </tr>;
-        })
+          return (
+            <tr key={row}>
+              <TD>{data.serial}</TD>
+              <TD>{data.name}</TD>
+              <TD>{data.ipv4}</TD>
+            </tr>
+          );
+        });
         setContentList([...responseData]);
       })
       .catch((error) => {
@@ -37,6 +39,10 @@ const GatewayTable = () => {
       });
 
     setFetchingData(false);
+  };
+
+  useEffect(async () => {
+    await getData();
   }, []);
 
   return (
@@ -44,8 +50,8 @@ const GatewayTable = () => {
       {!fetchingData ? (
         <SimpleTable headerList={headerList} contentList={contentList} />
       ) : (
-        <TableSkeleton/>
-        )}
+        <TableSkeleton />
+      )}
     </div>
   );
 };
