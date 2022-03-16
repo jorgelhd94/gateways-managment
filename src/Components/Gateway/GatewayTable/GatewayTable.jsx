@@ -8,13 +8,29 @@ import TD from '../../Tables/SimpleTable/TD/TD';
 
 import TableSkeleton from '../../UI/Skeleton/TableSkeleton/TableSkeleton';
 import FetchError from '../../UI/FetchError/FetchError';
+import { toast } from 'react-toastify';
 
 const GatewayTable = () => {
   const user = useContext(UserContext);
   const [fetchingData, setFetchingData] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [contentList, setContentList] = useState([]);
 
-  const headerList = ['Serial', 'Name', 'IPv4'];
+  const headerList = ['Serial', 'Name', 'IPv4', ''];
+
+  const tableComponent = () => {
+    let component;
+
+    if (showError) {
+      component = <FetchError />;
+    } else if (!fetchingData) {
+      component = <SimpleTable headerList={headerList} contentList={contentList} />;
+    } else {
+      component = <TableSkeleton />;
+    }
+
+    return component;
+  };
 
   const getData = async () => {
     setFetchingData(true);
@@ -30,33 +46,26 @@ const GatewayTable = () => {
               <TD>{data.serial}</TD>
               <TD>{data.name}</TD>
               <TD>{data.ipv4}</TD>
+              <TD></TD>
             </tr>
           );
         });
         setContentList([...responseData]);
       })
       .catch((error) => {
-        console.log(error.message);
+        setShowError(true);
+        const message = error.message;
+        toast.error(message);
       });
 
     setFetchingData(false);
   };
 
-  useEffect(async () => {
-    await getData();
+  useEffect(() => {
+    getData();
   }, []);
 
-  return (
-    <div>
-      {!fetchingData ? (
-        <SimpleTable headerList={headerList} contentList={contentList} />
-      ) : (
-        <TableSkeleton />
-      )}
-
-      <FetchError />
-    </div>
-  );
+  return <div>{tableComponent()}</div>;
 };
 
 export default GatewayTable;
