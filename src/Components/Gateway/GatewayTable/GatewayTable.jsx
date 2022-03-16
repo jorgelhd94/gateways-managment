@@ -14,28 +14,6 @@ const GatewayTable = () => {
   const [contentList, setContentList] = useState([]);
 
   const headerList = ['Serial', 'Name', 'IPv4'];
-  const content = [
-    {
-      serial: 'asdasd',
-      name: 'Loasdlkj',
-      ipv4: '10.0.0.1'
-    },
-    {
-      serial: 'asdasd',
-      name: 'Loasdlkj',
-      ipv4: '10.0.0.1'
-    },
-    {
-      serial: 'asdasd',
-      name: 'Loasdlkj',
-      ipv4: '10.0.0.1'
-    },
-    {
-      serial: 'asdasd',
-      name: 'Loasdlkj',
-      ipv4: '10.0.0.1'
-    }
-  ];
 
   useEffect(async () => {
     setFetchingData(true);
