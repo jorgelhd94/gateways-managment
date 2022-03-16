@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const ButtonIcon = (props) => {
   const defaultClass =
@@ -13,7 +14,12 @@ const ButtonIcon = (props) => {
   };
   return (
     <button type="button" className={defaultClass + styles[props.type]} onClick={props.click}>
-      {props.showIcon && <FontAwesomeIcon icon={props.icon} className="" />}
+      {props.showIcon && (
+        <FontAwesomeIcon
+          icon={!props.loading ? props.icon : faSpinner}
+          className={props.loading && 'fa-spin'}
+        />
+      )}
       {props.children && <span className="ml-2">{props.children}</span>}
     </button>
   );
@@ -23,6 +29,7 @@ ButtonIcon.propTypes = {
   type: PropTypes.oneOf(['primary', 'info', 'success', 'danger']),
   icon: PropTypes.object,
   showIcon: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   click: PropTypes.func
 };
 

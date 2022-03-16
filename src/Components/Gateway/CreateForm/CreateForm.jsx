@@ -68,7 +68,6 @@ const CreateForm = () => {
           const createGateway = httpsCallable(functions, 'gateway-create');
           await createGateway({ ...values, uid: user.uid })
             .then((result) => {
-              console.log(result);
               toast.success('The gateway was created succesfully!!');
               // router.push('/');
             })
