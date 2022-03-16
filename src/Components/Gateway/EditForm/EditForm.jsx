@@ -9,7 +9,7 @@ import { successInputClass, errorInputClass } from '../../../utils/inputStyle';
 import FieldInput from '../../UI/InputForm/InputForm';
 import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
 import { toast } from 'react-toastify';
-import TableSkeleton from '../../UI/Skeleton/TableSkeleton/TableSkeleton';
+import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';
 
 import { functions, httpsCallable } from '../../../includes/firebase';
 
@@ -88,7 +88,7 @@ const EditForm = () => {
         Edit Gateway
       </div>
       {isFetchingData ? (
-        <TableSkeleton />
+        <FormSkeleton />
       ) : (
         <Formik
           initialValues={{
