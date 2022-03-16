@@ -6,10 +6,12 @@ import { UserContext } from '../../../contexts';
 import SimpleTable from '../../Tables/SimpleTable/SimpleTable';
 import TD from '../../Tables/SimpleTable/TD/TD';
 
+import TableSkeleton from '../../UI/Skeleton/TableSkeleton/TableSkeleton';
+
 const GatewayTable = () => {
   const user = useContext(UserContext);
   const [fetchingData, setFetchingData] = useState(false);
-  const contentList = [];
+  const [contentList, setContentList] = useState([]);
 
   const headerList = ['Serial', 'Name', 'IPv4'];
   const content = [
@@ -38,17 +40,19 @@ const GatewayTable = () => {
   useEffect(async () => {
     setFetchingData(true);
 
+    let responseData;
+
     const getAllGateways = httpsCallable(functions, 'gateway-all');
     await getAllGateways({ uid: user.uid })
       .then((result) => {
-        console.log(result);
-
-        contentList = content.map((data, row) => {
-          const listRow = Object.keys(data).map((key, col) => {
-            return <TD key={row + '' + col}>{data[key]}</TD>;
-          });
-          return <tr key={row}>{listRow}</tr>;
-        });
+        responseData = result.data.listAll.map((data, row) => {
+          return <tr key={row}>
+            <TD>{data.serial}</TD>
+            <TD>{data.name}</TD>
+            <TD>{data.ipv4}</TD>
+            </tr>;
+        })
+        setContentList([...responseData]);
       })
       .catch((error) => {
         console.log(error.message);
@@ -62,8 +66,8 @@ const GatewayTable = () => {
       {!fetchingData ? (
         <SimpleTable headerList={headerList} contentList={contentList} />
       ) : (
-        'Fetching data'
-      )}
+        <TableSkeleton/>
+        )}
     </div>
   );
 };
