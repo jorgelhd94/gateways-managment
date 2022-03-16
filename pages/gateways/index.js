@@ -9,7 +9,6 @@ import GatewayTable from '../../src/components/Gateway/GatewayTable/GatewayTable
 export default function Gateways() {
   return (
     <Dashboard>
-      <div className="overflow-y-scroll h-screen pb-32">
         <div className="mx-4 mb-2">
           <Link href="/gateways/create">
             <a>
@@ -23,7 +22,6 @@ export default function Gateways() {
           </div>
           <GatewayTable />
         </Card>
-      </div>
     </Dashboard>
   );
 }

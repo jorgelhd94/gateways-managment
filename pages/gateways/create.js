@@ -9,7 +9,7 @@ import CreateForm from '../../src/components/Gateway/CreateForm/CreateForm';
 export default function CreateGateways() {
   return (
     <Dashboard>
-      <div className="m-4">
+      <div className="mx-4">
         <Link href="/gateways">
           <a>
             <ButtonIcon text="Manage Gateways" type="primary" icon={faServer} showIcon={true} />

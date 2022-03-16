@@ -22,7 +22,9 @@ const Dashboard = ({ children }) => {
             <SidebarMobile open={openSideBar} />
             <div className="flex flex-col w-full md:space-y-4">
               <Header />
+              <div className="overflow-y-scroll h-screen pt-4 pb-32">
               {children}
+              </div>
             </div>
           </OpenSideBarContext.Provider>
         </div>
