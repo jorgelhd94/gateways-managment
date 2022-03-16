@@ -5,12 +5,25 @@ exports.create = functions.https.onCall(async (data, context) => {
   const docRef = await admin
     .firestore()
     .collection('gateway')
-    .add({ ...data })
+    .add({ ...data, devices: 0 })
     .catch((error) => {
       throw new functions.https.HttpsError('aborted', error);
     });
 
   return { docId: docRef.id };
+});
+
+exports.delete = functions.https.onCall(async (data, context) => {
+  await admin
+    .firestore()
+    .collection('gateway')
+    .doc(data.id)
+    .delete()
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { docId: data.id };
 });
 
 exports.all = functions.https.onCall(async (data, context) => {
@@ -25,7 +38,8 @@ exports.all = functions.https.onCall(async (data, context) => {
     .then((result) => {
       result.forEach((doc) => {
         listAll.push({
-          ...doc.data()
+          ...doc.data(),
+          docId: doc.id
         });
       });
     })

@@ -11,7 +11,7 @@ import FetchError from '../../UI/FetchError/FetchError';
 import { toast } from 'react-toastify';
 import BtnIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
 
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const GatewayTable = () => {
   const user = useContext(UserContext);
@@ -43,6 +43,21 @@ const GatewayTable = () => {
     getData();
   }, []);
 
+  const deleteGateway = async (id) => {
+    if (window.confirm('Are you sure?')) {
+      const removeGateway = httpsCallable(functions, 'gateway-delete');
+      await removeGateway({ id })
+        .then((result) => {
+          getData();
+          toast.success('The gateway was removed correctly');
+        })
+        .catch((error) => {
+          const message = error.message;
+          toast.error(message);
+        });
+    }
+  };
+
   const transformData = () => {
     return contentList.map((data, row) => {
       return (
@@ -51,7 +66,21 @@ const GatewayTable = () => {
           <TD>{data.name}</TD>
           <TD>{data.ipv4}</TD>
           <TD>
-            <BtnIcon type='info' icon={faEye} showIcon={true} />
+            <span className="flex gap-2">
+              <BtnIcon
+                type="info"
+                icon={faEye}
+                showIcon={true}
+                click={() => console.log(data.docId)}
+              />
+              <BtnIcon type="success" icon={faPencil} showIcon={true} />
+              <BtnIcon
+                type="danger"
+                icon={faTrash}
+                showIcon={true}
+                click={() => deleteGateway(data.docId)}
+              />
+            </span>
           </TD>
         </tr>
       );

@@ -12,7 +12,7 @@ const ButtonIcon = (props) => {
     danger: 'bg-red-500 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200'
   };
   return (
-    <button type="button" className={defaultClass + styles[props.type]}>
+    <button type="button" className={defaultClass + styles[props.type]} onClick={props.click}>
       {props.showIcon && <FontAwesomeIcon icon={props.icon} className="" />}
       {props.children && <span className="ml-2">{props.children}</span>}
     </button>
@@ -22,7 +22,8 @@ const ButtonIcon = (props) => {
 ButtonIcon.propTypes = {
   type: PropTypes.oneOf(['primary', 'info', 'success', 'danger']),
   icon: PropTypes.object,
-  showIcon: PropTypes.bool.isRequired
+  showIcon: PropTypes.bool.isRequired,
+  click: PropTypes.func
 };
 
 export default ButtonIcon;
