@@ -17,7 +17,7 @@ const ButtonIcon = (props) => {
       {props.showIcon && (
         <FontAwesomeIcon
           icon={!props.loading ? props.icon : faSpinner}
-          className={props.loading && 'fa-spin'}
+          className={props.loading ? 'fa-spin' : ''}
         />
       )}
       {props.children && <span className="ml-2">{props.children}</span>}

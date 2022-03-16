@@ -7,7 +7,8 @@ import SimpleTable from '../../Tables/SimpleTable/SimpleTable';
 import TD from '../../Tables/SimpleTable/TD/TD';
 
 import TableSkeleton from '../../UI/Skeleton/TableSkeleton/TableSkeleton';
-import FetchError from '../../UI/FetchError/FetchError';
+import EmptyList from '../../UI/PageInfo/EmptyList/EmptyList';
+import FetchError from '../../UI/PageInfo/FetchError/FetchError';
 import { toast } from 'react-toastify';
 import BtnIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
 
@@ -39,15 +40,12 @@ const GatewayTable = () => {
     setFetchingData(false);
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   const deleteGateway = async (id) => {
     if (window.confirm('Are you sure?')) {
+      setFetchingData(true);
       const removeGateway = httpsCallable(functions, 'gateway-delete');
       await removeGateway({ id })
-        .then((result) => {
+        .then(() => {
           getData();
           toast.success('The gateway was removed correctly');
         })
@@ -55,8 +53,13 @@ const GatewayTable = () => {
           const message = error.message;
           toast.error(message);
         });
+      setFetchingData(false);
     }
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const transformData = () => {
     return contentList.map((data, row) => {
@@ -92,6 +95,8 @@ const GatewayTable = () => {
 
     if (showError) {
       component = <FetchError />;
+    } else if (!fetchingData && contentList.length === 0) {
+      component = <EmptyList />;
     } else if (!fetchingData) {
       component = <SimpleTable headerList={headerList} contentList={transformData()} />;
     } else {
