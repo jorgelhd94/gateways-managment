@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { functions, httpsCallable, doc, onSnapshot } from '../../../includes/firebase';
+import { functions, httpsCallable } from '../../../includes/firebase';
+import { useRouter } from 'next/router';
 
 import { UserContext } from '../../../contexts';
 
@@ -17,6 +18,8 @@ import { faEye, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const GatewayTable = () => {
   const user = useContext(UserContext);
+  const router = useRouter();
+
   const [fetchingData, setFetchingData] = useState(false);
   const [showError, setShowError] = useState(false);
   const [contentList, setContentList] = useState([]);
@@ -69,16 +72,23 @@ const GatewayTable = () => {
           <TD>{data.serial}</TD>
           <TD>{data.name}</TD>
           <TD>{data.ipv4}</TD>
-          <TD><Badge>{data.devices}</Badge></TD>
+          <TD>
+            <Badge>{data.devices}</Badge>
+          </TD>
           <TD>
             <span className="flex gap-2">
               <BtnIcon
                 type="info"
                 icon={faEye}
                 showIcon={true}
-                click={() => console.log(data.docId)}
+                click={() => router.push('/gateways/' + data.docId)}
               />
-              <BtnIcon type="success" icon={faPencil} showIcon={true} />
+              <BtnIcon
+                type="success"
+                icon={faPencil}
+                showIcon={true}
+                click={() => router.push('/gateways/edit/' + data.docId)}
+              />
               <BtnIcon
                 type="danger"
                 icon={faTrash}
