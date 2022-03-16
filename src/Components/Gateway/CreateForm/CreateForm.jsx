@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useRouter } from 'next/router';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { ipv4 } from '../../../utils/customValidators';
@@ -16,6 +17,7 @@ const CreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isValidating, setisValidating] = useState(false);
   const user = useContext(UserContext);
+  const router = useRouter();
 
   const requierdMsg = 'This is a required field';
 
@@ -69,7 +71,7 @@ const CreateForm = () => {
           await createGateway({ ...values, uid: user.uid })
             .then((result) => {
               toast.success('The gateway was created succesfully!!');
-              // router.push('/');
+              router.push('/gateways/' + result.data.docId);
             })
             .catch((error) => {
               const message = error.message;
