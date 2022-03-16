@@ -1,18 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import THead from './THead/THead';
-import TD from './TD/TD';
 
 const SimpleTable = ({headerList, contentList}) => {
   const header = headerList.map((value) => {
     return <THead key={value}>{value}</THead>;
-  });
-
-  const content = contentList.map((data, row) => {
-    const listRow = Object.keys(data).map((key, col) => {
-      return <TD key={row + '' + col}>{data[key]}</TD>
-    });
-    return <tr key={row}>{listRow}</tr>;
   });
 
   return (
@@ -24,7 +16,7 @@ const SimpleTable = ({headerList, contentList}) => {
               <thead>
                 <tr>{header}</tr>
               </thead>
-              <tbody>{content}</tbody>
+              <tbody>{contentList}</tbody>
             </table>
           </div>
         </div>
