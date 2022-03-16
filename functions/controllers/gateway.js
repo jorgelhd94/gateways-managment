@@ -26,6 +26,25 @@ exports.delete = functions.https.onCall(async (data, context) => {
   return { docId: data.id };
 });
 
+exports.getDoc = functions.https.onCall(async (data, context) => {
+  const docId = data.docId;
+  let doc = [];
+
+  await admin
+    .firestore()
+    .collection('gateway')
+    .doc(docId)
+    .get()
+    .then((result) => {
+      doc = result.data();
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { doc };
+});
+
 exports.all = functions.https.onCall(async (data, context) => {
   const uid = data.uid;
   const listAll = [];

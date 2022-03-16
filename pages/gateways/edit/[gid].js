@@ -4,6 +4,7 @@ import Dashboard from '../../../src/components/Layout/Dashboard/Dashboard';
 import Card from '../../../src/components/UI/Card/Card';
 import ButtonIcon from '../../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
 import { faServer } from '@fortawesome/free-solid-svg-icons';
+import EditForm from '../../../src/components/Gateway/EditForm/EditForm';
 
 export default function EditGateways() {
   return (
@@ -18,9 +19,7 @@ export default function EditGateways() {
         </Link>
       </div>
       <Card>
-        <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
-          Edit Gateway
-        </div>
+        <EditForm />
       </Card>
     </Dashboard>
   );
