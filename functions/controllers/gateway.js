@@ -15,7 +15,7 @@ exports.create = functions.https.onCall(async (data, context) => {
 
 exports.all = functions.https.onCall(async (data, context) => {
   const uid = data.uid;
-  const listAll = []
+  const listAll = [];
 
   await admin
     .firestore()
@@ -23,7 +23,11 @@ exports.all = functions.https.onCall(async (data, context) => {
     .where('uid', '==', uid)
     .get()
     .then((result) => {
-      listAll.push(result.size);
+      result.forEach((doc) => {
+        listAll.push({
+          ...doc.data()
+        });
+      });
     })
     .catch((error) => {
       throw new functions.https.HttpsError('aborted', error);
