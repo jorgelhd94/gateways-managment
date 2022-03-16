@@ -13,6 +13,19 @@ exports.create = functions.https.onCall(async (data, context) => {
   return { docId: docRef.id };
 });
 
+exports.edit = functions.https.onCall(async (data, context) => {
+  const docRef = await admin
+    .firestore()
+    .collection('gateway')
+    .doc(data.docId)
+    .update({ serial: data.serial, name: data.name, ipv4: data.ipv4 })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { docId: docRef.id };
+});
+
 exports.delete = functions.https.onCall(async (data, context) => {
   await admin
     .firestore()

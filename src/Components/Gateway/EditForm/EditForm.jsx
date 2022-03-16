@@ -64,20 +64,22 @@ const EditForm = () => {
   async function validateSerial(value) {
     let error;
 
-    setisValidating(true);
+    if (value !== initialValues.serial) {
+      setisValidating(true);
 
-    const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
-    await checkSerial({ value })
-      .then((result) => {
-        if (result.data.exists) {
-          error = 'This Serial already exists';
-        }
-      })
-      .catch((error) => {
-        error = 'The system cannot check the serial!!';
-      });
+      const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
+      await checkSerial({ value })
+        .then((result) => {
+          if (result.data.exists) {
+            error = 'This Serial already exists';
+          }
+        })
+        .catch((error) => {
+          error = 'The system cannot check the serial!!';
+        });
 
-    setisValidating(false);
+      setisValidating(false);
+    }
 
     return error;
   }
@@ -101,10 +103,10 @@ const EditForm = () => {
             setSubmitting(false);
             setIsLoading(true);
 
-            const createGateway = httpsCallable(functions, 'gateway-create');
-            await createGateway({ ...values, uid: user.uid })
+            const editGateway = httpsCallable(functions, 'gateway-edit');
+            await editGateway({ ...values, uid: user.uid, docId: gid })
               .then((result) => {
-                toast.success('The gateway was created succesfully!!');
+                toast.success('The gateway was updated succesfully!!');
                 // router.push('/');
               })
               .catch((error) => {
