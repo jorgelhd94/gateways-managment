@@ -11,6 +11,7 @@ import EmptyList from '../../UI/PageInfo/EmptyList/EmptyList';
 import FetchError from '../../UI/PageInfo/FetchError/FetchError';
 import { toast } from 'react-toastify';
 import BtnIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
+import Badge from '../../UI/Badge/Badge';
 
 import { faEye, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,7 +21,7 @@ const GatewayTable = () => {
   const [showError, setShowError] = useState(false);
   const [contentList, setContentList] = useState([]);
 
-  const headerList = ['Serial', 'Name', 'IPv4', ''];
+  const headerList = ['Serial', 'Name', 'IPv4', 'Devices', ''];
 
   const getData = async () => {
     setFetchingData(true);
@@ -68,6 +69,7 @@ const GatewayTable = () => {
           <TD>{data.serial}</TD>
           <TD>{data.name}</TD>
           <TD>{data.ipv4}</TD>
+          <TD><Badge>{data.devices}</Badge></TD>
           <TD>
             <span className="flex gap-2">
               <BtnIcon
