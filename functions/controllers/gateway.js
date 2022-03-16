@@ -13,6 +13,25 @@ exports.create = functions.https.onCall(async (data, context) => {
   return { docId: docRef.id };
 });
 
+exports.all = functions.https.onCall(async (data, context) => {
+  const uid = data.uid;
+  const listAll = []
+
+  await admin
+    .firestore()
+    .collection('gateway')
+    .where('uid', '==', uid)
+    .get()
+    .then((result) => {
+      listAll.push(result.size);
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { listAll };
+});
+
 exports.validateSerial = functions.https.onCall(async (data, context) => {
   const serial = data.value;
   let exists = false;
