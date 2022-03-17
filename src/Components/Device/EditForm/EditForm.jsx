@@ -27,7 +27,7 @@ const EditForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
   const [isValidating, setisValidating] = useState(false);
-  const user = useContext(UserContext);
+  const [user] = useContext(UserContext);
 
   const requierdMsg = 'This is a required field';
 
