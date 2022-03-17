@@ -45,14 +45,14 @@ const DeviceTable = () => {
     setFetchingData(false);
   };
 
-  const deleteGateway = async (id) => {
+  const deleteDevice = async (id) => {
     if (window.confirm('Are you sure?')) {
       setFetchingData(true);
-      const removeGateway = httpsCallable(functions, 'gateway-delete');
-      await removeGateway({ id })
+      const removeDevice = httpsCallable(functions, 'device-delete');
+      await removeDevice({ id })
         .then(() => {
           getData();
-          toast.success('The gateway was removed correctly');
+          toast.success('The device was removed correctly');
         })
         .catch((error) => {
           const message = error.message;
@@ -104,7 +104,7 @@ const DeviceTable = () => {
                 type="danger"
                 icon={faTrash}
                 showIcon={true}
-                click={() => deleteGateway(data.docId)}
+                click={() => deleteDevice(data.docId)}
               />
             </span>
           </TD>

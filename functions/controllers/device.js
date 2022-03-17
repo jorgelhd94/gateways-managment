@@ -47,11 +47,45 @@ exports.edit = functions.https.onCall(async (data, context) => {
 });
 
 exports.delete = functions.https.onCall(async (data, context) => {
+  let device = null;
+
+  await admin
+    .firestore()
+    .collection('device')
+    .doc(data.id)
+    .get()
+    .then((result) => {
+      device = result.data();
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  await admin
+    .firestore()
+    .collection('device')
+    .doc(data.id)
+    .delete()
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  let gateway = null;
+
   await admin
     .firestore()
     .collection('gateway')
-    .doc(data.id)
-    .delete()
+    .doc(device.gateway)
+    .get()
+    .then((result) => {
+      gateway = result.data();
+    });
+
+  await admin
+    .firestore()
+    .collection('gateway')
+    .doc(device.gateway)
+    .update({ devices: gateway.devices - 1 })
     .catch((error) => {
       throw new functions.https.HttpsError('aborted', error);
     });
