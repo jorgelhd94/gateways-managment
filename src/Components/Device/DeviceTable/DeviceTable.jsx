@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { functions, httpsCallable } from '../../../includes/firebase';
 import { useRouter } from 'next/router';
+import formatDate from '../../../utils/formatDate';
 
 import { UserContext } from '../../../contexts';
 
@@ -71,10 +72,10 @@ const DeviceTable = () => {
         <tr key={row}>
           <TD>{data.uid}</TD>
           <TD>{data.vendor}</TD>
-          <TD><Badge>{data.online ? 'Online' : 'Offline'}</Badge></TD>
           <TD>
-            <Badge>{data.online}</Badge>
+            <Badge>{data.online ? 'Online' : 'Offline'}</Badge>
           </TD>
+          <TD>{formatDate(data.onCreated)}</TD>
           <TD>
             <span className="flex gap-2">
               <BtnIcon
@@ -108,11 +109,12 @@ const DeviceTable = () => {
     if (showError) {
       component = <FetchError />;
     } else if (!fetchingData) {
-      component = contentList.length === 0 ? (
-        <EmptyList />
-      ) : (
-        <SimpleTable headerList={headerList} contentList={transformData()} />
-      );
+      component =
+        contentList.length === 0 ? (
+          <EmptyList />
+        ) : (
+          <SimpleTable headerList={headerList} contentList={transformData()} />
+        );
     } else {
       component = <TableSkeleton />;
     }
