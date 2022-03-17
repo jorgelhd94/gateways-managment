@@ -9,6 +9,8 @@ import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import EmptyList from '../../UI/PageInfo/EmptyList/EmptyList';
 
+import DeviceTable from '../../Device/DeviceTable/DeviceTable';
+
 import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';
 
 const Details = () => {
@@ -65,25 +67,32 @@ const Details = () => {
                 IPv4: <span className="font-normal">{gateway.ipv4}</span>
               </p>
             </div>
+            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+              <p className="font-medium">
+                Devices: <span className="font-normal">{gateway.devices}</span>
+              </p>
+            </div>
           </div>
         )}
       </Card>
 
       {!isFetchingData && (
         <Card>
+          <div className="flex flex-row flex-wrap justify-between">
           <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-2">
             Devices
           </div>
 
-          <Link href="/gateways/create">
+          <Link href="/devices/create">
             <a>
               <ButtonIcon type="success" icon={faPlus} showIcon={true}>
                 Add device
               </ButtonIcon>
             </a>
           </Link>
+          </div>
 
-          <EmptyList />
+          <DeviceTable />
         </Card>
       )}
     </>
