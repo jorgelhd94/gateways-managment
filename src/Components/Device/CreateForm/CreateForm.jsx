@@ -37,15 +37,15 @@ const CreateForm = () => {
 
     setisValidating(true);
 
-    const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
-    await checkSerial({ value })
+    const checkUID = httpsCallable(functions, 'device-validateUID');
+    await checkUID({ value })
       .then((result) => {
         if (result.data.exists) {
-          error = 'This Serial already exists';
+          error = 'The UID must be unique';
         }
       })
       .catch((error) => {
-        error = 'The system cannot check the serial!!';
+        error = 'The system cannot check the uid!!';
       });
 
     setisValidating(false);
