@@ -53,7 +53,7 @@ const RegisterForm = () => {
           await createUser({ ...values })
             .then(() => {
               toast.success('User was register succesfully!');
-              router.push('/');
+              router.push('/login');
             })
             .catch((error) => {
               const message = error.message;
