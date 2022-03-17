@@ -36,6 +36,31 @@ exports.delete = functions.https.onCall(async (data, context) => {
       throw new functions.https.HttpsError('aborted', error);
     });
 
+  let devices = [];
+
+  await admin
+    .firestore()
+    .collection('device')
+    .where('gateway', '==', data.id)
+    .get()
+    .then((query) => {
+      devices = query;
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  devices.forEach(async (doc) => {
+    await admin
+      .firestore()
+      .collection('device')
+      .doc(doc.id)
+      .delete()
+      .catch((error) => {
+        throw new functions.https.HttpsError('aborted', error);
+      });
+  });
+
   return { docId: data.id };
 });
 
