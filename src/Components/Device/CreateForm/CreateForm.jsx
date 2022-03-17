@@ -25,14 +25,14 @@ const CreateForm = () => {
 
   const schema = Yup.object({
     uid: Yup.string().required(requierdMsg),
-    vendor: Yup.string().required(requierdMsg),
+    vendor: Yup.string().required(requierdMsg)
   });
 
   const getError = (inputName) => {
     return <ErrorMessage name={inputName} />;
   };
 
-  async function validateSerial(value) {
+  async function validateUID(value) {
     let error;
 
     setisValidating(true);
@@ -60,7 +60,7 @@ const CreateForm = () => {
       </div>
 
       <Formik
-        initialValues={{ uid: '', vendor: ''}}
+        initialValues={{ uid: '', vendor: '', gateway: 'red', online: false }}
         validationSchema={schema}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
@@ -79,9 +79,9 @@ const CreateForm = () => {
 
           setIsLoading(false);
         }}>
-        {({ errors }) => (
+        {({ values, errors, setFieldValue }) => (
           <Form>
-            <div className="flex flex-col lg:flex-row justify-start w-full">
+            <div className="flex flex-wrap flex-col lg:flex-row justify-start w-full">
               <div className="mr-0 lg:mr-6">
                 <label htmlFor="uid" className="font-normal text-gray-600 dark:text-white">
                   UID
@@ -98,31 +98,56 @@ const CreateForm = () => {
               </div>
 
               <div className="mr-0 lg:mr-6">
-                <label htmlFor="name" className="font-normal text-gray-600 dark:text-white">
-                  Name
+                <label htmlFor="vendor" className="font-normal text-gray-600 dark:text-white">
+                  Vendor
                 </label>
-                <FieldInput error={getError('name')}>
+                <FieldInput error={getError('vendor')}>
                   <Field
-                    name="name"
+                    name="vendor"
                     type="text"
-                    className={errors.name ? errorInputClass : successInputClass}
-                    placeholder="Name"
+                    className={errors.vendor ? errorInputClass : successInputClass}
+                    placeholder="Vendor"
                   />
                 </FieldInput>
               </div>
 
               <div className="mr-0 lg:mr-6">
-                <label htmlFor="ipv4" className="font-normal text-gray-600 dark:text-white">
-                  IP v4
+                <label htmlFor="gateway" className="font-normal text-gray-600 dark:text-white">
+                  Gateway
                 </label>
-                <FieldInput error={getError('ipv4')}>
+                <FieldInput error={getError('gateway')}>
                   <Field
-                    name="ipv4"
-                    type="text"
-                    className={errors.ipv4 ? errorInputClass : successInputClass}
-                    placeholder="__.__.__.__"
-                  />
+                    as="select"
+                    name="gateway"
+                    className="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                    <option value="red">Reskjdfhsdkfd</option>
+                    <option value="green">Greesdfjhkhn</option>
+                  </Field>
                 </FieldInput>
+              </div>
+
+              <div className="mr-0 lg:mr-6">
+                <label htmlFor="online" className="font-normal text-gray-600 dark:text-white">
+                  Offline/Online
+                </label>
+
+                <div className="mt-2">
+                  <div
+                    className="relative inline-block w-10 align-middle select-none mr-2"
+                    onClick={() => setFieldValue('online', !values.online)}>
+                    <Field
+                      type="checkbox"
+                      name="online"
+                      className="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                    />
+                    <label
+                      htmlFor="online"
+                      className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                  </div>
+                  <span className="text-gray-400 font-medium">
+                    {values.online ? 'Online' : 'Offline'}
+                  </span>
+                </div>
               </div>
             </div>
 

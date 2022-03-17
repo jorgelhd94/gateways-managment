@@ -5,5 +5,13 @@ module.exports = {
   theme: {
     extend: {}
   },
+  variants: {
+    extend: {
+      backgroundColor: ['checked'],
+      borderColor: ['checked'],
+      inset: ['checked'],
+      zIndex: ['hover', 'active']
+    }
+  },
   plugins: []
 };
