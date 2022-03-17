@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -14,10 +14,34 @@ import { functions, httpsCallable } from '../../../includes/firebase';
 import { UserContext } from '../../../contexts';
 
 const CreateForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isValidating, setisValidating] = useState(false);
   const user = useContext(UserContext);
   const router = useRouter();
+
+  /* Get gateways */
+  async function getGateways() {
+    setisValidating(true);
+
+    const getList = httpsCallable(functions, 'device-listGateways');
+    await getList({ uid: user.uid })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+
+    setisValidating(false);
+  }
+
+  useEffect(() => {
+    getGateways();
+  }, []);
+
+  /* End Get gateways */
+
+  /* Form definitions */
+  const [isLoading, setIsLoading] = useState(false);
+  const [isValidating, setisValidating] = useState(false);
 
   const requierdMsg = 'This is a required field';
 
@@ -52,6 +76,7 @@ const CreateForm = () => {
 
     return error;
   }
+  /* End Form definitions*/
 
   return (
     <div>

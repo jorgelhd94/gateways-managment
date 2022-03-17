@@ -82,6 +82,31 @@ exports.all = functions.https.onCall(async (data, context) => {
   return { listAll };
 });
 
+exports.listGateways = functions.https.onCall(async (data, context) => {
+  const uid = data.uid;
+  const listAll = [];
+
+  await admin
+    .firestore()
+    .collection('gateway')
+    .where('uid', '==', uid)
+    .where('devices', '<', 10)
+    .get()
+    .then((result) => {
+      result.forEach((doc) => {
+        listAll.push({
+          ...doc.data(),
+          docId: doc.id
+        });
+      });
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { listAll };
+});
+
 exports.validateUID = functions.https.onCall(async (data, context) => {
   const uid = data.value;
   let exists = false;
