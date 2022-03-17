@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Dashboard from '../../src/components/Layout/Dashboard/Dashboard';
-import Card from '../../src/components/UI/Card/Card';
 import ButtonIcon from '../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
 import { faServer } from '@fortawesome/free-solid-svg-icons';
+import Details from '../../src/components/Gateway/Details/Details';
 
 export default function DetailGateways() {
   return (
@@ -17,11 +17,8 @@ export default function DetailGateways() {
           </a>
         </Link>
       </div>
-      <Card>
-        <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
-          Details Gateway
-        </div>
-      </Card>
+
+      <Details />
     </Dashboard>
   );
 }
