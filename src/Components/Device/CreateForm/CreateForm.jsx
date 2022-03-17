@@ -3,18 +3,20 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { ipv4 } from '../../../utils/customValidators';
 
-import { successInputClass, errorInputClass } from '../../../utils/inputStyle';
+import {
+  successInputClass,
+  errorInputClass,
+  selectSuccessClass,
+  selectErrorClass
+} from '../../../utils/inputStyle';
+
 import FieldInput from '../../UI/InputForm/InputForm';
 import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
 import { toast } from 'react-toastify';
 import { functions, httpsCallable } from '../../../includes/firebase';
 
-import { UserContext } from '../../../contexts';
-
 const CreateForm = (props) => {
-  const [user] = useContext(UserContext);
   const router = useRouter();
 
   /* Create select options */
@@ -33,7 +35,8 @@ const CreateForm = (props) => {
           </option>
         );
       });
-      setListOptions(list);
+      const empty = <option key="empty" value=""></option>;
+      setListOptions([empty, ...list]);
     }
   };
 
@@ -46,11 +49,10 @@ const CreateForm = (props) => {
 
   const requierdMsg = 'This is a required field';
 
-  Yup.addMethod(Yup.string, 'ipv4', ipv4);
-
   const schema = Yup.object({
     uid: Yup.string().required(requierdMsg),
-    vendor: Yup.string().required(requierdMsg)
+    vendor: Yup.string().required(requierdMsg),
+    gateway: Yup.string().required(requierdMsg)
   });
 
   const getError = (inputName) => {
@@ -88,11 +90,11 @@ const CreateForm = (props) => {
           setSubmitting(false);
           setIsLoading(true);
 
-          const createGateway = httpsCallable(functions, 'gateway-create');
-          await createGateway({ ...values, uid: user.uid })
+          const createDevice = httpsCallable(functions, 'device-create');
+          await createDevice({ ...values })
             .then((result) => {
               toast.success('The device was created succesfully!!');
-              router.push('/gateways/' + result.data.docId);
+              router.push('/gateways/' + values.gateway);
             })
             .catch((error) => {
               const message = error.message;
@@ -141,7 +143,7 @@ const CreateForm = (props) => {
                   <Field
                     as="select"
                     name="gateway"
-                    className="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                    className={errors.gateway ? selectErrorClass : selectSuccessClass}>
                     {listOptions}
                   </Field>
                 </FieldInput>
