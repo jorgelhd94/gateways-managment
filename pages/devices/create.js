@@ -6,8 +6,8 @@ import Card from '../../src/components/UI/Card/Card';
 import ButtonIcon from '../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
 import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 
-import CreateForm from '../../src/components/Device/CreateForm/CreateForm';
-
+import CreateDevice
+ from '../../src/components/Device/CreateDevice/CreateDevice';
 export default function CreateGateways() {
   return (
     <Dashboard>
@@ -21,7 +21,7 @@ export default function CreateGateways() {
         </Link>
       </div>
       <Card>
-        <CreateForm />
+        <CreateDevice />
       </Card>
     </Dashboard>
   );
