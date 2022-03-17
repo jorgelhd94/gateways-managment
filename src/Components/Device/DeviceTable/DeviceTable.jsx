@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import BtnIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
 import Badge from '../../UI/Badge/Badge';
 
-import { faEye, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencil, faTrash, faServer } from '@fortawesome/free-solid-svg-icons';
 
 const DeviceTable = () => {
   const [user] = useContext(UserContext);
@@ -25,7 +25,7 @@ const DeviceTable = () => {
   const [showError, setShowError] = useState(false);
   const [contentList, setContentList] = useState([]);
 
-  const headerList = ['UID', 'Vendor', 'Status', 'Created', ''];
+  const headerList = ['UID', 'Vendor', 'Status', 'Created', 'Gateway', ''];
 
   const getData = async () => {
     setFetchingData(true);
@@ -73,9 +73,19 @@ const DeviceTable = () => {
           <TD>{data.uid}</TD>
           <TD>{data.vendor}</TD>
           <TD>
-            <Badge>{data.online ? 'Online' : 'Offline'}</Badge>
+            <Badge type={data.online ? 'success' : 'sad'}>
+              {data.online ? 'Online' : 'Offline'}
+            </Badge>
           </TD>
           <TD>{formatDate(data.onCreated)}</TD>
+          <TD>
+            <BtnIcon
+              type="primary"
+              icon={faServer}
+              showIcon={true}
+              click={() => router.push('/gateways/' + data.gateway)}
+            />
+          </TD>
           <TD>
             <span className="flex gap-2">
               <BtnIcon
