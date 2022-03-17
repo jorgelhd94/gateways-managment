@@ -4,6 +4,7 @@ import { UserContext, OpenSideBarContext } from '../../../contexts';
 import SideBar from '../../Navigation/SideBar/SideBar';
 import SidebarMobile from '../../Navigation/SideBar/SidebarMobile';
 import Header from '../../Navigation/Header/Header';
+import LoadingScreen from '../../UI/Preloaders/LoadingScreen/LoadingScreen';
 
 const Dashboard = ({ children }) => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const Dashboard = ({ children }) => {
           </div>
         </main>
       ) : (
-        'Not access'
+        <LoadingScreen />
       )}
     </div>
   );
