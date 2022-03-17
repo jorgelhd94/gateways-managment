@@ -136,6 +136,30 @@ exports.all = functions.https.onCall(async (data, context) => {
   return { listAll };
 });
 
+exports.getByGateway = functions.https.onCall(async (data, context) => {
+  const gateway = data.gateway;
+  const listAll = [];
+
+  await admin
+    .firestore()
+    .collection('device')
+    .where('gateway', '==', gateway)
+    .get()
+    .then((result) => {
+      result.forEach((doc) => {
+        listAll.push({
+          ...doc.data(),
+          docId: doc.id
+        });
+      });
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { listAll };
+});
+
 exports.listGateways = functions.https.onCall(async (data, context) => {
   const uid = data.uid;
   const listAll = [];

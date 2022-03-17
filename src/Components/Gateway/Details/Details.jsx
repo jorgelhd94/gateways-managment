@@ -92,7 +92,7 @@ const Details = () => {
           </Link>
           </div>
 
-          <DeviceTable />
+          <DeviceTable gateway={gid}/>
         </Card>
       )}
     </>

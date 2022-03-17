@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { functions, httpsCallable } from '../../../includes/firebase';
 import { useRouter } from 'next/router';
 import formatDate from '../../../utils/formatDate';
@@ -17,7 +18,7 @@ import Badge from '../../UI/Badge/Badge';
 
 import { faEye, faPencil, faTrash, faServer } from '@fortawesome/free-solid-svg-icons';
 
-const DeviceTable = () => {
+const DeviceTable = (props) => {
   const [user] = useContext(UserContext);
   const router = useRouter();
 
@@ -25,14 +26,25 @@ const DeviceTable = () => {
   const [showError, setShowError] = useState(false);
   const [contentList, setContentList] = useState([]);
 
-  const headerList = ['UID', 'Vendor', 'Status', 'Created', 'Gateway', ''];
+  let headerList = ['UID', 'Vendor', 'Status', 'Created', 'Gateway', ''];
 
+  if (props.gateway) {
+    headerList = ['UID', 'Vendor', 'Status', 'Created', ''];
+  }
+  
   const getData = async () => {
     setFetchingData(true);
     setShowError(false);
 
-    const getDevices = httpsCallable(functions, 'device-all');
-    await getDevices({ user: user.uid })
+    let getDevices = httpsCallable(functions, 'device-all');
+    let sendData = { user: user.uid };
+
+    if (props.gateway) {
+      getDevices = httpsCallable(functions, 'device-getByGateway');
+      sendData['gateway'] = props.gateway;
+    }
+
+    await getDevices(sendData)
       .then((result) => {
         setContentList([...result.data.listAll]);
       })
@@ -78,14 +90,16 @@ const DeviceTable = () => {
             </Badge>
           </TD>
           <TD>{formatDate(data.onCreated)}</TD>
-          <TD>
-            <BtnIcon
-              type="primary"
-              icon={faServer}
-              showIcon={true}
-              click={() => router.push('/gateways/' + data.gateway)}
-            />
-          </TD>
+          {!props.gateway && (
+            <TD>
+              <BtnIcon
+                type="primary"
+                icon={faServer}
+                showIcon={true}
+                click={() => router.push('/gateways/' + data.gateway)}
+              />
+            </TD>
+          )}
           <TD>
             <span className="flex gap-2">
               <BtnIcon
@@ -133,6 +147,10 @@ const DeviceTable = () => {
   };
 
   return <div>{tableComponent()}</div>;
+};
+
+DeviceTable.propTypes = {
+  gateway: PropTypes.string
 };
 
 export default DeviceTable;
