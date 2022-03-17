@@ -5,7 +5,7 @@ const Head = () => {
   return (
     <HeadNext>
         <title>Gateways Managment System</title>
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
       </HeadNext>
   )
 }
