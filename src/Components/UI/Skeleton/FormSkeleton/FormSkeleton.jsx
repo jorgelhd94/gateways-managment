@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableSkeleton = () => {
+const FormSkeleton = () => {
   return (
     <div className="bg-white rounded w-full mx-auto rounded-2xl mt-8">
       <div className="">
@@ -17,4 +17,4 @@ const TableSkeleton = () => {
   );
 };
 
-export default TableSkeleton;
+export default FormSkeleton;
