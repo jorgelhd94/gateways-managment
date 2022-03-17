@@ -14,9 +14,13 @@ import {
 import FieldInput from '../../UI/InputForm/InputForm';
 import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
 import { toast } from 'react-toastify';
+
 import { functions, httpsCallable } from '../../../includes/firebase';
 
+import { UserContext } from '../../../contexts';
+
 const CreateForm = (props) => {
+  const [user] = useContext(UserContext);
   const router = useRouter();
 
   /* Create select options */
@@ -91,7 +95,7 @@ const CreateForm = (props) => {
           setIsLoading(true);
 
           const createDevice = httpsCallable(functions, 'device-create');
-          await createDevice({ ...values })
+          await createDevice({ ...values, user: user.uid, onCreated: new Date().toString() })
             .then((result) => {
               toast.success('The device was created succesfully!!');
               router.push('/gateways/' + values.gateway);

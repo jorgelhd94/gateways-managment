@@ -84,7 +84,7 @@ exports.all = functions.https.onCall(async (data, context) => {
 
   await admin
     .firestore()
-    .collection('gateway')
+    .collection('device')
     .where('uid', '==', uid)
     .get()
     .then((result) => {
