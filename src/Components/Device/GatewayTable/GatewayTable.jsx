@@ -17,7 +17,7 @@ import Badge from '../../UI/Badge/Badge';
 import { faEye, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const GatewayTable = () => {
-  const user = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const router = useRouter();
 
   const [fetchingData, setFetchingData] = useState(false);

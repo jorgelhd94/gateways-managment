@@ -16,7 +16,7 @@ import { UserContext } from '../../../contexts';
 const CreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isValidating, setisValidating] = useState(false);
-  const user = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const router = useRouter();
 
   const requierdMsg = 'This is a required field';

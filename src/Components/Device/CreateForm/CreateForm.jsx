@@ -14,7 +14,7 @@ import { functions, httpsCallable } from '../../../includes/firebase';
 import { UserContext } from '../../../contexts';
 
 const CreateForm = () => {
-  const user = useContext(UserContext);
+  const [user] = useContext(UserContext);
   const router = useRouter();
 
   /* Get gateways */
