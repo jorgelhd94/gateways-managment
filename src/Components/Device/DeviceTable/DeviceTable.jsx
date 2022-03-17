@@ -16,7 +16,7 @@ import Badge from '../../UI/Badge/Badge';
 
 import { faEye, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-const GatewayTable = () => {
+const DeviceTable = () => {
   const [user] = useContext(UserContext);
   const router = useRouter();
 
@@ -24,14 +24,14 @@ const GatewayTable = () => {
   const [showError, setShowError] = useState(false);
   const [contentList, setContentList] = useState([]);
 
-  const headerList = ['Serial', 'Name', 'IPv4', 'Devices', ''];
+  const headerList = ['UID', 'Vendor', 'Status', 'Created', ''];
 
   const getData = async () => {
     setFetchingData(true);
     setShowError(false);
 
-    const getAllGateways = httpsCallable(functions, 'gateway-all');
-    await getAllGateways({ uid: user.uid })
+    const getDevices = httpsCallable(functions, 'device-all');
+    await getDevices({ user: user.uid })
       .then((result) => {
         setContentList([...result.data.listAll]);
       })
@@ -69,11 +69,11 @@ const GatewayTable = () => {
     return contentList.map((data, row) => {
       return (
         <tr key={row}>
-          <TD>{data.serial}</TD>
-          <TD>{data.name}</TD>
-          <TD>{data.ipv4}</TD>
+          <TD>{data.uid}</TD>
+          <TD>{data.vendor}</TD>
+          <TD><Badge>{data.online ? 'Online' : 'Offline'}</Badge></TD>
           <TD>
-            <Badge>{data.devices}</Badge>
+            <Badge>{data.online}</Badge>
           </TD>
           <TD>
             <span className="flex gap-2">
@@ -123,4 +123,4 @@ const GatewayTable = () => {
   return <div>{tableComponent()}</div>;
 };
 
-export default GatewayTable;
+export default DeviceTable;

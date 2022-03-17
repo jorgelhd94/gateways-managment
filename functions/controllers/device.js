@@ -79,13 +79,13 @@ exports.getDoc = functions.https.onCall(async (data, context) => {
 });
 
 exports.all = functions.https.onCall(async (data, context) => {
-  const uid = data.uid;
+  const user = data.user;
   const listAll = [];
 
   await admin
     .firestore()
     .collection('device')
-    .where('uid', '==', uid)
+    .where('user', '==', user)
     .get()
     .then((result) => {
       result.forEach((doc) => {

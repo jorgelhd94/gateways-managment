@@ -155,7 +155,7 @@ const CreateForm = (props) => {
 
               <div className="mr-0 lg:mr-6">
                 <label htmlFor="online" className="font-normal text-gray-600 dark:text-white">
-                  Offline/Online
+                  Status
                 </label>
 
                 <div className="mt-2">
