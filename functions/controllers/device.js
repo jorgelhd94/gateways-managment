@@ -13,6 +13,30 @@ exports.create = functions.https.onCall(async (data, context) => {
   return { docId: docRef.id };
 });
 
+exports.incrementDevice = functions.firestore
+  .document('device/{deviceId}')
+  .onCreate(async (snap, context) => {
+    let gateway = null;
+
+    await admin
+      .firestore()
+      .collection('gateway')
+      .doc(snap.data().gateway)
+      .get()
+      .then((result) => {
+        gateway = result.data();
+      });
+
+    await admin
+      .firestore()
+      .collection('gateway')
+      .doc(snap.data().gateway)
+      .update({ devices: gateway.devices + 1 })
+      .catch((error) => {
+        throw new functions.https.HttpsError('aborted', error);
+      });
+  });
+
 exports.edit = functions.https.onCall(async (data, context) => {
   await admin
     .firestore()

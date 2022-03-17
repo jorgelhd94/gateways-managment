@@ -51,7 +51,7 @@ const RegisterForm = () => {
 
           const createUser = httpsCallable(functions, 'users-register');
           await createUser({ ...values })
-            .then((result) => {
+            .then(() => {
               toast.success('User was register succesfully!');
               router.push('/');
             })
