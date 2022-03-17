@@ -1,16 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { UserContext, OpenSideBarContext } from '../../../contexts';
 import SideBar from '../../Navigation/SideBar/SideBar';
 import SidebarMobile from '../../Navigation/SideBar/SidebarMobile';
 import Header from '../../Navigation/Header/Header';
 
 const Dashboard = ({ children }) => {
-  const user = useContext(UserContext);
+  const router = useRouter();
+  const [user, isUserLoad] = useContext(UserContext);
   const [openSideBar, setOpenSideBar] = useState(false);
 
   const toogleOpen = () => {
     setOpenSideBar(!openSideBar);
   };
+
+  useEffect(() => {
+    if (!isUserLoad && !user) {
+      router.push('/login');
+    }
+  }, [isUserLoad]);
 
   // return <div>{user ? children : <div>Not access</div>}</div>;
   return (
