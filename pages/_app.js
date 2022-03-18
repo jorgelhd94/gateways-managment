@@ -34,6 +34,8 @@ function App({ Component, pageProps }) {
     }
 
     window.addEventListener('load', preloader);
+
+    return () => window.removeEventListener('load', preloader);
   }, []);
 
   return (

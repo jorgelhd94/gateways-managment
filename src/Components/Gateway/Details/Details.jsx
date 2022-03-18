@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { functions, httpsCallable } from '../../../includes/firebase';
+import { functions, httpsCallable, db, doc, onSnapshot } from '../../../includes/firebase';
 
 import Card from '../../UI/Card/Card';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import EmptyList from '../../UI/PageInfo/EmptyList/EmptyList';
 
 import DeviceTable from '../../Device/DeviceTable/DeviceTable';
 
 import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';
+import { toast } from 'react-toastify';
 
 const Details = () => {
   const router = useRouter();
@@ -20,11 +20,12 @@ const Details = () => {
   const [gateway, setGateway] = useState({
     serial: '',
     name: '',
-    ipv4: ''
+    ipv4: '',
+    devices: 0
   });
   const [isFetchingData, setIsFetchingData] = useState(true);
 
-  useEffect(async () => {
+  const getData = async () => {
     setIsFetchingData(true);
     const getGateway = httpsCallable(functions, 'gateway-getDoc');
     await getGateway({ docId: gid })
@@ -40,7 +41,24 @@ const Details = () => {
         const message = error.message;
         toast.error(message);
       });
+  };
+  useEffect(() => {
+    getData();
   }, []);
+
+  //Listen for changes
+  useEffect(() => {
+    const unsub = onSnapshot(
+      doc(db, 'gateway', gid.toString()),
+      (doc) => {
+        setGateway(doc.data());
+      },
+      (error) => {
+        toast.error(error.message);
+      }
+    );
+    return () => unsub();
+  });
 
   return (
     <>
@@ -79,20 +97,26 @@ const Details = () => {
       {!isFetchingData && (
         <Card>
           <div className="flex flex-row flex-wrap justify-between">
-          <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-2">
-            Devices
+            <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-2">
+              Devices
+            </div>
+
+            <Link href="/devices/create">
+              <a>
+                <ButtonIcon type="success" icon={faPlus} showIcon={true}>
+                  Add device
+                </ButtonIcon>
+              </a>
+            </Link>
           </div>
 
-          <Link href="/devices/create">
-            <a>
-              <ButtonIcon type="success" icon={faPlus} showIcon={true}>
-                Add device
-              </ButtonIcon>
-            </a>
-          </Link>
+          <div className="flex flex-row">
+            <div className="text-md font-bold text-gray-600 dark:text-white mb-2">
+              Capacity: {gateway.devices}/10
+            </div>
           </div>
 
-          <DeviceTable gateway={gid}/>
+          <DeviceTable gateway={gid} />
         </Card>
       )}
     </>
