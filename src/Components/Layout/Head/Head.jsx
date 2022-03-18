@@ -4,7 +4,7 @@ import HeadNext from 'next/head'
 const Head = () => {
   return (
     <HeadNext>
-        <title>Gateways Managment System</title>
+        <title>Gateway Management System</title>
         <link rel="icon" href="/favicon.ico" />
       </HeadNext>
   )
