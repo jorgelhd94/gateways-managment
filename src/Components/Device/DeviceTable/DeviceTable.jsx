@@ -106,13 +106,13 @@ const DeviceTable = (props) => {
                 type="info"
                 icon={faEye}
                 showIcon={true}
-                click={() => router.push('/gateways/' + data.docId)}
+                click={() => router.push('/devices/' + data.docId)}
               />
               <BtnIcon
                 type="success"
                 icon={faPencil}
                 showIcon={true}
-                click={() => router.push('/gateways/edit/' + data.docId)}
+                click={() => router.push('/devices/edit/' + data.docId)}
               />
               <BtnIcon
                 type="danger"

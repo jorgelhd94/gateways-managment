@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import CreateForm from '../Forms/CreateForm/CreateForm';
+import CreateForm from '../CreateForm/CreateForm';
 
 import { toast } from 'react-toastify';
 import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';

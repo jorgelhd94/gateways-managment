@@ -3,17 +3,17 @@ import { useRouter } from 'next/router';
 
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { ipv4 } from '../../../utils/customValidators';
+import { ipv4 } from '../../../../utils/customValidators';
 
-import { successInputClass, errorInputClass } from '../../../utils/inputStyle';
-import FieldInput from '../../UI/InputForm/InputForm';
-import ButtonSubmit from '../../UI/Buttons/ButtonSubmit/ButtonSubmit';
+import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
+import FieldInput from '../../../UI/InputForm/InputForm';
+import ButtonSubmit from '../../../UI/Buttons/ButtonSubmit/ButtonSubmit';
 import { toast } from 'react-toastify';
-import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';
+import FormSkeleton from '../../../UI/Skeleton/FormSkeleton/FormSkeleton';
 
-import { functions, httpsCallable } from '../../../includes/firebase';
+import { functions, httpsCallable } from '../../../../includes/firebase';
 
-import { UserContext } from '../../../contexts';
+import { UserContext } from '../../../../contexts';
 
 const EditForm = () => {
   const router = useRouter();
