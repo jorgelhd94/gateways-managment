@@ -18,6 +18,7 @@ const Details = () => {
   const { gid } = router.query;
 
   const [gateway, setGateway] = useState({
+    docId: '',
     serial: '',
     name: '',
     ipv4: '',
@@ -102,7 +103,7 @@ const Details = () => {
             </div>
 
             {gateway.devices < 10 && (
-              <Link href="/devices/create">
+              <Link href={'/devices/create/' + gid}>
                 <a>
                   <ButtonIcon type="success" icon={faPlus} showIcon={true}>
                     Add device

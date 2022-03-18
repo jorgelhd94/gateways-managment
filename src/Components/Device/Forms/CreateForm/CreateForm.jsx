@@ -22,14 +22,15 @@ import { UserContext } from '../../../../contexts';
 const CreateForm = (props) => {
   const [user] = useContext(UserContext);
   const router = useRouter();
-
+  const { gid } = router.query;
+  
   /* Create select options */
   const [listOptions, setListOptions] = useState([
     <option key={0} disabled>
       No elements
     </option>
   ]);
-
+  
   const createSelect = () => {
     if (props.listGateways.length > 0) {
       const list = props.listGateways.map((value) => {
@@ -83,7 +84,7 @@ const CreateForm = (props) => {
   return (
     <>
       <Formik
-        initialValues={{ uid: '', vendor: '', gateway: '', online: false }}
+        initialValues={{ uid: '', vendor: '', gateway: gid || '', online: false }}
         validationSchema={schema}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
