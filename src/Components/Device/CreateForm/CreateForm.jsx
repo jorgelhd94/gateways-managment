@@ -107,7 +107,7 @@ const CreateForm = (props) => {
 
           setIsLoading(false);
         }}>
-        {({ values, errors, setFieldValue }) => (
+        {({ values, errors, setFieldValue, isValidating }) => (
           <Form>
             <div className="flex flex-wrap flex-col lg:flex-row justify-start w-full">
               <div className="mr-0 lg:mr-6">
@@ -179,7 +179,7 @@ const CreateForm = (props) => {
             </div>
 
             <div className="my-6 flex justify-end w-full">
-              <ButtonSubmit isLoading={isLoading}>Submit</ButtonSubmit>
+              <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>Submit</ButtonSubmit>
             </div>
           </Form>
         )}
