@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Dashboard from '../../src/components/Layout/Dashboard/Dashboard';
 import ButtonIcon from '../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
-import { faServer } from '@fortawesome/free-solid-svg-icons';
+import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 import Details from '../../src/components/Device/Details/Details';
 
 export default function DetailDevices() {
@@ -11,7 +11,7 @@ export default function DetailDevices() {
       <div className="mx-4">
         <Link href="/devices">
           <a>
-            <ButtonIcon type="primary" icon={faServer} showIcon={true}>
+            <ButtonIcon type="primary" icon={faLaptop} showIcon={true}>
               Manage Devices
             </ButtonIcon>
           </a>

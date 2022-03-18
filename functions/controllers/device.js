@@ -99,7 +99,7 @@ exports.getDoc = functions.https.onCall(async (data, context) => {
 
   await admin
     .firestore()
-    .collection('gateway')
+    .collection('device')
     .doc(docId)
     .get()
     .then((result) => {

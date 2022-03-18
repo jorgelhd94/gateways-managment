@@ -1,37 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { functions, httpsCallable } from '../../../includes/firebase';
 
 import Card from '../../UI/Card/Card';
-import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import EmptyList from '../../UI/PageInfo/EmptyList/EmptyList';
-
+import Badge from '../../UI/Badge/Badge';
 import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';
+import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
+import { faServer } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
+
+import formatDate from '../../../utils/formatDate';
 
 const Details = () => {
   const router = useRouter();
-  const { gid } = router.query;
+  const { deviceId } = router.query;
 
-  const [gateway, setGateway] = useState({
-    serial: '',
-    name: '',
-    ipv4: ''
+  const [device, setDevice] = useState({
+    uid: 'Not found',
+    vendor: 'Not found',
+    status: 'Not found',
+    onCreated: 'Not found',
+    gateway: 'Not found'
   });
   const [isFetchingData, setIsFetchingData] = useState(true);
 
   useEffect(async () => {
     setIsFetchingData(true);
-    const getGateway = httpsCallable(functions, 'gateway-getDoc');
-    await getGateway({ docId: gid })
+    const getDevice = httpsCallable(functions, 'device-getDoc');
+    await getDevice({ docId: deviceId })
       .then((result) => {
         if (result.data.doc) {
-          setGateway(result.data.doc);
+          setDevice(result.data.doc);
           setIsFetchingData(false);
         } else {
-          router.push('/gateways');
+          router.push('/devices');
         }
       })
       .catch((error) => {
@@ -46,46 +50,49 @@ const Details = () => {
         {isFetchingData ? (
           <FormSkeleton />
         ) : (
-          <div className="flex flex-col justify-start">
-            <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
-              Details Gateway
+          <>
+            <div className="flex flex-row flex-nowrap justify-between">
+              <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
+                Details Device
+              </div>
+              <Link href={'/gateways/' + device.gateway}>
+                <a>
+                  <ButtonIcon type="primary" icon={faServer} showIcon={true}>
+                    Gateway
+                  </ButtonIcon>
+                </a>
+              </Link>
             </div>
-            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
-              <p className="font-medium">
-                Serial: <span className="font-normal">{gateway.serial}</span>
-              </p>
+            <div className="flex flex-col justify-start">
+              <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                <p className="font-medium">
+                  UID: <span className="font-normal">{device.uid}</span>
+                </p>
+              </div>
+              <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                <p className="font-medium">
+                  Vendor: <span className="font-normal">{device.vendor}</span>
+                </p>
+              </div>
+              <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                <p className="font-medium">
+                  Created: <span className="font-normal">{formatDate(device.onCreated)}</span>
+                </p>
+              </div>
+              <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                <p className="font-medium">
+                  Status:{' '}
+                  <span className="font-normal">
+                    <Badge type={device.online ? 'success' : 'sad'}>
+                      {device.online ? 'Online' : 'Offline'}
+                    </Badge>
+                  </span>
+                </p>
+              </div>
             </div>
-            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
-              <p className="font-medium">
-                Name: <span className="font-normal">{gateway.name}</span>
-              </p>
-            </div>
-            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
-              <p className="font-medium">
-                IPv4: <span className="font-normal">{gateway.ipv4}</span>
-              </p>
-            </div>
-          </div>
+          </>
         )}
       </Card>
-
-      {!isFetchingData && (
-        <Card>
-          <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-2">
-            Devices
-          </div>
-
-          <Link href="/gateways/create">
-            <a>
-              <ButtonIcon type="success" icon={faPlus} showIcon={true}>
-                Add device
-              </ButtonIcon>
-            </a>
-          </Link>
-
-          <EmptyList />
-        </Card>
-      )}
     </>
   );
 };
