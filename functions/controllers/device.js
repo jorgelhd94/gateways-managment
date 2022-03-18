@@ -1,6 +1,33 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
+const changeGatewayDevices = async (gatewayID, increment) => {
+  let gateway = null;
+  let newCount = 0;
+
+  await admin
+    .firestore()
+    .collection('gateway')
+    .doc(gatewayID)
+    .get()
+    .then((result) => {
+      gateway = result.data();
+      newCount = increment ? gateway.devices + 1 : gateway.devices - 1;
+    })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  await admin
+    .firestore()
+    .collection('gateway')
+    .doc(gatewayID)
+    .update({ devices: newCount })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+};
+
 exports.create = functions.https.onCall(async (data, context) => {
   const docRef = await admin
     .firestore()
@@ -10,44 +37,44 @@ exports.create = functions.https.onCall(async (data, context) => {
       throw new functions.https.HttpsError('aborted', error);
     });
 
-  let gateway = null;
-
-  await admin
-    .firestore()
-    .collection('gateway')
-    .doc(data.gateway)
-    .get()
-    .then((result) => {
-      gateway = result.data();
-    });
-
-  await admin
-    .firestore()
-    .collection('gateway')
-    .doc(data.gateway)
-    .update({ devices: gateway.devices + 1 })
-    .catch((error) => {
-      throw new functions.https.HttpsError('aborted', error);
-    });
+  changeGatewayDevices(data.gateway, true);
 
   return { docId: docRef.id };
 });
 
 exports.edit = functions.https.onCall(async (data, context) => {
+  let doc = [];
   await admin
     .firestore()
-    .collection('gateway')
+    .collection('device')
     .doc(data.docId)
-    .update({ serial: data.serial, name: data.name, ipv4: data.ipv4 })
+    .get()
+    .then((result) => {
+      doc = result.data();
+    })
     .catch((error) => {
       throw new functions.https.HttpsError('aborted', error);
     });
+
+  await admin
+    .firestore()
+    .collection('device')
+    .doc(data.docId)
+    .update({ uid: data.uid, vendor: data.vendor, gateway: data.gateway, online: data.online })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  if (doc.gateway !== data.gateway) {
+    await changeGatewayDevices(data.gateway, true);
+    await changeGatewayDevices(doc.gateway, false);
+  }
 
   return { docId: data.docId };
 });
 
 exports.delete = functions.https.onCall(async (data, context) => {
-  let device = null;
+  let doc = [];
 
   await admin
     .firestore()
@@ -55,7 +82,7 @@ exports.delete = functions.https.onCall(async (data, context) => {
     .doc(data.id)
     .get()
     .then((result) => {
-      device = result.data();
+      doc = result.data();
     })
     .catch((error) => {
       throw new functions.https.HttpsError('aborted', error);
@@ -70,25 +97,7 @@ exports.delete = functions.https.onCall(async (data, context) => {
       throw new functions.https.HttpsError('aborted', error);
     });
 
-  let gateway = null;
-
-  await admin
-    .firestore()
-    .collection('gateway')
-    .doc(device.gateway)
-    .get()
-    .then((result) => {
-      gateway = result.data();
-    });
-
-  await admin
-    .firestore()
-    .collection('gateway')
-    .doc(device.gateway)
-    .update({ devices: gateway.devices - 1 })
-    .catch((error) => {
-      throw new functions.https.HttpsError('aborted', error);
-    });
+  await changeGatewayDevices(doc.gateway, false);
 
   return { docId: data.id };
 });

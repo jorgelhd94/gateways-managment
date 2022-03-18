@@ -1,11 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { ipv4 } from '../../../../utils/customValidators';
 
-import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
+import {
+  successInputClass,
+  errorInputClass,
+  selectSuccessClass,
+  selectErrorClass
+} from '../../../../utils/inputStyle';
+
 import FieldInput from '../../../UI/InputForm/InputForm';
 import ButtonSubmit from '../../../UI/Buttons/ButtonSubmit/ButtonSubmit';
 import { toast } from 'react-toastify';
@@ -13,34 +18,29 @@ import FormSkeleton from '../../../UI/Skeleton/FormSkeleton/FormSkeleton';
 
 import { functions, httpsCallable } from '../../../../includes/firebase';
 
-import { UserContext } from '../../../../contexts';
-
-const EditForm = () => {
+const EditForm = (props) => {
   const router = useRouter();
-  const { gid } = router.query;
+  const { deviceId } = router.query;
+
   const [initialValues, setInitialValues] = useState({
-    serial: '',
-    name: '',
-    ipv4: ''
+    uid: '',
+    vendor: '',
+    gateway: '',
+    online: false
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  /* Fetch data */
   const [isFetchingData, setIsFetchingData] = useState(false);
-  const [isValidating, setisValidating] = useState(false);
-  const [user] = useContext(UserContext);
-
-  const requierdMsg = 'This is a required field';
-
   useEffect(async () => {
     setIsFetchingData(true);
-    const getGateway = httpsCallable(functions, 'gateway-getDoc');
-    await getGateway({ docId: gid })
+    const getDevice = httpsCallable(functions, 'device-getDoc');
+    await getDevice({ docId: deviceId })
       .then((result) => {
         if (result.data.doc) {
           setInitialValues(result.data.doc);
           setIsFetchingData(false);
         } else {
-          router.push('/gateways');
+          router.push('/devices');
         }
       })
       .catch((error) => {
@@ -48,66 +48,91 @@ const EditForm = () => {
         toast.error(message);
       });
   }, []);
+  /* End Fetch data*/
 
-  Yup.addMethod(Yup.string, 'ipv4', ipv4);
+  /* Create select options */
+  const [listOptions, setListOptions] = useState([
+    <option key={0} disabled>
+      No elements
+    </option>
+  ]);
+
+  const createSelect = () => {
+    if (props.listGateways.length > 0) {
+      const list = props.listGateways.map((value) => {
+        return (
+          <option
+            key={value.docId}
+            value={value.docId}>
+            {value.name} - {value.serial}
+          </option>
+        );
+      });
+      const empty = <option key="empty" value=""></option>;
+      setListOptions([empty, ...list]);
+    }
+  };
+
+  useEffect(() => createSelect(), []);
+  /* End Create select options */
+
+  /* Form definitions */
+  const [isLoading, setIsLoading] = useState(false);
+
+  const requierdMsg = 'This is a required field';
 
   const schema = Yup.object({
-    serial: Yup.string().required(requierdMsg),
-    name: Yup.string().required(requierdMsg),
-    ipv4: Yup.string().ipv4().required(requierdMsg)
+    uid: Yup.string().required(requierdMsg),
+    vendor: Yup.string().required(requierdMsg),
+    gateway: Yup.string().required(requierdMsg)
   });
 
   const getError = (inputName) => {
     return <ErrorMessage name={inputName} />;
   };
 
-  async function validateSerial(value) {
+  async function validateUID(value) {
     let error;
 
-    if (value !== initialValues.serial) {
-      setisValidating(true);
-
-      const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
-      await checkSerial({ value })
+    if (value !== initialValues.uid) {
+      const checkUID = httpsCallable(functions, 'device-validateUID');
+      await checkUID({ value })
         .then((result) => {
           if (result.data.exists) {
-            error = 'This Serial already exists';
+            error = 'The UID must be unique';
           }
         })
         .catch((error) => {
-          error = 'The system cannot check the serial!!';
+          error = 'The system cannot check the uid!!';
         });
-
-      setisValidating(false);
     }
 
     return error;
   }
+  /* End Form definitions*/
 
   return (
-    <div>
-      <div className="mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
-        Edit Gateway
-      </div>
+    <>
       {isFetchingData ? (
         <FormSkeleton />
       ) : (
         <Formik
           initialValues={{
-            serial: initialValues.serial,
-            name: initialValues.name,
-            ipv4: initialValues.ipv4
+            uid: initialValues.uid,
+            vendor: initialValues.vendor,
+            gateway: initialValues.gateway,
+            online: initialValues.online
           }}
           validationSchema={schema}
           onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(false);
             setIsLoading(true);
 
-            const editGateway = httpsCallable(functions, 'gateway-edit');
-            await editGateway({ ...values, uid: user.uid, docId: gid })
+            const editDevice = httpsCallable(functions, 'device-edit');
+            await editDevice({ ...values, docId: deviceId })
               .then((result) => {
-                toast.success('The gateway was updated succesfully!!');
-                router.push('/gateways/' + result.data.docId);
+                toast.success('The device was updated succesfully!!');
+                router.push('/devices/' + deviceId);
               })
               .catch((error) => {
                 const message = error.message;
@@ -116,62 +141,92 @@ const EditForm = () => {
 
             setIsLoading(false);
           }}>
-          {({ errors, isValidating }) => (
+          {({ values, errors, setFieldValue, isValidating }) => (
             <Form>
-              <div className="flex flex-col lg:flex-row justify-start w-full">
+              <div className="flex flex-wrap flex-col lg:flex-row justify-start w-full">
                 <div className="mr-0 lg:mr-6">
-                  <label htmlFor="serial" className="font-normal text-gray-600 dark:text-white">
-                    Serial
+                  <label htmlFor="uid" className="font-normal text-gray-600 dark:text-white">
+                    UID
                   </label>
-                  <FieldInput error={getError('serial')} isValidating={isValidating}>
+                  <FieldInput error={getError('uid')} isValidating={isValidating}>
                     <Field
-                      name="serial"
+                      name="uid"
                       type="text"
-                      placeholder="Serial number"
-                      className={errors.serial ? errorInputClass : successInputClass}
-                      validate={validateSerial}
+                      placeholder="UID number"
+                      className={errors.uid ? errorInputClass : successInputClass}
+                      validate={validateUID}
                     />
                   </FieldInput>
                 </div>
 
                 <div className="mr-0 lg:mr-6">
-                  <label htmlFor="name" className="font-normal text-gray-600 dark:text-white">
-                    Name
+                  <label htmlFor="vendor" className="font-normal text-gray-600 dark:text-white">
+                    Vendor
                   </label>
-                  <FieldInput error={getError('name')}>
+                  <FieldInput error={getError('vendor')}>
                     <Field
-                      name="name"
+                      name="vendor"
                       type="text"
-                      className={errors.name ? errorInputClass : successInputClass}
-                      placeholder="Name"
+                      className={errors.vendor ? errorInputClass : successInputClass}
+                      placeholder="Vendor"
                     />
                   </FieldInput>
                 </div>
 
                 <div className="mr-0 lg:mr-6">
-                  <label htmlFor="ipv4" className="font-normal text-gray-600 dark:text-white">
-                    IP v4
+                  <label htmlFor="gateway" className="font-normal text-gray-600 dark:text-white">
+                    Gateway
                   </label>
-                  <FieldInput error={getError('ipv4')}>
+                  <FieldInput error={getError('gateway')}>
                     <Field
-                      name="ipv4"
-                      type="text"
-                      className={errors.ipv4 ? errorInputClass : successInputClass}
-                      placeholder="__.__.__.__"
-                    />
+                      as="select"
+                      name="gateway"
+                      className={errors.gateway ? selectErrorClass : selectSuccessClass}>
+                      {listOptions}
+                    </Field>
                   </FieldInput>
+                </div>
+
+                <div className="mr-0 lg:mr-6">
+                  <label htmlFor="online" className="font-normal text-gray-600 dark:text-white">
+                    Status
+                  </label>
+
+                  <div className="mt-2">
+                    <div
+                      className="relative inline-block w-10 align-middle select-none mr-2"
+                      onClick={() => setFieldValue('online', !values.online)}>
+                      <Field
+                        type="checkbox"
+                        name="online"
+                        className="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                      />
+                      <label
+                        htmlFor="online"
+                        className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                    </div>
+                    <span className="text-gray-400 font-medium">
+                      {values.online ? 'Online' : 'Offline'}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               <div className="my-6 flex justify-end w-full">
-                <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>Submit</ButtonSubmit>
+                <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>
+                  Submit
+                </ButtonSubmit>
               </div>
             </Form>
           )}
         </Formik>
-      )}{' '}
-    </div>
+      )}
+    </>
   );
+};
+
+EditForm.propTypes = {
+  listGateways: PropTypes.array.isRequired
 };
 
 export default EditForm;

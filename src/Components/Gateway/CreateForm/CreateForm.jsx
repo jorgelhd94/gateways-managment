@@ -15,7 +15,6 @@ import { UserContext } from '../../../contexts';
 
 const CreateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isValidating, setisValidating] = useState(false);
   const [user] = useContext(UserContext);
   const router = useRouter();
 
@@ -36,8 +35,6 @@ const CreateForm = () => {
   async function validateSerial(value) {
     let error;
 
-    setisValidating(true);
-
     const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
     await checkSerial({ value })
       .then((result) => {
@@ -48,8 +45,6 @@ const CreateForm = () => {
       .catch((error) => {
         error = 'The system cannot check the serial!!';
       });
-
-    setisValidating(false);
 
     return error;
   }

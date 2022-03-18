@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Dashboard from '../../../src/components/Layout/Dashboard/Dashboard';
 import Card from '../../../src/components/UI/Card/Card';
 import ButtonIcon from '../../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
-import { faServer } from '@fortawesome/free-solid-svg-icons';
+import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 import EditDevice from '../../../src/components/Device/EditDevice/EditDevice';
 
 export default function EditDevices() {
@@ -12,7 +12,7 @@ export default function EditDevices() {
       <div className="mx-4">
         <Link href="/devices">
           <a>
-            <ButtonIcon type="primary" icon={faServer} showIcon={true}>
+            <ButtonIcon type="primary" icon={faLaptop} showIcon={true}>
               Manage Devices
             </ButtonIcon>
           </a>

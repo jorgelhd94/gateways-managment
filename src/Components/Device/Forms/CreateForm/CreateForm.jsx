@@ -49,7 +49,6 @@ const CreateForm = (props) => {
 
   /* Form definitions */
   const [isLoading, setIsLoading] = useState(false);
-  const [isValidating, setisValidating] = useState(false);
 
   const requierdMsg = 'This is a required field';
 
@@ -66,8 +65,6 @@ const CreateForm = (props) => {
   async function validateUID(value) {
     let error;
 
-    setisValidating(true);
-
     const checkUID = httpsCallable(functions, 'device-validateUID');
     await checkUID({ value })
       .then((result) => {
@@ -78,8 +75,6 @@ const CreateForm = (props) => {
       .catch((error) => {
         error = 'The system cannot check the uid!!';
       });
-
-    setisValidating(false);
 
     return error;
   }
@@ -179,7 +174,9 @@ const CreateForm = (props) => {
             </div>
 
             <div className="my-6 flex justify-end w-full">
-              <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>Submit</ButtonSubmit>
+              <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>
+                Submit
+              </ButtonSubmit>
             </div>
           </Form>
         )}

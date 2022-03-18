@@ -26,7 +26,6 @@ const EditForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
-  const [isValidating, setisValidating] = useState(false);
   
   const [user] = useContext(UserContext);
 
@@ -66,8 +65,6 @@ const EditForm = () => {
     let error;
 
     if (value !== initialValues.serial) {
-      setisValidating(true);
-
       const checkSerial = httpsCallable(functions, 'gateway-validateSerial');
       await checkSerial({ value })
         .then((result) => {
@@ -78,8 +75,6 @@ const EditForm = () => {
         .catch((error) => {
           error = 'The system cannot check the serial!!';
         });
-
-      setisValidating(false);
     }
 
     return error;

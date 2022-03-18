@@ -35,7 +35,7 @@ const auth = getAuth();
 connectAuthEmulator(auth, 'http://localhost:9099');
 
 const db = getFirestore();
-connectFirestoreEmulator(db, 'localhost', 8085);
+connectFirestoreEmulator(db, 'localhost', 8087);
 
 // Google Sign In
 const provider = new GoogleAuthProvider();

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import CreateForm from '../CreateForm/CreateForm';
+import EditForm from '../Forms/EditForm/EditForm';
 
 import { toast } from 'react-toastify';
 import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';
@@ -9,7 +9,7 @@ import { functions, httpsCallable } from '../../../includes/firebase';
 
 import { UserContext } from '../../../contexts';
 
-const CreateDevice = () => {
+const EditDevice = () => {
   const [user] = useContext(UserContext);
 
   /* Get gateways */
@@ -42,10 +42,10 @@ const CreateDevice = () => {
       {!fetchingGateways ? (
         <>
           <div className="mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
-            Create a new Device
+            Edit Device
           </div>
 
-          {listGateways.length ? <CreateForm listGateways={listGateways} /> : <NotGateway/>}
+          {listGateways.length ? <EditForm listGateways={listGateways} /> : <NotGateway/>}
         </>
       ) : (
         <FormSkeleton />
@@ -54,4 +54,4 @@ const CreateDevice = () => {
   );
 };
 
-export default CreateDevice;
+export default EditDevice;
