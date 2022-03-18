@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 import { functions, httpsCallable } from '../../../../includes/firebase';
 
 import { toast } from 'react-toastify';
 
-import {
-  faUser,
-  faEnvelope,
-  faLock,
-  faCheckDouble,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope, faLock, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 
 import ButtonAuth from '../../../UI/Buttons/ButtonAuth/ButtonAuth';
 
@@ -21,8 +16,7 @@ import FieldInput from '../../../UI/IconInput/IconInput';
 import { successInputClass, errorInputClass } from '../../../../utils/inputStyle';
 import ButtonGoogle from '../../../UI/Buttons/ButtonGoogle/ButtonGoogle';
 
-const RegisterForm = () => {
-  const router = useRouter();
+const RegisterForm = ({ toogleLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const requierdMsg = 'This is a required field';
@@ -53,7 +47,7 @@ const RegisterForm = () => {
           await createUser({ ...values })
             .then(() => {
               toast.success('User was register succesfully!');
-              router.push('/login');
+              toogleLogin();
             })
             .catch((error) => {
               const message = error.message;
@@ -101,9 +95,7 @@ const RegisterForm = () => {
             </FieldInput>
 
             <div className="my-6">
-              <ButtonAuth
-                type="submit"
-                isLoading={isLoading}>
+              <ButtonAuth type="submit" isLoading={isLoading}>
                 Register
               </ButtonAuth>
             </div>
@@ -119,6 +111,10 @@ const RegisterForm = () => {
       </div>
     </div>
   );
+};
+
+RegisterForm.propTypes = {
+  toogleLogin: PropTypes.func.isRequired
 };
 
 export default RegisterForm;

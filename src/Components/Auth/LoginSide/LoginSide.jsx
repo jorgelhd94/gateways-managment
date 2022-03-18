@@ -17,7 +17,7 @@ const LoginSide = () => {
         <Image src={loginImg} alt="Welcome Picture" className="w-full h-full object-cover" />
       </div>
 
-      <div className='w-full lg:w-7/12 overflow-scroll overflow-x-hidden py-12 relative'>
+      <div className="w-full lg:w-7/12 overflow-scroll overflow-x-hidden py-12 relative">
         <div className="w-5/6 sm:w-1/2 mx-auto text-center lg:px-2">
           <div className="mt-4">
             <h2 className="text-3xl font-bold text-gray-800">
@@ -31,7 +31,7 @@ const LoginSide = () => {
             </p>
           </div>
 
-          {isLogin ? <LoginForm /> : <RegisterForm />}
+          {isLogin ? <LoginForm /> : <RegisterForm toogleLogin={toogleLogin} />}
 
           <p className="text-sm my-12 text-center">
             Created by{' '}
