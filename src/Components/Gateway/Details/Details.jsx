@@ -101,13 +101,15 @@ const Details = () => {
               Devices
             </div>
 
-            <Link href="/devices/create">
-              <a>
-                <ButtonIcon type="success" icon={faPlus} showIcon={true}>
-                  Add device
-                </ButtonIcon>
-              </a>
-            </Link>
+            {gateway.devices < 10 && (
+              <Link href="/devices/create">
+                <a>
+                  <ButtonIcon type="success" icon={faPlus} showIcon={true}>
+                    Add device
+                  </ButtonIcon>
+                </a>
+              </Link>
+            )}
           </div>
 
           <div className="flex flex-row">
