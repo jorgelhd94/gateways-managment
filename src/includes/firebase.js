@@ -12,8 +12,9 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 
-import {doc, onSnapshot, getFirestore, connectFirestoreEmulator} from 'firebase/firestore'
+import { doc, onSnapshot, getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 
+import { getStorage, connectStorageEmulator, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCNhRRq3iDxLPFOt01Zy-IKCEGiKAfRYrU',
@@ -37,6 +38,9 @@ connectAuthEmulator(auth, 'http://localhost:9099');
 const db = getFirestore();
 connectFirestoreEmulator(db, 'localhost', 8082);
 
+const storage = getStorage();
+connectStorageEmulator(storage, 'localhost', 9199);
+
 // Google Sign In
 const provider = new GoogleAuthProvider();
 
@@ -51,5 +55,9 @@ export {
   signInWithPopup,
   db,
   doc,
-  onSnapshot
+  onSnapshot,
+  storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL
 };
