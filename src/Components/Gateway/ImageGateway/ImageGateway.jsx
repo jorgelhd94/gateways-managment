@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { storage, ref, uploadBytesResumable, getDownloadURL } from '../../../includes/firebase';
 
-import NoImage from '../../UI/PageInfo/NoImage/NoImage';
+import ImageDisplay from '../ImageGatewayDisplay/ImageGatewayDisplay';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 
 const ImageGateway = (props) => {
   const refFile = useRef(null);
+  const [urlImage, setUrlImage] = useState('')
   const [uploadTask, setUploadTask] = useState({
     task: null,
     current_progress: 100,
@@ -44,7 +45,7 @@ const ImageGateway = (props) => {
       async () => {
         await getDownloadURL(task.snapshot.ref)
           .then((urlImg) => {
-            console.log(urlImg);
+            setUrlImage(urlImg);
           })
           .catch((error) => {
             toast.error(error.message);
@@ -53,6 +54,13 @@ const ImageGateway = (props) => {
     );
   };
 
+  useEffect(() => {
+    return () => {
+      if (uploadTask.task) {
+        uploadTask.task.cancel();
+      }
+    };
+  }, []);
   return (
     <>
       <div className="flex flex-row justify-between">
@@ -81,7 +89,7 @@ const ImageGateway = (props) => {
               style={{ width: uploadTask.current_progress + '%' }}></div>
           </div>
         ) : (
-          <NoImage />
+          <ImageDisplay url={urlImage} />
         )}
       </div>
     </>
