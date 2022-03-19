@@ -6,7 +6,7 @@ import { functions, httpsCallable, db, doc, onSnapshot } from '../../../includes
 
 import Card from '../../UI/Card/Card';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
-import { faPlus, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import ImageGateway from '../ImageGateway/ImageGateway';
 import DeviceTable from '../../Device/DeviceTable/DeviceTable';
@@ -103,21 +103,7 @@ const Details = () => {
             {isFetchingData ? (
               <FormSkeleton />
             ) : (
-              <>
-                <div className="flex flex-row justify-between">
-                  <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
-                    Images
-                  </div>
-                  <div>
-                    <ButtonIcon type="primary" icon={faImage} showIcon={true}>
-                      Add image
-                    </ButtonIcon>
-                  </div>
-                </div>
-                <div>
-                  <ImageGateway />
-                </div>
-              </>
+              <ImageGateway gatewayId={gid}/>
             )}
           </Card>
         </div>
