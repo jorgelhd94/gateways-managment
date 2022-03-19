@@ -6,8 +6,9 @@ import { functions, httpsCallable, db, doc, onSnapshot } from '../../../includes
 
 import Card from '../../UI/Card/Card';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faImage } from '@fortawesome/free-solid-svg-icons';
 
+import ImageGateway from '../ImageGateway/ImageGateway';
 import DeviceTable from '../../Device/DeviceTable/DeviceTable';
 
 import FormSkeleton from '../../UI/Skeleton/FormSkeleton/FormSkeleton';
@@ -63,38 +64,64 @@ const Details = () => {
 
   return (
     <>
-      <Card>
-        {isFetchingData ? (
-          <FormSkeleton />
-        ) : (
-          <div className="flex flex-col justify-start">
-            <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
-              Details Gateway
-            </div>
-            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
-              <p className="font-medium">
-                Serial: <span className="font-normal">{gateway.serial}</span>
-              </p>
-            </div>
-            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
-              <p className="font-medium">
-                Name: <span className="font-normal">{gateway.name}</span>
-              </p>
-            </div>
-            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
-              <p className="font-medium">
-                IPv4: <span className="font-normal">{gateway.ipv4}</span>
-              </p>
-            </div>
-            <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
-              <p className="font-medium">
-                Devices: <span className="font-normal">{gateway.devices}</span>
-              </p>
-            </div>
-          </div>
-        )}
-      </Card>
-
+      <div className="flex flex-col lg:flex-row flex-wrap justify-between">
+        <div className="flex-1 w-full lg:w-1/2">
+          <Card>
+            {isFetchingData ? (
+              <FormSkeleton />
+            ) : (
+              <div className="flex flex-col justify-start">
+                <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
+                  Details Gateway
+                </div>
+                <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                  <p className="font-medium">
+                    Serial: <span className="font-normal">{gateway.serial}</span>
+                  </p>
+                </div>
+                <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                  <p className="font-medium">
+                    Name: <span className="font-normal">{gateway.name}</span>
+                  </p>
+                </div>
+                <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                  <p className="font-medium">
+                    IPv4: <span className="font-normal">{gateway.ipv4}</span>
+                  </p>
+                </div>
+                <div className="text-md text-gray-600 sm:text-lg dark:text-white mb-2">
+                  <p className="font-medium">
+                    Devices: <span className="font-normal">{gateway.devices}</span>
+                  </p>
+                </div>
+              </div>
+            )}
+          </Card>
+        </div>
+        <div className="flex-1 w-full lg:w-1/2">
+          <Card>
+            {isFetchingData ? (
+              <FormSkeleton />
+            ) : (
+              <>
+                <div className="flex flex-row justify-between">
+                  <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
+                    Images
+                  </div>
+                  <div>
+                    <ButtonIcon type="primary" icon={faImage} showIcon={true}>
+                      Add image
+                    </ButtonIcon>
+                  </div>
+                </div>
+                <div>
+                  <ImageGateway />
+                </div>
+              </>
+            )}
+          </Card>
+        </div>
+      </div>
       {!isFetchingData && (
         <Card>
           <div className="flex flex-row flex-wrap justify-between">
