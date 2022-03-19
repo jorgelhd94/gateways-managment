@@ -11,12 +11,10 @@ import { toast } from 'react-toastify';
 const ImageGateway = (props) => {
   const refFile = useRef(null);
   const [uploadTask, setUploadTask] = useState({
-    task: {},
+    task: null,
     current_progress: 100,
     name: ''
   });
-
-  
 
   const clickInput = () => {
     refFile.current.click();
@@ -76,13 +74,15 @@ const ImageGateway = (props) => {
         </div>
       </div>
       <div className="pt-4">
-        <div className="flex h-4 overflow-hidden bg-gray-200 rounded">
-          <div
-            className="transition-all progress-bar bg-green-400"
-            style={{ width: uploadTask.current_progress + '%' }}></div>
-        </div>
-
-        <NoImage />
+        {uploadTask.task ? (
+          <div className="flex h-4 overflow-hidden bg-gray-200 rounded">
+            <div
+              className="transition-all progress-bar bg-green-400"
+              style={{ width: uploadTask.current_progress + '%' }}></div>
+          </div>
+        ) : (
+          <NoImage />
+        )}
       </div>
     </>
   );
