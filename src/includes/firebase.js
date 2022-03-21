@@ -14,7 +14,14 @@ import {
 
 import { doc, onSnapshot, getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 
-import { getStorage, connectStorageEmulator, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import {
+  getStorage,
+  connectStorageEmulator,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject
+} from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCNhRRq3iDxLPFOt01Zy-IKCEGiKAfRYrU',
@@ -59,5 +66,6 @@ export {
   storage,
   ref,
   uploadBytesResumable,
-  getDownloadURL
+  getDownloadURL,
+  deleteObject
 };

@@ -6,7 +6,8 @@ import {
   storage,
   ref,
   uploadBytesResumable,
-  getDownloadURL
+  getDownloadURL,
+  deleteObject
 } from '../../../includes/firebase';
 
 import ImageDisplay from '../ImageGatewayDisplay/ImageGatewayDisplay';
@@ -77,11 +78,19 @@ const ImageGateway = (props) => {
   };
 
   const deleteImage = async () => {
-    const delImg = httpsCallable(functions, 'gateway-addImage');
-    await delImg({ imageUrl: '', docId: props.gatewayId }).catch((error) => {
-      const message = error.message;
-      toast.error(message);
-    });
+    if (window.confirm('Are you sure?')) {
+      const delImg = httpsCallable(functions, 'gateway-addImage');
+      await delImg({ imageUrl: '', docId: props.gatewayId }).catch((error) => {
+        const message = error.message;
+        toast.error(message);
+      });
+
+      const imageRef = ref(storage, 'gatewayImage/' + props.gatewayId);
+
+      await deleteObject(imageRef).catch((error) => {
+        toast.error(error.message);
+      });
+    }
   };
 
   return (
@@ -105,9 +114,14 @@ const ImageGateway = (props) => {
             />
           </div>
         ) : (
-          <div className='flex flex-row justify-around h-min gap-1'>
-            <ButtonIcon type="success" icon={faPencil} showIcon={true} click={() => clickInput()}/>
-            <ButtonIcon type="danger" icon={faTrash} showIcon={true} click={() => deleteImage('')}/>
+          <div className="flex flex-row justify-around h-min gap-1">
+            <ButtonIcon type="success" icon={faPencil} showIcon={true} click={() => clickInput()} />
+            <ButtonIcon
+              type="danger"
+              icon={faTrash}
+              showIcon={true}
+              click={() => deleteImage('')}
+            />
 
             <input
               type="file"
