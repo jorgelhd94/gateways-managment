@@ -28,7 +28,7 @@ const changeGatewayDevices = async (gatewayID, increment) => {
     });
 };
 
-exports.create = functions.https.onCall(async (data, context) => {
+exports.create = functions.https.onCall(async (data) => {
   const docRef = await admin
     .firestore()
     .collection('device')
@@ -42,7 +42,7 @@ exports.create = functions.https.onCall(async (data, context) => {
   return { docId: docRef.id };
 });
 
-exports.edit = functions.https.onCall(async (data, context) => {
+exports.edit = functions.https.onCall(async (data) => {
   let doc = [];
   await admin
     .firestore()
@@ -73,7 +73,7 @@ exports.edit = functions.https.onCall(async (data, context) => {
   return { docId: data.docId };
 });
 
-exports.delete = functions.https.onCall(async (data, context) => {
+exports.delete = functions.https.onCall(async (data) => {
   let doc = [];
 
   await admin
@@ -102,7 +102,7 @@ exports.delete = functions.https.onCall(async (data, context) => {
   return { docId: data.id };
 });
 
-exports.getDoc = functions.https.onCall(async (data, context) => {
+exports.getDoc = functions.https.onCall(async (data) => {
   const docId = data.docId;
   let doc = [];
 
@@ -121,7 +121,7 @@ exports.getDoc = functions.https.onCall(async (data, context) => {
   return { doc };
 });
 
-exports.all = functions.https.onCall(async (data, context) => {
+exports.all = functions.https.onCall(async (data) => {
   const user = data.user;
   const listAll = [];
 
@@ -145,7 +145,7 @@ exports.all = functions.https.onCall(async (data, context) => {
   return { listAll };
 });
 
-exports.getByGateway = functions.https.onCall(async (data, context) => {
+exports.getByGateway = functions.https.onCall(async (data) => {
   const gateway = data.gateway;
   const listAll = [];
 
@@ -169,7 +169,7 @@ exports.getByGateway = functions.https.onCall(async (data, context) => {
   return { listAll };
 });
 
-exports.listGateways = functions.https.onCall(async (data, context) => {
+exports.listGateways = functions.https.onCall(async (data) => {
   const uid = data.uid;
   const listAll = [];
 
@@ -194,7 +194,7 @@ exports.listGateways = functions.https.onCall(async (data, context) => {
   return { listAll };
 });
 
-exports.validateUID = functions.https.onCall(async (data, context) => {
+exports.validateUID = functions.https.onCall(async (data) => {
   const uid = data.value;
   let exists = false;
 

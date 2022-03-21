@@ -1,12 +1,15 @@
 module.exports = {
   root: true,
   env: {
-    es6: true,
+    browser: true,
+    es2021: true,
     node: true,
+    jest: true
   },
   // eslint-disable-next-line max-len
-  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
-  rules: {
-    quotes: ["error", "double"],
-  },
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  }
 };

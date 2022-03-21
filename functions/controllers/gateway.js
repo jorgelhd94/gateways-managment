@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-exports.create = functions.https.onCall(async (data, context) => {
+exports.create = functions.https.onCall(async (data) => {
   const docRef = await admin
     .firestore()
     .collection('gateway')
@@ -13,7 +13,7 @@ exports.create = functions.https.onCall(async (data, context) => {
   return { docId: docRef.id };
 });
 
-exports.edit = functions.https.onCall(async (data, context) => {
+exports.edit = functions.https.onCall(async (data) => {
   await admin
     .firestore()
     .collection('gateway')
@@ -26,7 +26,7 @@ exports.edit = functions.https.onCall(async (data, context) => {
   return { docId: data.docId };
 });
 
-exports.delete = functions.https.onCall(async (data, context) => {
+exports.delete = functions.https.onCall(async (data) => {
   await admin
     .firestore()
     .collection('gateway')
@@ -64,7 +64,7 @@ exports.delete = functions.https.onCall(async (data, context) => {
   return { docId: data.id };
 });
 
-exports.getDoc = functions.https.onCall(async (data, context) => {
+exports.getDoc = functions.https.onCall(async (data) => {
   const docId = data.docId;
   let doc = [];
 
@@ -83,7 +83,7 @@ exports.getDoc = functions.https.onCall(async (data, context) => {
   return { doc };
 });
 
-exports.all = functions.https.onCall(async (data, context) => {
+exports.all = functions.https.onCall(async (data) => {
   const uid = data.uid;
   const listAll = [];
 
@@ -107,7 +107,7 @@ exports.all = functions.https.onCall(async (data, context) => {
   return { listAll };
 });
 
-exports.validateSerial = functions.https.onCall(async (data, context) => {
+exports.validateSerial = functions.https.onCall(async (data) => {
   const serial = data.value;
   let exists = false;
 
@@ -126,7 +126,7 @@ exports.validateSerial = functions.https.onCall(async (data, context) => {
   return { exists };
 });
 
-exports.addImage = functions.https.onCall(async (data, context) => {
+exports.addImage = functions.https.onCall(async (data) => {
   await admin
     .firestore()
     .collection('gateway')
