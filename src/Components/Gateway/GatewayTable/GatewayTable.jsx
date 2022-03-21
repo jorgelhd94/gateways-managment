@@ -44,7 +44,7 @@ const GatewayTable = () => {
     setFetchingData(false);
   };
 
-  const deleteGateway = async (id) => {
+  const deleteGateway = async (id, imageUrl) => {
     if (window.confirm('Are you sure?')) {
       setFetchingData(true);
       const removeGateway = httpsCallable(functions, 'gateway-delete');
@@ -58,11 +58,13 @@ const GatewayTable = () => {
           toast.error(message);
         });
 
-      const imageRef = ref(storage, 'gatewayImage/' + id);
+      if (imageUrl) {
+        const imageRef = ref(storage, 'gatewayImage/' + id);
 
-      await deleteObject(imageRef).catch((error) => {
-        toast.error(error.message);
-      });
+        await deleteObject(imageRef).catch((error) => {
+          toast.error(error.message);
+        });
+      }
 
       setFetchingData(false);
     }
@@ -100,7 +102,7 @@ const GatewayTable = () => {
                 type="danger"
                 icon={faTrash}
                 showIcon={true}
-                click={() => deleteGateway(data.docId)}
+                click={() => deleteGateway(data.docId, data.imageUrl)}
               />
             </span>
           </TD>
