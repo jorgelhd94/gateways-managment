@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
+    "eslint-plugin-react": "^7.29.4",
     "firebase": "^9.6.8",
     "firebase-tools": "^10.2.2",
     "formik": "^2.2.9",
