@@ -11,13 +11,12 @@ import {
 
 import ImageDisplay from '../ImageGatewayDisplay/ImageGatewayDisplay';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
-import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { toast } from 'react-toastify';
 
 const ImageGateway = (props) => {
   const refFile = useRef(null);
-  const [urlImage, setUrlImage] = useState('');
   const [uploadTask, setUploadTask] = useState({
     task: null,
     current_progress: 100,
@@ -52,7 +51,6 @@ const ImageGateway = (props) => {
       async () => {
         await getDownloadURL(task.snapshot.ref)
           .then(async (urlImg) => {
-            setUrlImage(urlImg);
             await updateGatewayImage(urlImg);
           })
           .catch((error) => {
@@ -78,25 +76,48 @@ const ImageGateway = (props) => {
     });
   };
 
+  const deleteImage = async () => {
+    const delImg = httpsCallable(functions, 'gateway-addImage');
+    await delImg({ imageUrl: '', docId: props.gatewayId }).catch((error) => {
+      const message = error.message;
+      toast.error(message);
+    });
+  };
+
   return (
     <>
       <div className="flex flex-row justify-between">
         <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
           Images
         </div>
-        <div>
-          <ButtonIcon type="primary" icon={faImage} showIcon={true} click={() => clickInput()}>
-            Add image
-          </ButtonIcon>
+        {!props.image ? (
+          <div>
+            <ButtonIcon type="primary" icon={faImage} showIcon={true} click={() => clickInput()}>
+              Add image
+            </ButtonIcon>
 
-          <input
-            type="file"
-            ref={refFile}
-            className="hidden"
-            onChange={($event) => upload($event)}
-            accept="image/png, image/jpeg"
-          />
-        </div>
+            <input
+              type="file"
+              ref={refFile}
+              className="hidden"
+              onChange={($event) => upload($event)}
+              accept="image/png, image/jpeg"
+            />
+          </div>
+        ) : (
+          <div className='flex flex-row justify-around h-min gap-1'>
+            <ButtonIcon type="success" icon={faPencil} showIcon={true} click={() => clickInput()}/>
+            <ButtonIcon type="danger" icon={faTrash} showIcon={true} click={() => deleteImage('')}/>
+
+            <input
+              type="file"
+              ref={refFile}
+              className="hidden"
+              onChange={($event) => upload($event)}
+              accept="image/png, image/jpeg"
+            />
+          </div>
+        )}
       </div>
       <div className="pt-4">
         {uploadTask.task ? (
@@ -106,7 +127,7 @@ const ImageGateway = (props) => {
               style={{ width: uploadTask.current_progress + '%' }}></div>
           </div>
         ) : (
-          <ImageDisplay url={urlImage} />
+          <ImageDisplay url={props.image} />
         )}
       </div>
     </>
@@ -114,7 +135,8 @@ const ImageGateway = (props) => {
 };
 
 ImageGateway.propTypes = {
-  gatewayId: PropTypes.string.isRequired
+  gatewayId: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired
 };
 
 export default ImageGateway;
