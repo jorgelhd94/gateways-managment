@@ -1,6 +1,13 @@
 {
   "functions": {
     "source": "functions",
+    "ignore": [
+      ".firebase/**",
+      ".firebaserc",
+      "firebase.json",
+      "**/node_modules/**",
+      "**/public/**"
+    ],
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run lint"
     ]
@@ -10,7 +17,13 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist",
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "**/**",
+        "function": "server-nextServer"
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -28,7 +41,7 @@
       "port": 5001
     },
     "firestore": {
-      "port": 8082
+      "port": 8085
     },
     "database": {
       "port": 9000
@@ -41,7 +54,7 @@
     },
     "ui": {
       "enabled": true,
-      "port": 8081
+      "port": 8086
     }
   },
   "remoteconfig": {

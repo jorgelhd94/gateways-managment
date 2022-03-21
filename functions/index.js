@@ -8,3 +8,4 @@ admin.initializeApp();
 exports.users = require('./controllers/users');
 exports.gateway = require('./controllers/gateway');
 exports.device = require('./controllers/device');
+exports.server = require('../server');

@@ -43,7 +43,7 @@ const auth = getAuth();
 connectAuthEmulator(auth, 'http://localhost:9099');
 
 const db = getFirestore();
-connectFirestoreEmulator(db, 'localhost', 8082);
+connectFirestoreEmulator(db, 'localhost', 8085);
 
 const storage = getStorage();
 connectStorageEmulator(storage, 'localhost', 9199);
