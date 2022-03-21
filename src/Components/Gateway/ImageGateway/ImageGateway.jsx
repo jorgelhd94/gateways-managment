@@ -106,7 +106,7 @@ const ImageGateway = (props) => {
     <>
       <div className="flex flex-row justify-between">
         <div className="text-xl font-light text-gray-600 sm:text-2xl dark:text-white mb-6">
-          Images
+          Image
         </div>
         {!props.image ? (
           <div>
