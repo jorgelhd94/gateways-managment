@@ -21,7 +21,8 @@ const IconInput = (props) => {
 
 IconInput.propTypes = {
   icon: PropTypes.object.isRequired,
-  error: PropTypes.object.isRequired
+  error: PropTypes.object.isRequired,
+  children: PropTypes.node
 };
 
 export default IconInput;

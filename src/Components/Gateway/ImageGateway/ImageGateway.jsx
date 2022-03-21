@@ -12,7 +12,6 @@ import {
 
 import ImageDisplay from '../ImageGatewayDisplay/ImageGatewayDisplay';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
-import ImageSkeleton from '../../UI/Skeleton/ImageSkeleton/ImageSkeleton';
 import { faImage, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { toast } from 'react-toastify';
@@ -147,7 +146,9 @@ const ImageGateway = (props) => {
           <div className="flex h-4 overflow-hidden bg-gray-200 rounded">
             <div
               className="transition-all progress-bar bg-green-400"
-              style={{ width: uploadTask.current_progress + '%' }}></div>
+              // eslint-disable-next-line prettier/prettier
+              style={{ width: uploadTask.current_progress + '%' }}
+            ></div>
           </div>
         ) : (
           <ImageDisplay url={image} />

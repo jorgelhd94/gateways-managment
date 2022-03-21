@@ -30,7 +30,8 @@ ButtonIcon.propTypes = {
   icon: PropTypes.object,
   showIcon: PropTypes.bool.isRequired,
   loading: PropTypes.bool,
-  click: PropTypes.func
+  click: PropTypes.func,
+  children: PropTypes.node
 };
 
 export default ButtonIcon;

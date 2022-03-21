@@ -55,7 +55,9 @@ const RegisterForm = ({ toogleLogin }) => {
             });
 
           setIsLoading(false);
-        }}>
+          // eslint-disable-next-line prettier/prettier
+        }}
+      >
         {({ errors }) => (
           <Form>
             <FieldInput icon={faUser} error={getError('name')}>

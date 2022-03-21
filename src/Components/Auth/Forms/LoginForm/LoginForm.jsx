@@ -52,7 +52,9 @@ const LoginForm = () => {
             });
 
           setIsLoading(false);
-        }}>
+          // eslint-disable-next-line prettier/prettier
+        }}
+      >
         {({ errors }) => (
           <Form>
             <FieldInput icon={faEnvelope} error={getError('email')}>

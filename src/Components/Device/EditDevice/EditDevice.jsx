@@ -36,7 +36,6 @@ const EditDevice = () => {
   }, []);
   /* End Get gateways */
 
-
   return (
     <div>
       {!fetchingGateways ? (
@@ -45,7 +44,7 @@ const EditDevice = () => {
             Edit Device
           </div>
 
-          {listGateways.length ? <EditForm listGateways={listGateways} /> : <NotGateway/>}
+          {listGateways.length ? <EditForm listGateways={listGateways} /> : <NotGateway />}
         </>
       ) : (
         <FormSkeleton />

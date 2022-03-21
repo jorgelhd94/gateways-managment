@@ -6,8 +6,7 @@ import Card from '../../../src/components/UI/Card/Card';
 import ButtonIcon from '../../../src/components/UI/Buttons/ButtonIcon/ButtonIcon';
 import { faLaptop } from '@fortawesome/free-solid-svg-icons';
 
-import CreateDevice
- from '../../../src/components/Device/CreateDevice/CreateDevice';
+import CreateDevice from '../../../src/components/Device/CreateDevice/CreateDevice';
 export default function CreateGateways() {
   return (
     <Dashboard>

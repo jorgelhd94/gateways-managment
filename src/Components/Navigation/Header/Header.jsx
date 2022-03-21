@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+/* eslint-disable prettier/prettier */
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -8,14 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { useOutsideClick } from '../../../utils/clickOutside';
 
-
 const Header = () => {
   const router = useRouter();
   const logout = async () => {
     await signOut(auth);
     router.push('/login');
   };
-
 
   const dropDownRef = useRef(null);
   const [openDropdown, setOpenDropdown] = useOutsideClick(dropDownRef);
@@ -34,7 +33,8 @@ const Header = () => {
           <Link href="https://github.com/jorgelhd94/gateways-managment">
             <a
               target="_blank"
-              className='flex px-2 py-1 items-center rounded-full text-gray-400 hover:text-gray-700 bg-white shadow text-md'>
+              className="flex px-2 py-1 items-center rounded-full text-gray-400 hover:text-gray-700 bg-white shadow text-md"
+            >
               <FontAwesomeIcon icon={faGithub} className="w-6 h-6"></FontAwesomeIcon>
             </a>
           </Link>
@@ -45,7 +45,8 @@ const Header = () => {
           <button
             className="flex items-center text-gray-500 dark:text-white text-md"
             ref={dropDownRef}
-            onClick={toogleDropdown}>
+            onClick={toogleDropdown}
+          >
             <Image
               alt="profil"
               src="/assets/img/user.svg"
@@ -59,7 +60,8 @@ const Header = () => {
               className="ml-2 text-gray-400"
               fill="currentColor"
               viewBox="0 0 1792 1792"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
             </svg>
           </button>
@@ -71,12 +73,14 @@ const Header = () => {
                   className="py-1 "
                   role="menu"
                   aria-orientation="vertical"
-                  aria-labelledby="options-menu">
+                  aria-labelledby="options-menu"
+                >
                   <a
                     href="#"
                     onClick={logout}
                     className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                    role="menuitem">
+                    role="menuitem"
+                  >
                     <span className="flex flex-col">
                       <span>Logout</span>
                     </span>

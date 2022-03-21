@@ -19,7 +19,8 @@ const Badge = ({ children, type }) => {
 };
 
 Badge.propTypes = {
-  type: PropTypes.oneOf(['primary', 'success', 'danger', 'sad'])
+  type: PropTypes.oneOf(['primary', 'success', 'danger', 'sad']),
+  children: PropTypes.node
 };
 
 export default Badge;

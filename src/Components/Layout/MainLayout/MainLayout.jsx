@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Head from '../Head/Head';
 import { ToastContainer } from 'react-toastify';
 
 const MainLayout = (props) => {
-  const router = useRouter();
-
-
   return (
     <>
       <Head></Head>
@@ -14,6 +11,10 @@ const MainLayout = (props) => {
       <ToastContainer />
     </>
   );
+};
+
+MainLayout.propTypes = {
+  children: PropTypes.node
 };
 
 export default MainLayout;

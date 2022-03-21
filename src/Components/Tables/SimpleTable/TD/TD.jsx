@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TD = ({ children }) => {
   return (
@@ -10,6 +11,10 @@ const TD = ({ children }) => {
       </td>
     </>
   );
+};
+
+TD.propTypes = {
+  children: PropTypes.node
 };
 
 export default TD;

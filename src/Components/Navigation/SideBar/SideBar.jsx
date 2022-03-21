@@ -2,7 +2,6 @@ import React from 'react';
 import NavLink from '../NavLink/NavLink';
 import { faHome, faServer, faLaptop } from '@fortawesome/free-solid-svg-icons';
 
-
 const SideBar = () => {
   return (
     <div className="h-screen hidden lg:block ml-0 shadow-lg absolute lg:relative transition delay-500 w-80 z-50">

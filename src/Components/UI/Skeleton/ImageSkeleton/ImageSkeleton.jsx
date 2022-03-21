@@ -6,7 +6,7 @@ const ImageSkeleton = () => {
       <div className="">
         <div className="grid grid-cols-1 mt-2">
           <div className="h-24 bg-gray-200 rounded animate-pulse"></div>
-          </div>
+        </div>
       </div>
     </div>
   );

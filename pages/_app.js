@@ -25,6 +25,7 @@ Router.events.on('routeChangeStart', progress.start);
 Router.events.on('routeChangeComplete', progress.finish);
 Router.events.on('routeChangeError', progress.finish);
 
+// eslint-disable-next-line react/prop-types
 function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
 

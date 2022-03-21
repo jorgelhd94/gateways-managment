@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 import { auth, signInWithPopup, provider } from '../../../../includes/firebase';
 
-const ButtonGoogle = (props) => {
+const ButtonGoogle = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,7 +14,7 @@ const ButtonGoogle = (props) => {
     setIsLoading(true);
 
     await signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(() => {
         toast.success('Welcome!!');
         router.push('/');
       })
@@ -29,7 +29,9 @@ const ButtonGoogle = (props) => {
     <button
       className="disabled:cursor-not-allowed flex items-center px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
       onClick={login}
-      disabled={isLoading}>
+      // eslint-disable-next-line prettier/prettier
+      disabled={isLoading}
+    >
       <FontAwesomeIcon icon={faGoogle} className="mr-4" />
       Access with Google
     </button>

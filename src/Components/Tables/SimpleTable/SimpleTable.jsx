@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import THead from './THead/THead';
 
-const SimpleTable = ({headerList, contentList}) => {
+const SimpleTable = ({ headerList, contentList }) => {
   const header = headerList.map((value) => {
     return <THead key={value}>{value}</THead>;
   });

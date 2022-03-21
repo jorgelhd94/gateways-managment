@@ -42,7 +42,7 @@ const CreateForm = () => {
           error = 'This Serial already exists';
         }
       })
-      .catch((error) => {
+      .catch(() => {
         error = 'The system cannot check the serial!!';
       });
 
@@ -74,7 +74,9 @@ const CreateForm = () => {
             });
 
           setIsLoading(false);
-        }}>
+          // eslint-disable-next-line prettier/prettier
+        }}
+      >
         {({ errors, isValidating }) => (
           <Form>
             <div className="flex flex-col lg:flex-row justify-start w-full">
@@ -123,7 +125,9 @@ const CreateForm = () => {
             </div>
 
             <div className="my-6 flex justify-end w-full">
-              <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>Submit</ButtonSubmit>
+              <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>
+                Submit
+              </ButtonSubmit>
             </div>
           </Form>
         )}

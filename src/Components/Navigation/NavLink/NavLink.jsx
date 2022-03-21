@@ -17,8 +17,7 @@ const NavLink = (props) => {
   let active = false;
   if (props.href === '/') {
     active = props.href === router.pathname;
-  }
-  else {
+  } else {
     const href = props.href.replace('/', '');
     active = router.pathname.includes(href);
   }

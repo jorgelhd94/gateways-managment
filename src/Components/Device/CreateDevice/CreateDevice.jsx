@@ -36,7 +36,6 @@ const CreateDevice = () => {
   }, []);
   /* End Get gateways */
 
-
   return (
     <div>
       {!fetchingGateways ? (
@@ -45,7 +44,7 @@ const CreateDevice = () => {
             Create a new Device
           </div>
 
-          {listGateways.length ? <CreateForm listGateways={listGateways} /> : <NotGateway/>}
+          {listGateways.length ? <CreateForm listGateways={listGateways} /> : <NotGateway />}
         </>
       ) : (
         <FormSkeleton />

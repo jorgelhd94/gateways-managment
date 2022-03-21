@@ -31,7 +31,7 @@ const DeviceTable = (props) => {
   if (props.gateway) {
     headerList = ['UID', 'Vendor', 'Status', 'Created', ''];
   }
-  
+
   const getData = async () => {
     setFetchingData(true);
     setShowError(false);

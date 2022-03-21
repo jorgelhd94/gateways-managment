@@ -11,7 +11,7 @@ const FormSkeleton = () => {
           <div className="h-16 bg-gray-200 rounded animate-pulse"></div>
           <div className="h-16 bg-gray-200 rounded animate-pulse"></div>
           <div className="h-16 bg-gray-200 rounded animate-pulse"></div>
-          </div>
+        </div>
       </div>
     </div>
   );

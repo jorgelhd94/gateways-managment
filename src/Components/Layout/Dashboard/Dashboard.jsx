@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { auth, onAuthStateChanged } from '../../../includes/firebase';
 import { OpenSideBarContext } from '../../../contexts';
@@ -74,6 +75,10 @@ const Dashboard = ({ children }) => {
       </div>
     </UserContext.Provider>
   );
+};
+
+Dashboard.propTypes = {
+  children: PropTypes.node
 };
 
 export default Dashboard;

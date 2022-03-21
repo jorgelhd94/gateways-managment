@@ -15,7 +15,9 @@ const NotGateway = () => {
         type="success"
         showIcon={true}
         icon={faServer}
-        click={() => router.push('/gateways/create')}>
+        // eslint-disable-next-line prettier/prettier
+        click={() => router.push('/gateways/create')}
+      >
         Create a new gateway
       </ButtonIcon>
     </div>

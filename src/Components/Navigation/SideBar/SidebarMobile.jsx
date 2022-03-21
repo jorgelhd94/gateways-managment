@@ -37,7 +37,9 @@ const SidebarMobile = (props) => {
           <p className="font-bold dark:text-white text-xl">G.M.S</p>
           <button
             onClick={toogleOpen}
-            className="flex px-2 py-1 lg:hidden items-center rounded-xl text-white bg-blue-400 shadow text-md">
+            // eslint-disable-next-line prettier/prettier
+            className="flex px-2 py-1 lg:hidden items-center rounded-xl text-white bg-blue-400 shadow text-md"
+          >
             <FontAwesomeIcon icon={faClose} />
           </button>
         </div>

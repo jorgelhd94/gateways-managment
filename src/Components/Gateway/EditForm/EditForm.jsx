@@ -26,7 +26,7 @@ const EditForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
-  
+
   const [user] = useContext(UserContext);
 
   const requierdMsg = 'This is a required field';
@@ -72,7 +72,7 @@ const EditForm = () => {
             error = 'This Serial already exists';
           }
         })
-        .catch((error) => {
+        .catch(() => {
           error = 'The system cannot check the serial!!';
         });
     }
@@ -111,7 +111,9 @@ const EditForm = () => {
               });
 
             setIsLoading(false);
-          }}>
+            // eslint-disable-next-line prettier/prettier
+          }}
+        >
           {({ errors, isValidating }) => (
             <Form>
               <div className="flex flex-col lg:flex-row justify-start w-full">
@@ -160,7 +162,9 @@ const EditForm = () => {
               </div>
 
               <div className="my-6 flex justify-end w-full">
-                <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>Submit</ButtonSubmit>
+                <ButtonSubmit isLoading={isLoading} isValidating={isValidating}>
+                  Submit
+                </ButtonSubmit>
               </div>
             </Form>
           )}

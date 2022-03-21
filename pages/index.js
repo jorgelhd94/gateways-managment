@@ -19,7 +19,7 @@ export default function Home() {
           </p>
           <div className="lg:mt-0 lg:flex-shrink-0">
             <div className="mt-12 inline-flex">
-              <div className='mr-2'>
+              <div className="mr-2">
                 <Link href="/gateways/create">
                   <a>
                     <ButtonIcon type="primary" icon={faServer} showIcon={true}>

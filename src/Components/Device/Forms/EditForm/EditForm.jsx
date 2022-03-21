@@ -61,9 +61,7 @@ const EditForm = (props) => {
     if (props.listGateways.length > 0) {
       const list = props.listGateways.map((value) => {
         return (
-          <option
-            key={value.docId}
-            value={value.docId}>
+          <option key={value.docId} value={value.docId}>
             {value.name} - {value.serial}
           </option>
         );
@@ -102,7 +100,7 @@ const EditForm = (props) => {
             error = 'The UID must be unique';
           }
         })
-        .catch((error) => {
+        .catch(() => {
           error = 'The system cannot check the uid!!';
         });
     }
@@ -130,7 +128,7 @@ const EditForm = (props) => {
 
             const editDevice = httpsCallable(functions, 'device-edit');
             await editDevice({ ...values, docId: deviceId })
-              .then((result) => {
+              .then(() => {
                 toast.success('The device was updated succesfully!!');
                 router.push('/devices/' + deviceId);
               })
@@ -140,7 +138,9 @@ const EditForm = (props) => {
               });
 
             setIsLoading(false);
-          }}>
+            // eslint-disable-next-line prettier/prettier
+          }}
+        >
           {({ values, errors, setFieldValue, isValidating }) => (
             <Form>
               <div className="flex flex-wrap flex-col lg:flex-row justify-start w-full">
@@ -181,7 +181,9 @@ const EditForm = (props) => {
                     <Field
                       as="select"
                       name="gateway"
-                      className={errors.gateway ? selectErrorClass : selectSuccessClass}>
+                      // eslint-disable-next-line prettier/prettier
+                      className={errors.gateway ? selectErrorClass : selectSuccessClass}
+                    >
                       {listOptions}
                     </Field>
                   </FieldInput>
@@ -195,7 +197,9 @@ const EditForm = (props) => {
                   <div className="mt-2">
                     <div
                       className="relative inline-block w-10 align-middle select-none mr-2"
-                      onClick={() => setFieldValue('online', !values.online)}>
+                      // eslint-disable-next-line prettier/prettier
+                      onClick={() => setFieldValue('online', !values.online)}
+                    >
                       <Field
                         type="checkbox"
                         name="online"
@@ -203,7 +207,9 @@ const EditForm = (props) => {
                       />
                       <label
                         htmlFor="online"
-                        className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        // eslint-disable-next-line prettier/prettier
+                        className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+                      ></label>
                     </div>
                     <span className="text-gray-400 font-medium">
                       {values.online ? 'Online' : 'Offline'}
