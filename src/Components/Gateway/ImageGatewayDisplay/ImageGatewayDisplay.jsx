@@ -8,7 +8,7 @@ const ImageGatewayDisplay = (props) => {
       {!props.url ? (
         <Image src="/assets/img/nophoto.svg" width={130} height={130} />
       ) : (
-        <Image src={props.url} width={130} height={130} />
+        <Image src={props.url} width={130} height={130}/>
       )}
     </div>
   );
