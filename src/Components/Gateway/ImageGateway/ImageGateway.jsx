@@ -12,6 +12,7 @@ import {
 
 import ImageDisplay from '../ImageGatewayDisplay/ImageGatewayDisplay';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
+import ImageSkeleton from '../../UI/Skeleton/ImageSkeleton/ImageSkeleton';
 import { faImage, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { toast } from 'react-toastify';
@@ -23,6 +24,8 @@ const ImageGateway = (props) => {
     current_progress: 100,
     name: ''
   });
+
+  const [loading, setLoading] = useState(false);
 
   const clickInput = () => {
     refFile.current.click();
