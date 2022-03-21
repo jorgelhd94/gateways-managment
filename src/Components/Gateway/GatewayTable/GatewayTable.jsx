@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { functions, httpsCallable } from '../../../includes/firebase';
+import { functions, httpsCallable, storage, ref, deleteObject } from '../../../includes/firebase';
 import { useRouter } from 'next/router';
 
 import { UserContext } from '../../../contexts';
@@ -57,6 +57,13 @@ const GatewayTable = () => {
           const message = error.message;
           toast.error(message);
         });
+
+      const imageRef = ref(storage, 'gatewayImage/' + id);
+
+      await deleteObject(imageRef).catch((error) => {
+        toast.error(error.message);
+      });
+
       setFetchingData(false);
     }
   };
@@ -108,11 +115,12 @@ const GatewayTable = () => {
     if (showError) {
       component = <FetchError />;
     } else if (!fetchingData) {
-      component = contentList.length === 0 ? (
-        <EmptyList />
-      ) : (
-        <SimpleTable headerList={headerList} contentList={transformData()} />
-      );
+      component =
+        contentList.length === 0 ? (
+          <EmptyList />
+        ) : (
+          <SimpleTable headerList={headerList} contentList={transformData()} />
+        );
     } else {
       component = <TableSkeleton />;
     }
