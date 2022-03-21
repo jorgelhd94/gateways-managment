@@ -5,7 +5,7 @@ exports.create = functions.https.onCall(async (data, context) => {
   const docRef = await admin
     .firestore()
     .collection('gateway')
-    .add({ ...data, devices: 0 })
+    .add({ ...data, devices: 0, imageUrl: '' })
     .catch((error) => {
       throw new functions.https.HttpsError('aborted', error);
     });
@@ -124,4 +124,17 @@ exports.validateSerial = functions.https.onCall(async (data, context) => {
     });
 
   return { exists };
+});
+
+exports.addImage = functions.https.onCall(async (data, context) => {
+  await admin
+    .firestore()
+    .collection('gateway')
+    .doc(data.docId)
+    .update({ imageUrl: data.imageUrl })
+    .catch((error) => {
+      throw new functions.https.HttpsError('aborted', error);
+    });
+
+  return { docId: data.docId };
 });

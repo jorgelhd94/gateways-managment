@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { storage, ref, uploadBytesResumable, getDownloadURL } from '../../../includes/firebase';
+import {
+  functions,
+  httpsCallable,
+  storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL
+} from '../../../includes/firebase';
 
 import ImageDisplay from '../ImageGatewayDisplay/ImageGatewayDisplay';
 import ButtonIcon from '../../UI/Buttons/ButtonIcon/ButtonIcon';
@@ -10,7 +17,7 @@ import { toast } from 'react-toastify';
 
 const ImageGateway = (props) => {
   const refFile = useRef(null);
-  const [urlImage, setUrlImage] = useState('')
+  const [urlImage, setUrlImage] = useState('');
   const [uploadTask, setUploadTask] = useState({
     task: null,
     current_progress: 100,
@@ -44,8 +51,9 @@ const ImageGateway = (props) => {
       },
       async () => {
         await getDownloadURL(task.snapshot.ref)
-          .then((urlImg) => {
+          .then(async (urlImg) => {
             setUrlImage(urlImg);
+            await updateGatewayImage(urlImg);
           })
           .catch((error) => {
             toast.error(error.message);
@@ -61,6 +69,15 @@ const ImageGateway = (props) => {
       }
     };
   }, []);
+
+  const updateGatewayImage = async (imageUrl) => {
+    const addImage = httpsCallable(functions, 'gateway-addImage');
+    await addImage({ imageUrl: imageUrl, docId: props.gatewayId }).catch((error) => {
+      const message = error.message;
+      toast.error(message);
+    });
+  };
+
   return (
     <>
       <div className="flex flex-row justify-between">

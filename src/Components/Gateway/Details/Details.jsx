@@ -23,7 +23,8 @@ const Details = () => {
     serial: '',
     name: '',
     ipv4: '',
-    devices: 0
+    devices: 0,
+    imageUrl: ''
   });
   const [isFetchingData, setIsFetchingData] = useState(true);
 
@@ -103,7 +104,7 @@ const Details = () => {
             {isFetchingData ? (
               <FormSkeleton />
             ) : (
-              <ImageGateway gatewayId={gid}/>
+              <ImageGateway gatewayId={gid} image={gateway.imageUrl} />
             )}
           </Card>
         </div>
