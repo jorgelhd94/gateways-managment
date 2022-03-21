@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 
 const ImageGatewayDisplay = (props) => {
   return (
-    <div className="flex relative flex-col justify-center">
+    <div className="flex flex-col justify-center items-center relative">
       {!props.url ? (
         <Image src="/assets/img/nophoto.svg" width={130} height={130} />
       ) : (
-        <Image src={props.url} width={130} height={130}/>
+        <div className='flex-auto relative w-40 h-32'>
+          <Image src={props.url} className='rounded cursor-pointer' placeholder="blurDataURL" layout="fill" priority />
+        </div>
       )}
     </div>
   );
