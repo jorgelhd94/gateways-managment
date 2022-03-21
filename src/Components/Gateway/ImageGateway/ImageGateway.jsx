@@ -25,7 +25,7 @@ const ImageGateway = (props) => {
     name: ''
   });
 
-  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(props.image);
 
   const clickInput = () => {
     refFile.current.click();
@@ -55,7 +55,9 @@ const ImageGateway = (props) => {
       async () => {
         await getDownloadURL(task.snapshot.ref)
           .then(async (urlImg) => {
+            setImage('');
             await updateGatewayImage(urlImg);
+            setImage(urlImg);
           })
           .catch((error) => {
             toast.error(error.message);
@@ -90,9 +92,13 @@ const ImageGateway = (props) => {
 
       const imageRef = ref(storage, 'gatewayImage/' + props.gatewayId);
 
-      await deleteObject(imageRef).catch((error) => {
-        toast.error(error.message);
-      });
+      await deleteObject(imageRef)
+        .then(() => {
+          setImage('');
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
     }
   };
 
@@ -144,7 +150,7 @@ const ImageGateway = (props) => {
               style={{ width: uploadTask.current_progress + '%' }}></div>
           </div>
         ) : (
-          <ImageDisplay url={props.image} />
+          <ImageDisplay url={image} />
         )}
       </div>
     </>
