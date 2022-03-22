@@ -33,7 +33,8 @@ The files used to implement **Google Cloud Functions** are:
 
 Finally, in the **./src/includes/firebase.js** file, the Firebase instance is implemented and configured:
 
-Incluir foto Example 1
+![Example 1](https://user-images.githubusercontent.com/53158723/159583018-f8c8012a-9693-43c2-867f-ae5b29261400.PNG)
+
 
 ### **NextJs files**
 
@@ -135,7 +136,7 @@ If you want to deploy it with your paid Firebase account, you need to modify the
 
 1. Delete or comment the local configurations to Functions, Firestore, Authentication and Storage, located at the file **./src/includes/firebase.json**.
 
-Foto 2
+![example 2](https://user-images.githubusercontent.com/53158723/159583084-01b558aa-a65e-4c3c-8f5c-1c2881f7cfe2.PNG)
 
 
 2. Build the project
@@ -170,7 +171,7 @@ firebase emulators:start --only "functions,auth,firestore,hosting,storage"
 http://localhost:5000/
 ``` 
 
-Photo Example 3
+![example 3](https://user-images.githubusercontent.com/53158723/159583106-94d37e34-8535-476d-92e7-b838d5cfd0cb.PNG)
 
 ## Acknowledgments
 
