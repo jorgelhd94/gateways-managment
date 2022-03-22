@@ -1,6 +1,6 @@
 {
   "functions": {
-    "source": "functions",
+    "source": ".",
     "ignore": [
       ".firebase/**",
       ".firebaserc",
@@ -21,7 +21,7 @@
     "rewrites": [
       {
         "source": "**/**",
-        "function": "server-nextServer"
+        "function": "nextServer"
       }
     ],
     "ignore": [

@@ -1,18 +1,14 @@
+/* eslint-disable no-undef */
 const { https } = require('firebase-functions');
 const { default: next } = require('next');
+const admin = require('firebase-admin');
 
-const dotenv = require('dotenv');
-dotenv.config();
-
-// eslint-disable-next-line no-undef
-const isDev = process.env.NODE_ENV !== 'production';
+admin.initializeApp();
 
 const server = next({
-  dev: isDev,
-  //location of .next generated after running -> yarn build
+  dev: false,
   conf: { distDir: '.next' }
 });
-console.log(server);
 
 const nextjsHandle = server.getRequestHandler();
 exports.nextServer = https.onRequest((req, res) => {
@@ -20,3 +16,7 @@ exports.nextServer = https.onRequest((req, res) => {
     return nextjsHandle(req, res);
   });
 });
+
+exports.users = require('./functions/users');
+exports.gateway = require('./functions/gateway');
+exports.device = require('./functions/device');
