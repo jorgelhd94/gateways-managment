@@ -27,9 +27,9 @@ In the **./firebase.json** file you will find the most important configuration, 
 The files used to implement **Google Cloud Functions** are:
 
 - Main file:
-  -  ./server.js
-- The implementation of the Rest API: 
-  - functions/**
+  - ./server.js
+- The implementation of the Rest API:
+  - functions/\*\*
 
 Finally, in the **./src/includes/firebase.js** file, the Firebase instance is implemented and configured:
 
@@ -41,111 +41,137 @@ The file **./next.config.js** contains the main configuration to NextJs.
 
 The most important folders are:
 
-- **./pages/**** - Contains the pages rendered by Nextjs, they are the views that are displayed in the browser 
+- **./pages/\*\*** - Contains the pages rendered by Nextjs, they are the views that are displayed in the browser
 
-- **./public/**** - Contains static files like images, icons, etc.
+- **./public/\*\*** - Contains static files like images, icons, etc.
 
-- **./src/components/**** - Contains the React components used in the app.
+- **./src/components/\*\*** - Contains the React components used in the app.
 
-- **./src/contexts/**** - Contains the Context used by the component tree
+- **./src/contexts/\*\*** - Contains the React Contexts used by the component tree
 
-- **./src/utils/**** - In this folder there are modules that contain important functions for the system and allow the reuse of code in different components.
+- **./src/utils/\*\*** - In this folder there are modules that contain important functions for the system and allow the reuse of code in different components.
 
-- **./styles/**** - Contains the global css style.
+- **./styles/\*\*** - Contains the global css style.
 
 ### **Other files**
 
 1. Testing (Jest) - Configuration files:
-  - **./jest.config.js**
-  - **./jest.setup.js**
-  
-2. CSS  Framework (TailwindCSS) - Configuration files:
-  - **./tailwind.config.js**
-  - **./postcss.setup.js**
-  
+
+- **./jest.config.js**
+- **./jest.setup.js**
+
+2. CSS Framework (TailwindCSS) - Configuration files:
+
+- **./tailwind.config.js**
+- **./postcss.setup.js**
+
 3. ESLint and Prettier - Configuration files:
-  - **./.eslintrc.js**
-  - **./.prettierrc**
+
+- **./.eslintrc.js**
+- **./.prettierrc**
 
 ## Installation
+
 ### Prerequisites
 
-Requirements for the software and other tools to build, test and push
+**Node JS**
 
-- [Example 1](https://www.example.com)
-- [Example 2](https://www.example.com)
+The Node version used is 16.
+
+**Firebase CLI**
+
+Before starting the project installation, you need to have the Firebase CLI installed. To install it use:
+
+    npm install -g firebase-tools
+
+Reference: [Install Firebase CLI](https://firebase.google.com/docs/cli)
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development
-environment running
+Steps to install and configure the project locally.
 
-Say what the step will be
+1. Clone the project from github
 
-    Give the example
+```
+git clone https://github.com/jorgelhd94/gateways-managment.git
+```
 
-And repeat
+2. Install the requirements package with NPM. Run the following command in the root folder of the project:
 
-    until finished
+```
+npm install
+```
 
-End with an example of getting some data out of the system or using it
-for a little demo
+3. Start the Firebase Emulator Suite. Run the following command in the root folder of the project:
+
+**Important:** The use of VPN is necessary 
+
+```
+firebase emulators:start --only "functions,auth,firestore,hosting,storage"
+```
+
+4. Finally run the project:
+
+```
+npm run dev
+```
+
+**Important**
+
+In case you want to use another Firebase project, please modify the instance located at **./src/includes/firebase.json**.
+
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+The project uses the Jest library for unit tests. To run the tests use:
 
-### Sample Tests
-
-Explain what these tests test and why
-
-    Give an example
-
-### Style test
-
-Checks if the best practices and the right coding style has been used.
-
-    Give an example
+    npm test
 
 ## Deployment
 
-Add additional notes to deploy this on a live system
+This project could not be hosted on Firebase Hosting because the account used is not a paid one.
 
-## Built With
+If you want to deploy it with your paid Firebase account, you need to modify the instance located at the file **./src/includes/firebase.json** with your project's registration data provided by Firebase. Then test the app locally. And follow the steps below:
 
-- [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-  for the Code of Conduct
-- [Creative Commons](https://creativecommons.org/) - Used to choose
-  the license
+1. Delete or comment the local configurations to Functions, Firestore, Authentication and Storage, located at the file **./src/includes/firebase.json**.
 
-## Contributing
+Foto 2
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
 
-## Versioning
+2. Build the project
 
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
+```
+npm run build
+```
 
-## Authors
+3. Deploy the project
 
-- **Billie Thompson** - _Provided README Template_ -
-  [PurpleBooth](https://github.com/PurpleBooth)
+```
+npm run deploy
+```
 
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
+**To Test Hosting locally**
 
-## License
+1. Build the project
 
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
-details
+```
+npm run build
+```
+
+2. Use the Hosting Local Emulator
+
+- Start the Firebase Emulator Suite:
+```
+firebase emulators:start --only "functions,auth,firestore,hosting,storage"
+```
+
+- Run the Hosting in the Browser. The port is configured in **./firebase.json**:
+```
+http://localhost:5000/
+``` 
+
+Photo Example 3
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code is used
-- Inspiration
-- etc
+Thanks to the Cuban Engineer team for the opportunity.

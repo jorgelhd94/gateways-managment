@@ -13,8 +13,8 @@ dist-ssr
 .firebase
 .env
 *.local
-.next
 .npmrc
+.next
 coverage
 
 # Editor directories and files
