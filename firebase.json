@@ -1,6 +1,7 @@
 {
   "functions": {
     "source": ".",
+    "runtime": "nodejs16",
     "ignore": [
       ".firebase/**",
       ".firebaserc",
@@ -41,7 +42,7 @@
       "port": 5001
     },
     "firestore": {
-      "port": 8085
+      "port": 8081
     },
     "database": {
       "port": 9000
@@ -54,7 +55,7 @@
     },
     "ui": {
       "enabled": true,
-      "port": 8086
+      "port": 8082
     }
   },
   "remoteconfig": {
