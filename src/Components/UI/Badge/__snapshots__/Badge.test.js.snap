@@ -1,8 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Badge with danger style 1`] = `
+<span
+  className="px-2 py-1 text-white rounded-full bg-red-500"
+>
+  1
+</span>
+`;
+
 exports[`Badge with primary style 1`] = `
 <span
   className="px-2 py-1 text-white rounded-full bg-blue-500"
+>
+  1
+</span>
+`;
+
+exports[`Badge with sad style 1`] = `
+<span
+  className="px-2 py-1 text-white rounded-full bg-gray-500"
+>
+  1
+</span>
+`;
+
+exports[`Badge with success style 1`] = `
+<span
+  className="px-2 py-1 text-white rounded-full bg-green-500"
 >
   1
 </span>
