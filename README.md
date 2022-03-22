@@ -1,9 +1,10 @@
 # Gateway Managment System
 
-One Paragraph of the project description
+The goal of this system is offer a simple way to managing gateways that control multiple peripheral devices.
 
-Initially appeared on
-But the page cannot open anymore so that is why I have moved it here.
+## Important
+
+This project uses the Firebase platform for its most important features, in case your country is blocked by Google please use VPN.
 
 ## Getting Started
 
