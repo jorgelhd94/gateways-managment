@@ -173,6 +173,19 @@ http://localhost:5000/
 
 ![example 3](https://user-images.githubusercontent.com/53158723/159583106-94d37e34-8535-476d-92e7-b838d5cfd0cb.PNG)
 
+
+## System Views Examples
+
+### Login Page
+![login](https://user-images.githubusercontent.com/53158723/159584131-a3aa4eba-0e90-46d2-a73e-3c78811d64e5.PNG)
+
+### Home Page
+![home](https://user-images.githubusercontent.com/53158723/159584189-aca320a0-c89c-44e3-aded-67e1303c8d1c.PNG)
+
+### Create Gateway Page
+![create](https://user-images.githubusercontent.com/53158723/159584232-608eba66-015a-4126-94ac-355a870458ec.PNG)
+
+
 ## Acknowledgments
 
 Thanks to the Cuban Engineer team for the opportunity.
