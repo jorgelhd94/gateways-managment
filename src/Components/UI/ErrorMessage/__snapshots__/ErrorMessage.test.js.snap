@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error Message render correctly 1`] = `
+<div
+  className="text-left text-red-500"
+>
+  Error
+</div>
+`;

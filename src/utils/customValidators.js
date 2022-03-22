@@ -7,4 +7,4 @@ export function ipv4(message = 'Invalid IP address') {
       ? true
       : value.split('.').find((i) => parseInt(i, 10) > 255) === undefined;
   });
-};
+}
