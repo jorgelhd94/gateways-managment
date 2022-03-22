@@ -18,7 +18,14 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['react'],
+  plugins: ['react', 'testing-library'],
+  overrides: [
+    // Only uses Testing Library lint rules in test files
+    {
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react']
+    }
+  ],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/no-unescaped-entities': 'off',

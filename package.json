@@ -10,7 +10,9 @@
     "deploy": "firebase deploy --only functions,hosting",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "engines": {
     "node": "16"
@@ -26,8 +28,8 @@
     "dotenv": "^16.0.0",
     "firebase": "^9.6.8",
     "firebase-admin": "^10.0.2",
-    "firebase-tools": "^10.2.2",
     "firebase-functions": "^3.18.0",
+    "firebase-tools": "^10.2.2",
     "formik": "^2.2.9",
     "global": "^4.4.0",
     "next": "latest",
@@ -38,14 +40,21 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.0",
+    "@testing-library/jest-dom": "5.16.1",
+    "@testing-library/react": "12.1.2",
+    "@testing-library/user-event": "13.5.0",
     "@types/cors": "^2.8.12",
+    "@types/react": "17.0.38",
     "autoprefixer": "^10.4.2",
+    "babel-jest": "27.4.5",
     "eslint": "^8.10.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-testing-library": "5.0.1",
     "firebase-functions-test": "^0.2.0",
+    "jest": "27.4.5",
     "postcss": "^8.4.8",
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.23"
